@@ -1,0 +1,1 @@
+window.gbl_React_App_Service_URL = "";

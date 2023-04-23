@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, Col, Modal, Row, Table } from "react-bootstrap";
 import { CardBody, CardHeader } from "reactstrap";
 import CreateGroup from "../create-group";
+import axios from "axios";
 
 export default function GroupsGrid() {
+
+  // const [data, setData] = useState([]);  
+  // useEffect(() => {  
+  //   debugger;
+  //   const GetData = async () => {  
+  //     const result = await axios('https://localhost:44303/Api/User/GetAllChitPlans');
+  //     setData(result.data);  
+  //   };  
+  //   GetData();  
+  // }, []);
 
   const createGroup = (e:any) => { 
     debugger
@@ -33,7 +44,18 @@ export default function GroupsGrid() {
                     <th>StartDate</th> 
                   </tr>  
                 </thead>  
-                <tbody>  
+                 <tbody>  
+                   {/* {  
+                    data.map((item:any) => {  
+                      return <tr>  
+                        <td>{item.GroupName}</td>  
+                        <td>{item.Amount}</td>  
+                        <td>{item.Duration}</td>  
+                        <td>{item.NoofMembers}</td>  
+                        <td>{item.InstallmentAmount}</td>  
+                        <td>{item.StartDate}</td>  
+                      </tr>  
+                    })}   */}
                      <tr>  
                         <td>{"Test"}</td>  
                         <td>{100000}</td>  

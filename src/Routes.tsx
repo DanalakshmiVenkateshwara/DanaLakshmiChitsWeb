@@ -5,6 +5,7 @@ import Groups from "./components/scenes/groups";
 import Users from "./components/scenes/users";
 import Enrollments from "./components/scenes/enrollMents";
 import Payments from "./components/scenes/payments";
+import AplicationUsers from "./components/scenes/appUsers";
 
 const routes = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const routes = createBrowserRouter([
   {
     path: "/Payments",
     element: <Payments/>,
+  },
+  {
+    path: "/AplicationUsers",
+    element: <AplicationUsers/>,
   },
 ]);
 

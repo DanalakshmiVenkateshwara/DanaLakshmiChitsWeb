@@ -8,7 +8,7 @@ export default function EnrollMentsGrid(){
     }
     return(
         <div className="animated fadeIn">  
-      <Row>  
+       <Row>  
         <Col>  
           <Card> 
           <tr>

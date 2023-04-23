@@ -14,7 +14,7 @@ export default function UsersGrid() {
       <Row>  
         <Col>  
           <Card>  
-            <tr>
+            {/* <tr>
                 <td>Groups</td>
                 <td>
                 <select name="Groups" className="form-control">
@@ -24,7 +24,7 @@ export default function UsersGrid() {
                           <option> Sample3</option>
                         </select>
                 </td>
-            </tr>
+            </tr> */}
                         
             <CardHeader align="center">
                  Users List By Group

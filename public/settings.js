@@ -1,1 +1,1 @@
-window.gbl_React_App_Service_URL = "";
+window.gbl_React_App_Service_URL = "https://localhost:44303/";

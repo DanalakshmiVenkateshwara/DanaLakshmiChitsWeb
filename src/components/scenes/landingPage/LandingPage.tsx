@@ -16,6 +16,7 @@ export default function LandingPage() {
           <SideBarItem icon={<i className="fas fa-home"></i>} path="/Enrollments" label="Enrollments" />
           <SideBarItem icon={<i className="fas fa-home"></i>} path="/Payments" label="Payments" />
           <SideBarItem icon={<i className="fas fa-home"></i>} path="/Auctions" label="Auctions" />
+          <SideBarItem icon={<i className="fas fa-home"></i>} path="/AplicationUsers" label="AplicationUsers" />
         </>
       </Sidebar>
       <Footer />

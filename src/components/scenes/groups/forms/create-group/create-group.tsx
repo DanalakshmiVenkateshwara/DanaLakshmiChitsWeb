@@ -3,29 +3,29 @@ import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { CardBody, Input } from "reactstrap";
 
 export default function CreateGroup() {
-  const [groupDetails, setGroupDetails] = useState({GroupId: '', GroupName: '', Amount: '', Duaration: '', NoOfMembers: '', InstallMentAmount: ''});
+  const [groupDetails, setGroupDetails] = useState({ GroupId: "", GroupName: "", Amount: "", Duaration: "", NoOfMembers: "", InstallMentAmount: "" });
 
-  const onChangeGroupId = (e:any) => {
+  const onChangeGroupId = (e: any) => {
     setGroupDetails({ ...groupDetails, [e.target.name]: e.target.value });
-  }
-  const onChangeGroupName = (e:any) => {
+  };
+  const onChangeGroupName = (e: any) => {
     setGroupDetails({ ...groupDetails, [e.target.name]: e.target.value });
-  }
-  const onChangeGroupAmount = (e:any) => {
+  };
+  const onChangeGroupAmount = (e: any) => {
     setGroupDetails({ ...groupDetails, [e.target.name]: e.target.value });
-  }
-  const onChangeDuration = (e:any) => {
+  };
+  const onChangeDuration = (e: any) => {
     setGroupDetails({ ...groupDetails, [e.target.name]: e.target.value });
-  }
-  const onChangeNoOfMembers = (e:any) => {
+  };
+  const onChangeNoOfMembers = (e: any) => {
     setGroupDetails({ ...groupDetails, [e.target.name]: e.target.value });
-  }
-  const onChangeInstallMentAmount = (e:any) => {
+  };
+  const onChangeInstallMentAmount = (e: any) => {
     setGroupDetails({ ...groupDetails, [e.target.name]: e.target.value });
-  }
-  const InsertgroupDetails =()=>{
+  };
+  const InsertgroupDetails = () => {
     const data = { GroupId: groupDetails.GroupId, GroupName: groupDetails.GroupName, Amount: groupDetails.Amount, Duaration: groupDetails.Duaration, InstallMentAmount: groupDetails.InstallMentAmount, NoOfMembers: groupDetails.NoOfMembers };
-  }
+  };
 
   return (
     <div className="app flex-row align-items-center">
@@ -34,7 +34,7 @@ export default function CreateGroup() {
           <Col md="12" lg="10" xl="8">
             <Card className="mx-4">
               <CardBody className="p-4">
-                <Form >
+                <Form>
                   <h3>Group Registration</h3>
                   <table width="90%">
                     <tr>
@@ -79,12 +79,16 @@ export default function CreateGroup() {
                         <Input type="text" placeholder="Start Date" name="StartDate" id="Start Date" />
                       </td>
                     </tr>
-                    
+
                     <tr>
                       <td></td>
                       <td>
-                        <Button type="submit" onClick={InsertgroupDetails} className="btn btn-info mb-1"><span>SaveGroup</span></Button>
-                        <Button className="btn btn-info mb-1" ><span>Clear</span></Button>
+                        <Button type="submit" onClick={InsertgroupDetails} className="btn btn-info mb-1">
+                          <span>SaveGroup</span>
+                        </Button>
+                        <Button className="btn btn-info mb-1">
+                          <span>Clear</span>
+                        </Button>
                       </td>
                     </tr>
                   </table>

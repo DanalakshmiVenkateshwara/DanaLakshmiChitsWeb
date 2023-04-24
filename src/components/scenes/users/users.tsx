@@ -6,10 +6,7 @@ import Header from "../../shared/header";
 export default function Users() {
     return (
         <>
-        <Header/>
-        
         <UsersGrid/>
-        <Footer/>
         </>
       );
 

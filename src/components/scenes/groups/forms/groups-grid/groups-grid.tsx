@@ -3,81 +3,32 @@ import { Card, Col, Modal, Row, Table } from "react-bootstrap";
 import { CardBody, CardHeader } from "reactstrap";
 import CreateGroup from "../create-group";
 import axios from "axios";
+import Grid from "../../../../shared/grid";
+import GridColumn from "../../../../shared/grid/GridColumn";
+import CustomRow from "./CustomRow";
 
 export default function GroupsGrid() {
-
-  // const [data, setData] = useState([]);  
-  // useEffect(() => {  
-  //   debugger;
-  //   const GetData = async () => {  
-  //     const result = await axios('https://localhost:44303/Api/User/GetAllChitPlans');
-  //     setData(result.data);  
-  //   };  
-  //   GetData();  
-  // }, []);
-
-  const createGroup = (e:any) => { 
-    debugger
-    <Modal>
-      <CreateGroup/>
-    </Modal>
-    
-};  
+  const data = [
+    { GroupName: "Test1", Amount: 100000, Duration: 10, NoofMembers: 10, InstallmentAmount: 100000, StartDate: "01/05/2023" },
+    { GroupName: "Test2", Amount: 123400, Duration: 11, NoofMembers: 10, InstallmentAmount: 100000, StartDate: "01/05/2023" },
+    { GroupName: "Test3", Amount: 10234200, Duration: 12, NoofMembers: 10, InstallmentAmount: 100000, StartDate: "01/05/2023" },
+    { GroupName: "Test4", Amount: 1045300, Duration: 13, NoofMembers: 10, InstallmentAmount: 100000, StartDate: "01/05/2023" },
+    { GroupName: "Test5", Amount: 104345, Duration: 14, NoofMembers: 10, InstallmentAmount: 100000, StartDate: "01/05/2023" },
+    { GroupName: "Test6", Amount: 134340, Duration: 15, NoofMembers: 10, InstallmentAmount: 100000, StartDate: "01/05/2023" },
+    { GroupName: "Test7", Amount: 10345340, Duration: 16, NoofMembers: 10, InstallmentAmount: 100000, StartDate: "01/05/2023" },
+    { GroupName: "Test8", Amount: 134500, Duration: 17, NoofMembers: 10, InstallmentAmount: 100000, StartDate: "01/05/2023" },
+    { GroupName: "Test9", Amount: 10345340, Duration: 18, NoofMembers: 10, InstallmentAmount: 100000, StartDate: "01/05/2023" },
+    { GroupName: "Test10", Amount: 10345340, Duration: 19, NoofMembers: 10, InstallmentAmount: 100000, StartDate: "01/05/2023" },
+    { GroupName: "Test11", Amount: 103453450, Duration: 15, NoofMembers: 10, InstallmentAmount: 100000, StartDate: "01/05/2023" },
+  ];
   return (
-    <div className="animated fadeIn">  
-      <Row>  
-        <Col>  
-          <Card>  
-            <CardHeader align="center">
-                 Group List 
-                 <button className="btn btn-warning" onClick={createGroup}>Create</button>
-                 </CardHeader>  
-            <CardBody>  
-              <Table hover bordered striped responsive size="sm">  
-                <thead>  
-                  <tr>  
-                    <th>GroupName</th>  
-                    <th>Amount</th>  
-                    <th>Duration</th>  
-                    <th>No of Members</th>  
-                    <th>InstallmentAmount</th>  
-                    <th>StartDate</th> 
-                  </tr>  
-                </thead>  
-                 <tbody>  
-                   {/* {  
-                    data.map((item:any) => {  
-                      return <tr>  
-                        <td>{item.GroupName}</td>  
-                        <td>{item.Amount}</td>  
-                        <td>{item.Duration}</td>  
-                        <td>{item.NoofMembers}</td>  
-                        <td>{item.InstallmentAmount}</td>  
-                        <td>{item.StartDate}</td>  
-                      </tr>  
-                    })}   */}
-                     <tr>  
-                        <td>{"Test"}</td>  
-                        <td>{100000}</td>  
-                        <td>{10}</td>  
-                        <td>{10}</td>  
-                        <td>{10000}</td>  
-                        <td>{"01/05/2023"}</td>
-                      </tr> 
-                      <tr>  
-                        <td>{"Test1"}</td>  
-                        <td>{200000}</td>  
-                        <td>{20}</td>  
-                        <td>{10}</td>  
-                        <td>{20000}</td>  
-                        <td>{"10/05/2023"}</td>
-                      </tr>
-                </tbody> 
-              </Table>  
-            </CardBody>  
-          </Card>  
-        </Col>  
-      </Row>  
-    </div>
+    <Grid data={data} as={CustomRow}>
+      <GridColumn title="Group Name" targetField="GroupName"><>asdasd</></GridColumn>
+      <GridColumn title="Amount" targetField="Amount" />
+      <GridColumn title="Duration" targetField="Duration" />
+      <GridColumn title="No.of Members" targetField="NoofMembers" />
+      <GridColumn title="Installment Amount" targetField="InstallmentAmount" />
+      <GridColumn title="Start Date" targetField="StartDate" ></GridColumn>
+    </Grid>
   );
 }

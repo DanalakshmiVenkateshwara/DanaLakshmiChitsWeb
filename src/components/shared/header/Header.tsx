@@ -6,7 +6,7 @@ export default function Header() {
   return (
     <Navbar collapseOnSelect expand="md" variant="dark">
       <Container fluid>
-        <Navbar.Brand href="#home">Dhana lakshmi</Navbar.Brand>
+        <Navbar.Brand >Dhana lakshmi</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           {/* <Nav >

@@ -3,9 +3,9 @@
 .sideBarItem {
   background: $dark;
   & + .active {
-    background-color: azure;
+    background-color: rgb(98, 137, 243);
   }
-  &:hover {
+  &:hover:not(.active) {
     background: $darkHover;
   }
 }

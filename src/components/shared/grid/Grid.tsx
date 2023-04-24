@@ -6,6 +6,7 @@ interface Iprops {
     children: any;
 }
 export default function Grid(props: Iprops) {
+    debugger
     return (
         <Table hover bordered striped responsive size="sm">
             <thead>

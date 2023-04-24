@@ -1,57 +1,28 @@
 import react from "react";
 import { Card, Col, Modal, Row, Table } from "react-bootstrap";
 import { CardBody, CardHeader } from "reactstrap";
+import Grid from "../../../../shared/grid";
+import GridColumn from "../../../../shared/grid/GridColumn";
 
 export default function EnrollMentsGrid(){
-    const userEnrollMent =()=>{
-
-    }
+  const data = [
+    { UserName: "Sample1", UserStatus: "Active", RaisedMonth: 1},
+    { UserName: "Sample2", UserStatus: "Active", RaisedMonth: 2},
+    { UserName: "Sample3", UserStatus: "Active", RaisedMonth: 3},
+    { UserName: "Sample4", UserStatus: "Active", RaisedMonth: 4},
+    { UserName: "Sample5", UserStatus: "Active", RaisedMonth: 5},
+    { UserName: "Sample6", UserStatus: "Active", RaisedMonth: 6},
+    { UserName: "Sample7", UserStatus: "Active", RaisedMonth: 7},
+    { UserName: "Sample8", UserStatus: "Active", RaisedMonth: 8},
+    { UserName: "Sample9", UserStatus: "Active", RaisedMonth: 9}
+  ];
     return(
-        <div className="animated fadeIn">  
-       <Row>  
-        <Col>  
-          <Card> 
-          <tr>
-                <td>Select Group</td>
-                <td>
-                <select name="Groups" className="form-control">
-                          <option>...Please Select...</option>
-                          <option>Sample1</option>
-                          <option>Sample2</option>
-                          <option> Sample3</option>
-                        </select>
-                </td>
-            </tr> 
-            <CardHeader align="center">
-                Enrolled Members By Group
-                 <button className="btn btn-warning" onClick={userEnrollMent}>EnrollMent</button>
-                 </CardHeader>  
-            <CardBody>  
-              <Table hover bordered striped responsive size="sm">  
-                <thead>  
-                  <tr>  
-                    <th>UserName</th>  
-                    <th>UserStatus</th>  
-                    <th>RaisedMonth</th> 
-                  </tr>  
-                </thead>  
-                <tbody>  
-                     <tr>  
-                        <td>{"Test"}</td>  
-                        <td>{"Active"}</td>  
-                        <td>{2}</td>  
-                      </tr> 
-                      <tr>  
-                        <td>{"Test1"}</td>  
-                        <td>{""}</td>  
-                        <td>{"N/A"}</td>
-                      </tr>
-                </tbody> 
-              </Table>  
-            </CardBody>  
-          </Card>  
-        </Col>  
-      </Row>  
-    </div>
+      <Grid data={data}>
+      <GridColumn title="Name" targetField="Name"></GridColumn>
+      <GridColumn title="Phone" targetField="Phone" />
+      <GridColumn title="Email" targetField="Email" />
+      <GridColumn title="Password" targetField="Password" />
+      <GridColumn title="Address" targetField="Address" />
+    </Grid>
     );
 };

@@ -7,5 +7,6 @@ interface Iprops {
   children?: any;
 }
 export default function GridColumn(props: Iprops) {
+  debugger
   return <th style={{ width: props.width }}>{props.title}</th>;
 }

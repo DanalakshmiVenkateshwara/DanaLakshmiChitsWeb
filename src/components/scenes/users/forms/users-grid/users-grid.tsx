@@ -2,66 +2,30 @@ import React from "react";
 import { Card, Col, Modal, Row, Table } from "react-bootstrap";
 import { CardBody, CardHeader } from "reactstrap";
 import CreateUser from "../create-user";
+import Grid from "../../../../shared/grid";
+import GridColumn from "../../../../shared/grid/GridColumn";
 export default function UsersGrid() {
-    const createUser = (e:any) => { 
-        debugger;
-        <Modal>
-        <CreateUser/>
-        </Modal>
-    }; 
-    return (
-        <div className="animated fadeIn">  
-      <Row>  
-        <Col>  
-          <Card>  
-            {/* <tr>
-                <td>Groups</td>
-                <td>
-                <select name="Groups" className="form-control">
-                          <option>...Please Select...</option>
-                          <option>Sample1</option>
-                          <option>Sample2</option>
-                          <option> Sample3</option>
-                        </select>
-                </td>
-            </tr> */}
-                        
-            <CardHeader align="center">
-                 Users List By Group
-                 <button className="btn btn-warning" onClick={createUser}>Create</button>
-                 </CardHeader>  
-            <CardBody>  
-              <Table hover bordered striped responsive size="sm">  
-                <thead>  
-                  <tr>  
-                    <th>Name</th>  
-                    <th>Phone</th>  
-                    <th>Email</th>  
-                    <th>Password</th>  
-                    <th>Address</th> 
-                  </tr>  
-                </thead>  
-                <tbody>  
-                     <tr>  
-                        <td>{"Test"}</td>  
-                        <td>{8888888888}</td>  
-                        <td>{"test@gmail.com"}</td>  
-                        <td>{8888888888}</td>  
-                        <td>{"Miyapur"}</td> 
-                      </tr> 
-                      <tr>  
-                      <td>{"Test11"}</td>  
-                        <td>{8888888888}</td>  
-                        <td>{"test11@gmail.com"}</td>  
-                        <td>{8888888888}</td>  
-                        <td>{"Miyapur11"}</td>
-                      </tr>
-                </tbody> 
-              </Table>  
-            </CardBody>  
-          </Card>  
-        </Col>  
-      </Row>  
-    </div>
+
+  const data = [
+    { Name: "Sample1", Phone: 8888888888, Email: "Sample1@gmail.com", Password: 8888888888, Address: "Miyapur" },
+    { Name: "Sample2", Phone: 8888888888, Email: "Sample2@gmail.com", Password: 8888888888,  Address: "Miyapur01"},
+    { Name: "Sample3", Phone: 8888888888, Email: "Sample3@gmail.com", Password: 8888888888,  Address: "Miyapur02"},
+    { Name: "Sample4", Phone: 8888888888, Email: "Sample4@gmail.com", Password: 8888888888,  Address: "Miyapur03"},
+    { Name: "Sample5", Phone: 8888888888, Email: "Sample5@gmail.com", Password: 8888888888,  Address: "Miyapur04"},
+    { Name: "Sample6", Phone: 8888888888, Email: "Sample6@gmail.com", Password: 8888888888,  Address: "Miyapur05"},
+    { Name: "Sample7", Phone: 8888888888, Email: "Sample7@gmail.com", Password: 8888888888,  Address: "Miyapur06"},
+    { Name: "Sample8", Phone: 8888888888, Email: "Sample8@gmail.com", Password: 8888888888,  Address: "Miyapur07"},
+    { Name: "Sample9", Phone: 8888888888, Email: "Sample9@gmail.com", Password: 8888888888,  Address: "Miyapur08"},
+    { Name: "Sample10", Phone: 8888888888, Email: "Sampl10@gmail.com", Password: 8888888888, Address: "Miyapur09"},
+    { Name: "Sample11", Phone: 8888888888, Email: "Sample11@gmail.com", Password: 8888888888, Address: "Miyapur10"},
+  ];
+  return (
+    <Grid data={data}>
+      <GridColumn title="Name" targetField="Name"></GridColumn>
+      <GridColumn title="Phone" targetField="Phone" />
+      <GridColumn title="Email" targetField="Email" />
+      <GridColumn title="Password" targetField="Password" />
+      <GridColumn title="Address" targetField="Address" />
+    </Grid>
       );
 }

@@ -6,33 +6,35 @@ import './_Grid.scss';
 interface Iprops {
     data: any;
     children: any;
+    as?: ({ data }: any) => JSX.Element
 }
 export default function Grid(props: Iprops) {
+    const data: Array<any> = props.data;
     return (
         <Table hover bordered striped responsive size="sm" className="mb-0 grid">
-            <thead className="">
+            <thead>
                 <tr>{props.children}</tr>
             </thead>
             <tbody>
                 {props.data.map((rowData: any, index: number) => (
                     <tr key={index}>
-                        {props.children.map((child: any, index: number) => {
-                            if (child.props.targetField && child.props.children) {
-                                return (
-                                    <GridCell
-                                        key={index}
-                                        targetField={child.props.targetField}
-                                    >
-                                        {child.props.children}
-                                    </GridCell>
-                                );
-                            } else {
-                                return (<GridCell key={index} targetField={child.props.targetField}>
-                                    <>{rowData[child.props.targetField]}</>
-                                </GridCell>)
-
-                            }
-                        })
+                        {props?.as ? props?.as(data[index]) :
+                            props.children.map((child: any, index: number) => {
+                                if (child.props.targetField && child.props.children) {
+                                    return (
+                                        <GridCell
+                                            key={index}
+                                            targetField={child.props.targetField}
+                                        >
+                                            {child.props.children}
+                                        </GridCell>
+                                    );
+                                } else {
+                                    return (<GridCell key={index} targetField={child.props.targetField}>
+                                        <>{rowData[child.props.targetField]}</>
+                                    </GridCell>)
+                                }
+                            })
                         }
                     </tr>
                 ))}

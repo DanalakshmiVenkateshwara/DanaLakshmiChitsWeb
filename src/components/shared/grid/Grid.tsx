@@ -13,7 +13,7 @@ export default function Grid(props: Iprops) {
     return (
         <Table hover bordered striped responsive size="sm" className="mb-0 grid">
             <thead>
-                <tr>{props?.as ? props.as(data[0]).props.children.map((g: any) => { return <th>{g.props.targetField}</th> }) : props.children}</tr>
+                <tr>{props?.as ? props.as(data[0]).props.children.map((g: any) => { return <th>{g.props.title}</th> }) : props.children}</tr>
             </thead>
             <tbody>
                 {props.data.map((rowData: any, index: number) => (
@@ -27,13 +27,15 @@ export default function Grid(props: Iprops) {
                                         return (
                                             <GridCell
                                                 key={index}
+                                                title={child.props.title}
                                                 targetField={child.props.targetField}
                                             >
                                                 {child.props.children}
                                             </GridCell>
                                         );
                                     } else {
-                                        return (<GridCell key={index} targetField={child.props.targetField}>
+
+                                        return (<GridCell title={child.props.title} key={index} targetField={child.props.targetField}>
                                             <>{rowData[child.props.targetField]}</>
                                         </GridCell>)
                                     }

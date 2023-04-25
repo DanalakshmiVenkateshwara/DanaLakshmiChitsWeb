@@ -5,7 +5,6 @@ interface Iprops {
   title: string;
 }
 export default function GridCell(props: Iprops) {
-  debugger
   return (
     <td>
       <div>{props?.children}</div>

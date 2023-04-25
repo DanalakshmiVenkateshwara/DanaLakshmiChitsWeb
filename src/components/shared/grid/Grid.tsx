@@ -1,14 +1,16 @@
 import React from "react";
 import { Col, Row, Table } from "react-bootstrap";
 import GridCell from "./GridCell";
+import './_Grid.scss';
+
 interface Iprops {
     data: any;
     children: any;
 }
 export default function Grid(props: Iprops) {
     return (
-        <Table hover bordered striped responsive size="sm" className="mb-0">
-            <thead>
+        <Table hover bordered striped responsive size="sm" className="mb-0 grid">
+            <thead className="">
                 <tr>{props.children}</tr>
             </thead>
             <tbody>

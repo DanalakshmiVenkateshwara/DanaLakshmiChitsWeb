@@ -22,7 +22,7 @@ export default function GroupsGrid() {
   ];
   return (
     <Grid data={data}>
-      <GridColumn title="Group Name" targetField="GroupName"></GridColumn>
+      <GridColumn title="Group Name" targetField="GroupName" ></GridColumn>
       <GridColumn title="Amount" targetField="Amount" />
       <GridColumn title="Duration" targetField="Duration" />
       <GridColumn title="No.of Members" targetField="NoofMembers" />

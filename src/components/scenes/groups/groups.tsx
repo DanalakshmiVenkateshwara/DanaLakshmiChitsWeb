@@ -9,7 +9,10 @@ import Card from "../../shared/card/Card";
 
 export default function Groups() {
   return (
-    <Card noPadding title="Groupwise List" actionButtons={<Button>save</Button>}>
+    <Card noPadding title="Groupwise List"
+      headerAction={<Button size="sm">Create</Button>}
+    // actionButtons={<><Button size="sm">Save</Button> </>}
+    >
       <GroupsGrid />
     </Card>
   );

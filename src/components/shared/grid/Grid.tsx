@@ -1,5 +1,5 @@
 import React from "react";
-import { Table } from "react-bootstrap";
+import { Col, Row, Table } from "react-bootstrap";
 import GridCell from "./GridCell";
 interface Iprops {
     data: any;
@@ -7,7 +7,7 @@ interface Iprops {
 }
 export default function Grid(props: Iprops) {
     return (
-        <Table hover bordered striped responsive size="sm">
+        <Table hover bordered striped responsive size="sm" className="mb-0">
             <thead>
                 <tr>{props.children}</tr>
             </thead>
@@ -35,6 +35,13 @@ export default function Grid(props: Iprops) {
                     </tr>
                 ))}
             </tbody>
+            <tfoot>
+                <tr>
+                    <td colSpan={props.children.length} align="right" className="p-3">
+                        <h6 className="mb-0">Total records : <b>{props.data.length}</b></h6>
+                    </td>
+                </tr>
+            </tfoot>
         </Table>
     );
 }

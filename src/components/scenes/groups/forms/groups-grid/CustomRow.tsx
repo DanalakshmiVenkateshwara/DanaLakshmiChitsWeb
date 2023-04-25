@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button } from 'react-bootstrap'
+import { Button, Modal } from 'react-bootstrap'
 import GridCell from '../../../../shared/grid/GridCell'
 
 export default function CustomRow(data: any) {

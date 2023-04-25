@@ -1,8 +1,8 @@
-@import '../../../variables';
+@import "../../../variables";
 
 .sideBarItem {
   background: $dark;
-  & + .active {
+  &.active {
     background-color: rgb(98, 137, 243);
   }
   &:hover:not(.active) {

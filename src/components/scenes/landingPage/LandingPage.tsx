@@ -10,39 +10,40 @@ export default function LandingPage() {
 
   const routes = [
     {
-      title: "HOMEPAGE",
-      icon: <i className='fas fa-home fa-4x my-4' ></i>
+      title: "Groups",
+      icon: <i className='fas fa-home fa-4x my-4' ></i>,
+      path: '/Groups'
     },
     {
-      title: "HOMEPAGE",
-      icon: <i className='fas fa-home fa-4x my-4' ></i>
+      title: "Users",
+      icon: <i className='fas fa-home fa-4x my-4' ></i>,
+      path: '/Users'
     },
     {
-      title: "HOMEPAGE",
-      icon: <i className='fas fa-home fa-4x my-4' ></i>
+      title: "Enrollments",
+      icon: <i className='fas fa-home fa-4x my-4' ></i>,
+      path: '/Enrollments'
     },
     {
-      title: "HOMEPAGE",
-      icon: <i className='fas fa-home fa-4x my-4' ></i>
+      title: "Payments",
+      icon: <i className='fas fa-home fa-4x my-4' ></i>,
+      path: '/Payments'
     },
     {
-      title: "HOMEPAGE",
-      icon: <i className='fas fa-home fa-4x my-4' ></i>
+      title: "Aplication Users",
+      icon: <i className='fas fa-home fa-4x my-4' ></i>,
+      path: '/AplicationUsers'
     },
-    {
-      title: "HOMEPAGE",
-      icon: <i className='fas fa-home fa-4x my-4' ></i>
-    },
+
   ]
 
   return (
     <Row>
-
       {routes.map((route: any) =>
-        <Col sm='3'><CardWidget className="mb-4" title={route.title} icon={route.icon} />  </Col>
-      )
-      }
-
+        <Col sm='3'>
+          <CardWidget className="mb-4" title={route.title} icon={route.icon} path={route.path} />
+        </Col>
+      )}
     </Row>
   );
 }

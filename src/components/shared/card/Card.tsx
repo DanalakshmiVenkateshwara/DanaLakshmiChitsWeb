@@ -8,10 +8,12 @@ interface Iprops {
   noPadding?: boolean;
   actionButtons?: JSX.Element;
   headerAction?: JSX.Element;
+  as?:React.ElementType<any>;
+  onClick?:()=>void;
 }
 export default function Card(props: Iprops) {
   return (
-    <BSCard className={props.className}>
+    <BSCard className={props.className} as={props.as} onClick={props.onClick}>
       {(props.title || props.headerAction) && <BSCard.Header className="bg-white justify-content-between align-items-center d-flex" >
         <h5 className="mb-0  fw-bold">{props.title}</h5>
         {props.headerAction && <div>{props.headerAction}</div>}

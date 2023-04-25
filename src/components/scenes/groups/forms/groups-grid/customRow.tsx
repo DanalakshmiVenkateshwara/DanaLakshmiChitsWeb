@@ -1,25 +1,16 @@
-import React from "react";
-import GridCell from "../../../../shared/grid/GridCell";
+import React from 'react'
+import { Button, Modal } from 'react-bootstrap'
+import GridCell from '../../../../shared/grid/GridCell'
 
-export default function CustomRow({ data }: any) {
+export default function CustomRow(data: any) {
     return (
         <>
-            <GridCell targetField="GroupName" />
-            <GridCell targetField="Amount">
-                <h6>{data.Amount}</h6>
-            </GridCell>
-            <GridCell targetField="Duration">
-                <h6>hello world</h6>
-            </GridCell>
-            <GridCell targetField="NoofMembers">
-                <h6>hello world</h6>
-            </GridCell>
-            <GridCell targetField="InstallmentAmount">
-                <h6>hello world</h6>
-            </GridCell>
-            <GridCell targetField="StartDate">
-                <h6>hello world</h6>
-            </GridCell>
+            <GridCell title="Group Name" targetField='groupName'><>{data.groupName}</></GridCell>
+            <GridCell title='Amount' targetField='amount'><>{data.amount}</></GridCell>
+            <GridCell title='Duration' targetField="duration">{data.duration}</GridCell>
+            <GridCell title='No of Members' targetField="noofMembers">{data.noofMembers}</GridCell>
+            <GridCell title='Installment Amount' targetField="installmentAmount">{data.installmentAmount}</GridCell>
+            <GridCell title='Start Date' targetField="startDate" ><Button>{data.startDate}</Button></GridCell>
         </>
-    );
+    )
 }

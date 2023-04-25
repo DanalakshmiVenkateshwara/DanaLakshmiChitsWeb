@@ -8,7 +8,7 @@ export default function CustomRow(data: any) {
             <GridCell title="Group Name" targetField='groupName'><>{data.groupName}</></GridCell>
             <GridCell title='Amount' targetField='amount'><>{data.amount}</></GridCell>
             <GridCell title='Duration' targetField="duration">{data.duration}</GridCell>
-            <GridCell title='No of Members' targetField="noofMembers">{data.noofMembers}</GridCell>
+            <GridCell title='No of Members' targetField="noOfMembers">{data.noOfMembers}</GridCell>
             <GridCell title='Installment Amount' targetField="installmentAmount">{data.installmentAmount}</GridCell>
             <GridCell title='Start Date' targetField="startDate" ><Button>{data.startDate}</Button></GridCell>
         </>

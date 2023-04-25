@@ -22,13 +22,12 @@ export default function GroupsGrid() {
     { GroupName: "Test11", Amount: 103453450, Duration: 15, NoofMembers: 10, InstallmentAmount: 100000, StartDate: "01/05/2023" },
   ];
   return (
-    <Grid data={data} as={CustomRow}>
-      <GridColumn title="Group Name" targetField="GroupName"></GridColumn>
+    <Grid data={data} >
+      <GridColumn title="Group Name" targetField="GroupName" />
       <GridColumn title="Amount" targetField="Amount" />
       <GridColumn title="Duration" targetField="Duration" />
       <GridColumn title="No.of Members" targetField="NoofMembers" />
       <GridColumn title="Installment Amount" targetField="InstallmentAmount" />
-      <GridColumn title="Start Date" targetField="StartDate" ></GridColumn>
     </Grid>
   );
 }

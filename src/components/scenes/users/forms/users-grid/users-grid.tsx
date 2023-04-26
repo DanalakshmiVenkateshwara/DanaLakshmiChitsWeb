@@ -9,7 +9,7 @@ import CreateUser from "../create-user";
 import CustomRow from "./CustomRow";
 export default function UsersGrid() {
   const { GET_USERS } = UrlConstants();
-  const { response, loading } = useFetch(GET_USERS, 'GET');
+  const { response, loading } = useFetch({ url: GET_USERS, Options: { method: 'GET', initialRender: true } });
 
   return (<>
     <Grid data={response} as={CustomRow} loading={loading}>

@@ -8,7 +8,7 @@ import GridColumn from '../../../shared/grid/GridColumn';
 
 export default function AppUsersGrid(){
   const { GET_APP_USERS } = UrlConstants();
-  const { response, loading } = useFetch(GET_APP_USERS, 'GET');
+  const { response, loading } = useFetch({url:GET_APP_USERS, Options:{method:'GET',initialRender:true}});
 
   return (<>
     <Grid data={response} loading={loading}>

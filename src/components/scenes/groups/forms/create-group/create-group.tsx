@@ -7,7 +7,7 @@ interface Props {
   data: any;
   // dataSource: any;
 }
-export default function CreateGroup(props:Props) {
+export default function CreateGroup(props: Props) {
   const { ADD_CHIT_PLANS } = UrlConstants();
   const data = {
     "id": 345,
@@ -20,7 +20,7 @@ export default function CreateGroup(props:Props) {
     "startDate": "2023-04-26T08:26:24.963Z",
     "membersInCircle": 60
   };
-  const { response, loading } = useFetch(ADD_CHIT_PLANS, 'POST', data);
+  const { response, loading, onRefresh: saveGroupDetails } = useFetch({ url: ADD_CHIT_PLANS, Options: { method: 'POST', data: data } });
   // const [groupDetails, setGroupDetails] = useState({ GroupId: "", GroupName: "", Amount: "", Duaration: "", NoOfMembers: "", InstallMentAmount: "" });
   const [groupDetails, setGroupDetails] = useState<any>(props.data)
   const onChangeGroupId = (e: any) => {
@@ -41,13 +41,13 @@ export default function CreateGroup(props:Props) {
   const onChangeInstallMentAmount = (e: any) => {
     setGroupDetails({ ...groupDetails, [e.target.name]: e.target.value });
   };
-  
-  
+
+
   const InsertgroupDetails = () => {
     debugger
-    const data = { GroupId: 12, GroupName: "123", Amount: 12, Duaration: 12, InstallMentAmount: 12, NoOfMembers: 20, StartDate:new Date().toLocaleDateString() };
-  
-  
+    const data = { GroupId: 12, GroupName: "123", Amount: 12, Duaration: 12, InstallMentAmount: 12, NoOfMembers: 20, StartDate: new Date().toLocaleDateString() };
+    saveGroupDetails();
+
   };
 
   return (

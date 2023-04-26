@@ -11,9 +11,9 @@ import UrlConstants from "../../../constants/UrlConstants";
 
 export default function GroupsGrid() {
   const { GET_ALL_CHIT_PLANS } = UrlConstants();
-  const { response, loading, onRefresh: GetChits } = useFetch({ url: GET_ALL_CHIT_PLANS, Options: { method: "GET",initialRender:true } });
+  const { response, loading } = useFetch({ url: GET_ALL_CHIT_PLANS, Options: { method: "GET", initialRender: true } });
 
-  return (<><Button onClick={() => GetChits()}>load on triggger</Button>
+  return (<>
     <Grid data={response} as={CustomRow} loading={loading}>
       <GridColumn title="Group Name" targetField="groupName" />
       <GridColumn title="Amount" targetField="amount" />

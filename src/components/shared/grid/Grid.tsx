@@ -16,14 +16,15 @@ export default function Grid(props: Iprops) {
     return (
         <Table hover bordered striped responsive size="sm" className="mb-0 grid">
             {props.loading ?
-                <Loader /> :
-                data ? <>  <thead>
-                    <tr>{(!props.loading && props?.as) ? props.as(data && data[0]).props.children.map((g: any) => {
-                        if (g.type.name == 'GridCell') {
-                            return <th key={uniqid()}>{g.props.title}</th>
-                        }
-                    }) : props.children}</tr>
-                </thead>
+                <tbody><Loader /></tbody> :
+                data ? <>
+                    <thead>
+                        <tr>{(!props.loading && props?.as) ? props.as(data && data[0]).props.children.map((g: any) => {
+                            if (g.type.name == 'GridCell') {
+                                return <th key={uniqid()}>{g.props.title}</th>
+                            }
+                        }) : props.children}</tr>
+                    </thead>
                     <tbody>
                         {!props.loading && data.map((rowData: any, index: number) => (
                             <tr key={uniqid()}>

@@ -21,6 +21,7 @@ export default function GroupsGrid() {
       <GridColumn title="No.of Members" targetField="noOfMembers" />
       <GridColumn title="Installment Amount" targetField="installmentAmount" />
       <GridColumn title="Start Date" targetField="startDate" />
+      <GridColumn title='Status' targetField="existed" />
     </Grid>
   </>
 

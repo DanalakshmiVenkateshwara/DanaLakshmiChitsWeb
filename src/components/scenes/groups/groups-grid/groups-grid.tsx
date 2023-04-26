@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Card, Col, Modal, Row, Table } from "react-bootstrap";
 import { CardBody, CardHeader } from "reactstrap";
-import CreateGroup from "../create-group";
+import CreateGroup from "../forms/create-group";
 import axios from "axios";
-import Grid from "../../../../shared/grid";
-import GridColumn from "../../../../shared/grid/GridColumn";
+import Grid from "../../../shared/grid";
+import GridColumn from "../../../shared/grid/GridColumn";
 import CustomRow from "./CustomRow";
-import useFetch from "../../../../hooks/useFetch";
-import UrlConstants from "../../../../constants/UrlConstants";
+import useFetch from "../../../hooks/useFetch";
+import UrlConstants from "../../../constants/UrlConstants";
 
 export default function GroupsGrid() {
   const { GET_ALL_CHIT_PLANS } = UrlConstants();

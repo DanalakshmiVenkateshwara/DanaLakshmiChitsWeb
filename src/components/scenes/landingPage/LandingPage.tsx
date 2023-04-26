@@ -5,7 +5,7 @@ import Footer from "../../shared/footer";
 import Header from "../../shared/header";
 import Sidebar from "../../shared/sidebar";
 import SideBarItem from "../../shared/sidebar/SideBarItem";
-
+import uniqid from 'uniqid'
 export default function LandingPage() {
 
   const routes = [
@@ -40,7 +40,7 @@ export default function LandingPage() {
   return (
     <Row>
       {routes.map((route: any) =>
-        <Col sm='3'>
+        <Col sm='3' key={uniqid()}>
           <CardWidget className="mb-4" title={route.title} icon={route.icon} path={route.path} />
         </Col>
       )}

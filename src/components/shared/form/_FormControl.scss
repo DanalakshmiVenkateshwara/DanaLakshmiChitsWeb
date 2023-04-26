@@ -1,0 +1,9 @@
+.custom-dropdown {
+  &::after {
+    content: none;
+  }
+}
+.form-label {
+  font-size: 0.9rem;
+  margin-bottom: 4px;
+}

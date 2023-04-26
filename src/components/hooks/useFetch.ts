@@ -16,10 +16,15 @@ export default function useFetch(
       method: method,
       url: baseUrl + "api" + url,
       data: data,
-    }).then(function (response) {
-      setResponse(response.data);
-      setLoading(false);
-    });
+    })
+      .then(function (response) {
+        setResponse(response.data);
+        setLoading(false);
+      })
+      .catch((error) => {
+        console.error(error);
+        setLoading(false);
+      });
   }, []);
 
   return {

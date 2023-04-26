@@ -3,13 +3,13 @@ import { Card as BSCard, Row } from "react-bootstrap";
 
 interface Iprops {
   title?: string;
-  children?: JSX.Element;
+  children?: JSX.Element | JSX.Element[];
   className?: string;
   noPadding?: boolean;
   actionButtons?: JSX.Element;
   headerAction?: JSX.Element;
-  as?:React.ElementType<any>;
-  onClick?:()=>void;
+  as?: React.ElementType<any>;
+  onClick?: () => void;
 }
 export default function Card(props: Iprops) {
   return (

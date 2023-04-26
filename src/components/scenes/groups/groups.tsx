@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import CreateGroup from "./forms/create-group";
 import { Button, Col, Form, Row, Table } from "react-bootstrap";
 import { CardBody, CardHeader } from "reactstrap";
 import GroupsGrid from "./groups-grid";
@@ -9,6 +8,7 @@ import Card from "../../shared/card/Card";
 import getApiData from "../../app-services/get-api";
 import FormControl from "../../shared/form/FormControl";
 import Suggest from "../../shared/form/controls/Suggest";
+import CreateGroup from "./CreateGroup";
 
 export default function Groups() {
   return (
@@ -16,6 +16,7 @@ export default function Groups() {
       headerAction={<Button size="sm">Create</Button>}
     // actionButtons={<><Button size="sm">Save</Button> </>}
     >
+      <CreateGroup />
       <GroupsGrid />
     </Card>
   );

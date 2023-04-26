@@ -10,8 +10,8 @@ import useFetch from "../../../../hooks/useFetch";
 import UrlConstants from "../../../../constants/UrlConstants";
 
 export default function GroupsGrid() {
-  const { GetAllChitPlans } = UrlConstants();
-  const { response, loading } = useFetch(GetAllChitPlans, 'GET');
+  const { GET_ALL_CHIT_PLANS } = UrlConstants();
+  const { response, loading } = useFetch(GET_ALL_CHIT_PLANS, 'GET');
 
   return (<>
     <Grid data={response} as={CustomRow} loading={loading}>

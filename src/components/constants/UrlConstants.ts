@@ -1,8 +1,8 @@
 import React from "react";
 
 export default function UrlConstants() {
-  const GetAllChitPlans = "/User/GetAllChitPlans";
+  const GET_ALL_CHIT_PLANS = "/User/GetAllChitPlans";
   return {
-    GetAllChitPlans,
+    GET_ALL_CHIT_PLANS,
   };
 }

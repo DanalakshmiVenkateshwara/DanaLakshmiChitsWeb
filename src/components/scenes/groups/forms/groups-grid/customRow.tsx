@@ -3,6 +3,7 @@ import { Button, Modal } from 'react-bootstrap'
 import GridCell from '../../../../shared/grid/GridCell'
 import CreateGroup from '../create-group';
 import putApiData from '../../../../app-services/put-api';
+import postApiData from '../../../../app-services/post-api';
 
 export default function CustomRow(data: any) {
     const [show, setShow] = useState(false);
@@ -11,7 +12,7 @@ export default function CustomRow(data: any) {
     const handleShow = () => setShow(true);
       const handleEdit =()=>{
         debugger
-        putApiData(`Admin/AddChitPlan`, '', data)
+        postApiData(`Admin/AddChitPlan`, '', data)
         .then((response: any) => {
          if (response) {
           debugger
@@ -43,7 +44,7 @@ export default function CustomRow(data: any) {
             <GridCell  targetField="noOfMembers">{data.noOfMembers}</GridCell>
             <GridCell  targetField="installmentAmount">{data.installmentAmount}</GridCell>
             <GridCell  targetField="startDate" >{data.startDate}</GridCell>
-            <GridCell targetField="existed">{data.startDate}</GridCell> 
+            <GridCell targetField="existed"><>{data.existed?"Active":"InActive"}</></GridCell> 
             <GridCell targetField=""><Button variant="primary" onClick={handleEdit}>Edit</Button></GridCell>
         </>
     )

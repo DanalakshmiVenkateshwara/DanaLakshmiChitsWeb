@@ -9,13 +9,6 @@ import Card from "../../shared/card/Card";
 import getApiData from "../../app-services/get-api";
 
 export default function Groups() {
-  // const options: any = { method: 'GET', mode: 'no-cors' }
-  // const a = fetch('https://localhost:44303/api/User/GetAllChitPlans', options)
-  //   .then((response: any) => response.json())
-  //   .then((data: any) => data);
-  // console.log(a);
-
-
   return (
     <Card noPadding title="Groupwise List"
       headerAction={<Button size="sm">Create</Button>}

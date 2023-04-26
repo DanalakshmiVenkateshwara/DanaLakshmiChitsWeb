@@ -14,8 +14,9 @@ export default function Grid(props: Iprops) {
     const data: Array<any> = props.data;
     return (
         <Table hover bordered striped responsive size="sm" className="mb-0 grid">
-            {props.loading ? <><Loader /></> :
-                <>  <thead>
+            {props.loading ?
+                <Loader /> :
+                data ? <>  <thead>
                     <tr>{(!props.loading && props?.as) ? props.as(data && data[0]).props.children.map((g: any) => {
                         if (g.type.name == 'GridCell') {
                             return <th>{g.props.title}</th>
@@ -60,7 +61,9 @@ export default function Grid(props: Iprops) {
                             </td>
                         </tr>
                     </tfoot>
-                </>}
+                </> : <>NO DATA</>
+
+            }
         </Table>
     );
 }

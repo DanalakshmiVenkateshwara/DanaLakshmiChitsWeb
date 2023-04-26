@@ -1,16 +1,50 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Modal } from 'react-bootstrap'
 import GridCell from '../../../../shared/grid/GridCell'
+import CreateGroup from '../create-group';
+import putApiData from '../../../../app-services/put-api';
 
 export default function CustomRow(data: any) {
-    return (
-        <>
-            <GridCell title="Group Name" targetField='groupName'><>{data.groupName}</></GridCell>
-            <GridCell title='Amount' targetField='amount'><>{data.amount}</></GridCell>
-            <GridCell title='Duration' targetField="duration">{data.duration}</GridCell>
-            <GridCell title='No of Members' targetField="noofMembers">{data.noofMembers}</GridCell>
-            <GridCell title='Installment Amount' targetField="installmentAmount">{data.installmentAmount}</GridCell>
-            <GridCell title='Start Date' targetField="startDate" ><Button>{data.startDate}</Button></GridCell>
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
+      const handleEdit =()=>{
+        debugger
+        putApiData(`Admin/AddChitPlan`, '', data)
+        .then((response: any) => {
+         if (response) {
+          debugger
+          }
+          })
+         }
+  
+       
+      return (
+          <>
+          {/* <Modal show={show} onHide={handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Group Registration</Modal.Title>
+          </Modal.Header>
+          <Modal.Body><CreateGroup data={data}
+          /></Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={handleClose}>
+              Close
+            </Button>
+            <Button variant="primary" onClick={handleClose}>
+              Save Changes
+            </Button>
+          </Modal.Footer>
+        </Modal>   */}
+            <GridCell targetField='groupName'><>{data.groupName}</></GridCell>
+            <GridCell targetField='amount'><>{data.amount}</></GridCell>
+            <GridCell  targetField="duration">{data.duration}</GridCell>
+            <GridCell  targetField="noOfMembers">{data.noOfMembers}</GridCell>
+            <GridCell  targetField="installmentAmount">{data.installmentAmount}</GridCell>
+            <GridCell  targetField="startDate" >{data.startDate}</GridCell>
+            <GridCell targetField="existed">{data.startDate}</GridCell> 
+            <GridCell targetField=""><Button variant="primary" onClick={handleEdit}>Edit</Button></GridCell>
         </>
     )
 }

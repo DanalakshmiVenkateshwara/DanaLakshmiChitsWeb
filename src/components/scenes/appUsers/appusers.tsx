@@ -5,7 +5,6 @@ import AppUsersGrid from "./forms";
 export default function AplicationUsers(){
     return(
         <>
-        <Header />
         <AppUsersGrid/>
         <Footer />
         </>

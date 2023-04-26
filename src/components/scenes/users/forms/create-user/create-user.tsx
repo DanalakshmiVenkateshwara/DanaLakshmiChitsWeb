@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { CardBody, Input } from "reactstrap";
+interface Props {
+  data: any;
+}
+export default function CreateUser(props:Props) {
 
-export default function CreateUser() {
-
-    const [userDetails, setUserDetails] = useState({Username: '', Phone: '', Email: '', Password: '',Aadhar:'', Address: '', City: '', State:''});
-    
+    // const [userDetails, setUserDetails] = useState({Username: '', Phone: '', Email: '', Password: '',Aadhar:'', Address: '', City: '', State:''});
+    const [userDetails, setUserDetails] = useState<any>(props.data)
      const AddUseDetails =()=>{
 
      }
@@ -21,7 +23,7 @@ export default function CreateUser() {
             <Card className="mx-4">
               <CardBody className="p-4">
                 <Form >
-                  <h3>Group Registration</h3>
+                  {/* <h3>User Registration</h3> */}
                   <table width="90%">
                     <tr>
                       <td>UserName :</td>

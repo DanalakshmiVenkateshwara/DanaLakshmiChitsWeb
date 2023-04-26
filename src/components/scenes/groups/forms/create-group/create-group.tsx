@@ -1,10 +1,13 @@
 import React, { useState } from "react";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 import { CardBody, Input } from "reactstrap";
-
-export default function CreateGroup() {
-  const [groupDetails, setGroupDetails] = useState({ GroupId: "", GroupName: "", Amount: "", Duaration: "", NoOfMembers: "", InstallMentAmount: "" });
-
+interface Props {
+  data: any;
+}
+export default function CreateGroup(props:Props) {
+  debugger
+  // const [groupDetails, setGroupDetails] = useState({ GroupId: "", GroupName: "", Amount: "", Duaration: "", NoOfMembers: "", InstallMentAmount: "" });
+  const [groupDetails, setGroupDetails] = useState<any>(props.data)
   const onChangeGroupId = (e: any) => {
     setGroupDetails({ ...groupDetails, [e.target.name]: e.target.value });
   };
@@ -35,48 +38,48 @@ export default function CreateGroup() {
             <Card className="mx-4">
               <CardBody className="p-4">
                 <Form>
-                  <h3>Group Registration</h3>
+                  {/* <h3>Group Registration</h3> */}
                   <table width="90%">
-                    <tr>
+                    {/* <tr>
                       <td>GroupId :</td>
                       <td>
                         <Input type="text" name="GroupId" id="GroupId" placeholder="GroupId" value={groupDetails.GroupId} onChange={onChangeGroupId} />
                       </td>
-                    </tr>
+                    </tr> */}
                     <tr>
                       <td>Group Name :</td>
                       <td>
-                        <Input type="text" name="GroupName" id="GroupName" placeholder="Group Name" value={groupDetails.GroupName} onChange={onChangeGroupName} />
+                        <Input type="text" name="GroupName" id="GroupName" placeholder="Group Name" value={groupDetails.groupName} onChange={onChangeGroupName} />
                       </td>
                     </tr>
                     <tr>
                       <td>Amount :</td>
                       <td>
-                        <Input type="text" name="Amount" id="Amount" placeholder="Amount" value={groupDetails.Amount} onChange={onChangeGroupAmount} />
+                        <Input type="text" name="Amount" id="Amount" placeholder="Amount" value={groupDetails.amount} onChange={onChangeGroupAmount} />
                       </td>
                     </tr>
                     <tr>
                       <td>Duration :</td>
                       <td>
-                        <Input type="number" placeholder="Duration" name="Duration" id="Duration" value={groupDetails.Duaration} onChange={onChangeDuration} />
+                        <Input type="number" placeholder="Duration" name="Duration" id="Duration" value={groupDetails.duration} onChange={onChangeDuration} />
                       </td>
                     </tr>
                     <tr>
                       <td>No Of Members :</td>
                       <td>
-                        <Input type="number" placeholder="No Of Members" name="NoOfMembers" id="NoOfMembers" value={groupDetails.NoOfMembers} onChange={onChangeNoOfMembers} />
+                        <Input type="number" placeholder="No Of Members" name="NoOfMembers" id="NoOfMembers" value={groupDetails.noOfMembers} onChange={onChangeNoOfMembers} />
                       </td>
                     </tr>
                     <tr>
                       <td>InstallMent Amount :</td>
                       <td>
-                        <Input type="text" placeholder="InstallMent Amount" name="InstallMentAmount" id="InstallMentAmount" value={groupDetails.InstallMentAmount} onChange={onChangeInstallMentAmount} />
+                        <Input type="text" placeholder="InstallMent Amount" name="InstallMentAmount" id="InstallMentAmount" value={groupDetails.installmentAmount} onChange={onChangeInstallMentAmount} />
                       </td>
                     </tr>
                     <tr>
                       <td>Start Date :</td>
                       <td>
-                        <Input type="text" placeholder="Start Date" name="StartDate" id="Start Date" />
+                        <Input type="text" placeholder="Start Date" name="StartDate" id="Start Date" value={groupDetails.startDate} />
                       </td>
                     </tr>
 

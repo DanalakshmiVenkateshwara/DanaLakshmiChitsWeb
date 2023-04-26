@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 let putApiData = (url: string, authentication: any, data?: any, contentType?: string): any => {
+    debugger
     // const token = sessionStorage.getItem("ptrui_userToken");
-    const baseUrl = window.gbl_React_App_Service_URL;
+    const baseUrl = "https://localhost:44303/";//window.gbl_React_App_Service_URL;
     url = `${baseUrl + "api/"}${url}`;
 
     if (!contentType)

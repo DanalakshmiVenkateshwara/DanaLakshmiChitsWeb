@@ -112,26 +112,28 @@ export default function FormControl(props: Iprops) {
                         />
                     </>
                     : (props.as === 'select') ?
-                        <Form.Select
-                            id={props.id}
-                            placeholder={props.placeholder}
-                            as={props.as}
-                            defaultValue={props.defaultValue}
-                            value={props.value}
-                            onKeyDown={(e) => { if (e.keyCode == 13 || e.key === 'Enter') { e.preventDefault(); return false }; if (props.onKeyDown) { props.onKeyDown(e) } }}
-                            onChange={(e) => { props.onChange && props?.onChange(e.target.value) }}
-                            onFocus={props.onFocus}
-                            className={props.className}
-                            size={'sm'}
-                            name={props.name}
-                            tabIndex={props.tabIndex}
-                            required={props.required}
-                            disabled={props.disabled}
-                            isValid={props.isValid}
-                            isInvalid={props.isInvalid}
-                        >
-                            {props.children ? props.children : <option hidden>Please Choose</option>}
-                        </Form.Select>
+                        <>
+                            <Form.Label>{props.label}</Form.Label>
+                            <Form.Select
+                                id={props.id}
+                                placeholder={props.placeholder}
+                                as={props.as}
+                                defaultValue={props.defaultValue}
+                                value={props.value}
+                                onKeyDown={(e) => { if (e.keyCode == 13 || e.key === 'Enter') { e.preventDefault(); return false }; if (props.onKeyDown) { props.onKeyDown(e) } }}
+                                onChange={(e) => { props.onChange && props?.onChange(e.target.value) }}
+                                onFocus={props.onFocus}
+                                className={props.className}
+                                size={'sm'}
+                                name={props.name}
+                                tabIndex={props.tabIndex}
+                                required={props.required}
+                                disabled={props.disabled}
+                                isValid={props.isValid}
+                                isInvalid={props.isInvalid}
+                            >
+                                {props.children ? props.children : <option hidden>Please Choose</option>}
+                            </Form.Select></>
                         : (props.isAutoComplete) ?
                             <Dropdown.Toggle className='custom-dropdown' as='div' variant="success" id="dropdown-basic">
                                 <>  <Form.Label>{props.label}</Form.Label>

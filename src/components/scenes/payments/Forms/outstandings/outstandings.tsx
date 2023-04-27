@@ -10,7 +10,7 @@ export default function OutStandings(){
 
   //we need to change the api method name
   const { GET_USERS } = UrlConstants();
-  const { response, loading } = useFetch(GET_USERS, 'GET');
+  const { response, loading } = useFetch({url:GET_USERS, Options:{method:'GET',initialRender:true}});
 
   return (<>
     <Grid data={response} loading={loading}>

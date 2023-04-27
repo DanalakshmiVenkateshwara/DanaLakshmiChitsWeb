@@ -9,7 +9,7 @@ import GridColumn from "../../../../shared/grid/GridColumn";
 export default function EnrollMentsGrid(){
 
   const { GET_ENROLLMENT } = UrlConstants();
-  const { response, loading } = useFetch(GET_ENROLLMENT, 'GET');
+  const { response, loading } = useFetch({url:GET_ENROLLMENT, Options:{method:'GET',initialRender:true}});
 
   return (<>
     <Grid data={response} loading={loading}>

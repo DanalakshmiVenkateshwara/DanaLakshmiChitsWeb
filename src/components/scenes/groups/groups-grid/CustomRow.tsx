@@ -18,10 +18,14 @@ export default function CustomRow(data: any) {
   const onLauchClick =()=>{
     debugger
     saveGroupDetails();
+    // const { response, loading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
   }
   const onCloseClick =()=>{
     saveGroupDetails();
   }
+  // useEffect(()=>{
+  //   const { response, loading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
+  // },[data?.existed])
   
     return (
       

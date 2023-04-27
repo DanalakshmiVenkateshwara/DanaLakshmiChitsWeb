@@ -10,15 +10,15 @@ interface Props {
 export default function CreateGroup(props: Props) {
   const { ADD_CHIT_PLANS } = UrlConstants();
   const data = {
-    "id": 345,
-    "groupName": "dfgdfg",
-    "amount": 330,
-    "duration": 40,
-    "installmentAmount": 50,
-    "noOfMembers": 40,
+    "id": 0,
+    "groupName": "dana-500000",
+    "amount": 500000,
+    "duration": 50,
+    "installmentAmount": 10000,
+    "noOfMembers": 50,
     "existed": true,
     "startDate": "2023-04-26T08:26:24.963Z",
-    "membersInCircle": 60
+    "membersInCircle": 200
   };
   const { response, loading, onRefresh: saveGroupDetails } = useFetch({ url: ADD_CHIT_PLANS, Options: { method: 'POST', data: data } });
   // const [groupDetails, setGroupDetails] = useState({ GroupId: "", GroupName: "", Amount: "", Duaration: "", NoOfMembers: "", InstallMentAmount: "" });
@@ -44,8 +44,9 @@ export default function CreateGroup(props: Props) {
 
 
   const InsertgroupDetails = () => {
+    
     debugger
-    const data = { GroupId: 12, GroupName: "123", Amount: 12, Duaration: 12, InstallMentAmount: 12, NoOfMembers: 20, StartDate: new Date().toLocaleDateString() };
+    //const data = { GroupId: 12, GroupName: "123", Amount: 12, Duaration: 12, InstallMentAmount: 12, NoOfMembers: 20, StartDate: new Date().toLocaleDateString() };
     saveGroupDetails();
 
   };

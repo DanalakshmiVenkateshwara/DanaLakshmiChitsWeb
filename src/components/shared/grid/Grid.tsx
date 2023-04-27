@@ -1,18 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Col, Row, Table } from "react-bootstrap";
 import Loader from "../loader/Loader";
 import GridCell from "./GridCell";
 import uniqid from 'uniqid'
 import './_Grid.scss';
+import useGrid from "../../hooks/useGrid";
 
 interface Iprops {
     data: any;
     children: any;
-    as?: ({ data }: any) => JSX.Element;
+    as?: ({ data, rowProps }: any) => JSX.Element;
     loading?: boolean;
+    rowProps?: any;
 }
 export default function Grid(props: Iprops) {
+    const { setRowProps } = useGrid();
     const data: Array<any> = props.data;
+
+    // useEffect(() => {
+    //     setRowProps(props.rowProps);
+    // }, [])
+
     return (
         <Table hover bordered striped responsive size="sm" className="mb-0 grid">
             {props.loading ?

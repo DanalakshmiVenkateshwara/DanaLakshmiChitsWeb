@@ -16,7 +16,6 @@ export default function Groups() {
       headerAction={<Button size="sm">Create</Button>}
     // actionButtons={<><Button size="sm">Save</Button> </>}
     >
-      <CreateGroup />
       <GroupsGrid />
     </Card>
   );

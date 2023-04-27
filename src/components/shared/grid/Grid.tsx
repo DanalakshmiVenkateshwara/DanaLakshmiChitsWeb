@@ -14,7 +14,6 @@ interface Iprops {
     rowProps?: any;
 }
 export default function Grid(props: Iprops) {
-    const { setRowProps } = useGrid();
     const data: Array<any> = props.data;
 
     // useEffect(() => {

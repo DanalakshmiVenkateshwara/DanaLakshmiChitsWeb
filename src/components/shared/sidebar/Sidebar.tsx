@@ -7,7 +7,7 @@ interface IProps {
 }
 export default function Sidebar(props: IProps) {
   const styles = {
-    height: "calc(100vh - 100px)",
+    height: "calc(100vh - 107px)",
     width: "280px",
   };
 

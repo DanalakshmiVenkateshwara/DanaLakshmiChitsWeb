@@ -45,7 +45,7 @@ function Routes() {
       <BrowserRouter>
         <>
           {!isLogin && <Header />}
-          <div className="d-flex">
+          <div className="row mx-0" style={{ flexWrap: "nowrap" }}>
             <NavSidebar />
             <Col className="m-3">
               <CRoutes>

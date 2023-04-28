@@ -11,12 +11,14 @@ import Suggest from "../../shared/form/controls/Suggest";
 import CreateGroup from "./CreateGroup";
 
 export default function Groups() {
+  const [isCrete, setIsCrete] = useState(false)
   return (
     <Card noPadding title="Groupwise List"
-      headerAction={<Button size="sm">Create</Button>}
+      headerAction={!isCrete ?<Button size="sm" onClick={() => { setIsCrete(true) }}>Create</Button>: <Button size="sm" onClick={() => { setIsCrete(false) }}>List</Button>}
     // actionButtons={<><Button size="sm">Save</Button> </>}
     >
-      <GroupsGrid />
+      {isCrete ? <CreateGroup /> :
+      <GroupsGrid/>}
     </Card>
   );
 }

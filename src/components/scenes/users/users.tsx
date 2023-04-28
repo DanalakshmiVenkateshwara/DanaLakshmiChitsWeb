@@ -7,7 +7,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import UrlConstants from "../../constants/UrlConstants";
 import useFetch from "../../hooks/useFetch";
 import Form from "../../shared/form";
-import CreateGrid from "./CreateGrid";
+import CreateGrid from "./CreateUser";
 
 export default function Users() {
   const { GET_USERS } = UrlConstants();

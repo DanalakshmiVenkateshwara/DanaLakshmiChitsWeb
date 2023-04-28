@@ -36,10 +36,10 @@ export default function CreateGroup(props: any) {
         <Form noValidate onSubmit={saveGroup}>
             <Row className='mx-0'>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Text required name='' errorMsg="group name required" label="GroupName" onChange={(e: any) => setGroupDetails({ ...groupDetails, GroupName: e })} />
+                    <Form.Text required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => setGroupDetails({ ...groupDetails, GroupName: e })} />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Number required name='' errorMsg="Amount name required" label="Amount" onChange={(e: any) => setGroupDetails({ ...groupDetails, Amount: e })} />
+                    <Form.Number required name='' errorMsg="Amount is required" label="Amount" onChange={(e: any) => setGroupDetails({ ...groupDetails, Amount: e })} />
                 </Col>
                 <Col xl="3" lg="4" md="6">
                     <Form.Number required name='' errorMsg="Duration required" label="Duration" onChange={(e: any) => setGroupDetails({ ...groupDetails, Duration: e })} />

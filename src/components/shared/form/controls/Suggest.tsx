@@ -55,7 +55,7 @@ export default function Suggest(props: Iprops) {
         <Dropdown show={showDropDown} onToggle={customToggle}>
             <FormControl label={label} placeholder={placeholder ? placeholder : "Type to search"} name={props.name} isAutoComplete onChange={onChange} value={selectedValue} />
             <Dropdown.Menu className='w-100 p-0' style={{ maxHeight: "250px", overflowY: "auto" }}>
-                <>  {filteredData?.length > 0 ? <ListGroup className='suggest-list'>{filteredData.map((fd: any) => <ListGroup.Item onClick={() => itemClick(fd)}>{fd.name}</ListGroup.Item>)}</ListGroup>
+                <>  {filteredData?.length > 0 ? <ListGroup className='suggest-list'>{filteredData.map((fd: any) => <ListGroup.Item onClick={() => itemClick(fd)}>{fd[text]}</ListGroup.Item>)}</ListGroup>
                     : <>No Matching Records</>}
                 </>
             </Dropdown.Menu>

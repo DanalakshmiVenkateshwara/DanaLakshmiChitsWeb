@@ -52,7 +52,6 @@ export default function CreateUser(props: any) {
                 <Col xl="3" lg="4" md="6">
                     <Form.Text required name='' value={userDetails.state} label="State" onChange={(e: any) => setUserDetails({ ...userDetails, state: e })} />
                 </Col>
-                <Form.Suggest data={[{ id: 0, gname: "zero" }, { id: 1, gname: "one" }, { id: 2, gname: "two" }, { id: 3, gname: "three" }]} text='gname' value='gname' name="" />
                 <div>
                     <Form.Submit />
                 </div>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, useState } from "react";
 import { Card, Col, Modal, Row, Table } from "react-bootstrap";
 import { CardBody, CardHeader } from "reactstrap";
 import UrlConstants from "../../../../constants/UrlConstants";
@@ -8,13 +8,13 @@ import GridColumn from "../../../../shared/grid/GridColumn";
 import CreateUser from "../create-user";
 import CustomRow from "./CustomRow";
 interface Iprops {
-  data?: any; loading?: boolean
+  data?: any; loading?: boolean; setIsCrete?: Dispatch<React.SetStateAction<boolean>>; setUserDetails?: Dispatch<React.SetStateAction<any>>
 }
-export default function UsersGrid({ data, loading }: Iprops) {
+export default function UsersGrid({ data, loading, setIsCrete, setUserDetails }: Iprops) {
   const [test, setTest] = useState()
 
   return (<>
-    <Grid data={data} as={CustomRow} loading={loading} rowProps={setTest}>
+    <Grid data={data} as={CustomRow} loading={loading} rowProps={{ setIsCrete: setIsCrete, setUserDetails: setUserDetails }}>
       <GridColumn title="Name" targetField="name" />
       <GridColumn title="Phone" targetField="phone" />
       <GridColumn title="Email" targetField="eMail" />

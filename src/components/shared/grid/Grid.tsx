@@ -14,29 +14,30 @@ interface Iprops {
     rowProps?: any;
 }
 export default function Grid(props: Iprops) {
-    const data: Array<any> = props.data;
+    const { data, rowProps } = props;
+
 
     // useEffect(() => {
     //     setRowProps(props.rowProps);
     // }, [])
 
     return (
-        <Table hover bordered striped responsive size="sm" className="mb-0 grid">
+        <Table hover bordered striped responsive size="sm" className="mb-0 grid " style={{ maxHeight: "200px", overflowY: "auto" }}>
             {props.loading ?
                 <tbody><Loader /></tbody> :
                 data ? <>
-                    <thead>
-                        <tr>{(!props.loading && props?.as) ? props.as(data && data[0]).props.children.map((g: any) => {
+                    <thead className="sticky-top">
+                        <tr>{(!props.loading && props?.as) ? props.as({ data: data[0], rowProps: rowProps }).props.children.map((g: any) => {
                             if (g.type.name == 'GridCell') {
                                 return <th key={uniqid()}>{g.props.title}</th>
                             }
                         }) : props.children}</tr>
                     </thead>
-                    <tbody>
+                    <tbody >
                         {!props.loading && data.map((rowData: any, index: number) => (
                             <tr key={uniqid()}>
                                 {
-                                    props?.as ? props?.as(data[index]).props.children.map((child: any, i: number) => {
+                                    props?.as ? props?.as({ data: data[index], rowProps: rowProps }).props.children.map((child: any, i: number) => {
                                         if (child.type.name == 'GridCell') {
                                             return <React.Fragment key={uniqid()}>{child}</React.Fragment>
                                         }
@@ -65,7 +66,7 @@ export default function Grid(props: Iprops) {
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colSpan={props.children.length} align="right" className="p-3">
+                            <td colSpan={props?.as ? props?.as({ data: data[0], rowProps: rowProps }).props.children.length : props.children.length} align="right" className="p-3">
                                 <h6 className="mb-0">Total records : <b>{data && data.length}</b></h6>
                             </td>
                         </tr>

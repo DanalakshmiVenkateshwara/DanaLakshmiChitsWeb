@@ -8,7 +8,8 @@ import GridCell from '../../../shared/grid/GridCell';
 // import useFetch from '../../../../hooks/useFetch';
 // import GridCell from '../../../../shared/grid/GridCell'
 
-export default function CustomRow(data: any) {
+export default function CustomRow(props: any) {
+  const { data, rowProps } = props
   const [onLauch, setOnlaunch] = useState(false);
 
   const { ADD_CHIT_PLANS } = UrlConstants();

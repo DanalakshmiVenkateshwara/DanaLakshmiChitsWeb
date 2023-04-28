@@ -5,7 +5,7 @@ import useFetch from '../../hooks/useFetch';
 import Form from '../../shared/form'
 
 export default function CreateUser() {
-    const [userDetails, setUserDetails] = useState<any>({ Username: '', Phone: '', Email: '', Password: '', Aadhar: '', Address: '', City: '', State: '' });
+    const [userDetails, setUserDetails] = useState<any>({Name: '', Phone: '', Email: '', Password: '',Aadhar:'', Address: '', City: '', State:''});
     const { USERREGISTRATION } = UrlConstants();
     const { response, loading, onRefresh: saveGroupDetails } = useFetch({ url: USERREGISTRATION, Options: { method: 'POST', data: userDetails } });
     const saveUser = () => {
@@ -15,7 +15,7 @@ export default function CreateUser() {
     return (
         <Row className="mx-0" >
             <Col xl="3" lg="4" md="6">
-                <Form.Text name='' label="UserName" onChange={(e: any) => setUserDetails({ ...userDetails, UserName: e })} />
+                <Form.Text name='' label="UserName" onChange={(e: any) => setUserDetails({...userDetails, Name: e})} />
             </Col>
             <Col xl="3" lg="4" md="6">
                 <Form.Text name='' label="Phone" onChange={(e: any) => setUserDetails({ ...userDetails, Phone: e })} />

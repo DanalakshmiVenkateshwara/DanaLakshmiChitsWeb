@@ -7,20 +7,20 @@ import { Button, Col, Row } from "react-bootstrap";
 import UrlConstants from "../../constants/UrlConstants";
 import useFetch from "../../hooks/useFetch";
 import Form from "../../shared/form";
-import CreateGrid from "./CreateUser";
+import CreateUser from "./CreateUser";
 
 export default function Users() {
   const { GET_USERS } = UrlConstants();
-  const { response, loading } = useFetch({ url: GET_USERS, Options: { method: 'GET', initialRender: true } });
+  const { response, loading ,onRefresh: UserDetails} = useFetch({ url: GET_USERS, Options: { method: 'GET', initialRender: true } });
 
   const [isCrete, setIsCrete] = useState(false)
   return (
     <>
       <Card noPadding title="Users List"
-        headerAction={!isCrete ? <Button size="sm" onClick={() => { setIsCrete(true) }}>Create</Button> : <Button size="sm" onClick={() => { setIsCrete(false) }}>List</Button>}
+        headerAction={!isCrete ? <Button size="sm" onClick={() => { setIsCrete(true) }}>Create</Button> : <Button size="sm" onClick={() => { setIsCrete(false);UserDetails(); }}>List</Button>}
       // actionButtons={<><Button size="sm">Save</Button> </>}
       >
-        {isCrete ? <CreateGrid /> :
+        {isCrete ? <CreateUser /> :
           <UsersGrid data={response} loading={loading} />}
       </Card>
     </>

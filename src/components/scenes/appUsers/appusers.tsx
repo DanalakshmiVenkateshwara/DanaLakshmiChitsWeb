@@ -8,7 +8,7 @@ export default function AplicationUsers(){
     return(
         <>
             <Card noPadding title="App Users List"
-                headerAction={<Button size="sm">Create</Button>}
+                // headerAction={<Button size="sm">Create</Button>}
             // actionButtons={<><Button size="sm">Save</Button> </>}
             >
             <AppUsersGrid /></Card>

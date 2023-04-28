@@ -14,7 +14,8 @@ interface Iprops {
     rowProps?: any;
 }
 export default function Grid(props: Iprops) {
-    const data: Array<any> = props.data;
+    const { data, rowProps } = props;
+
 
     // useEffect(() => {
     //     setRowProps(props.rowProps);
@@ -26,7 +27,7 @@ export default function Grid(props: Iprops) {
                 <tbody><Loader /></tbody> :
                 data ? <>
                     <thead>
-                        <tr>{(!props.loading && props?.as) ? props.as(data && data[0]).props.children.map((g: any) => {
+                        <tr>{(!props.loading && props?.as) ? props.as({ data: data[0], rowProps: rowProps }).props.children.map((g: any) => {
                             if (g.type.name == 'GridCell') {
                                 return <th key={uniqid()}>{g.props.title}</th>
                             }
@@ -36,7 +37,7 @@ export default function Grid(props: Iprops) {
                         {!props.loading && data.map((rowData: any, index: number) => (
                             <tr key={uniqid()}>
                                 {
-                                    props?.as ? props?.as(data[index]).props.children.map((child: any, i: number) => {
+                                    props?.as ? props?.as({ data: data[index], rowProps: rowProps }).props.children.map((child: any, i: number) => {
                                         if (child.type.name == 'GridCell') {
                                             return <React.Fragment key={uniqid()}>{child}</React.Fragment>
                                         }

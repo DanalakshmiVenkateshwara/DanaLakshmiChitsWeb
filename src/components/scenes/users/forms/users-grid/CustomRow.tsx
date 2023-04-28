@@ -3,8 +3,8 @@ import { Button, Modal } from 'react-bootstrap'
 import useGrid from '../../../../hooks/useGrid'
 import GridCell from '../../../../shared/grid/GridCell'
 
-export default function CustomRow(data: any) {
-
+export default function CustomRow(props: any) {
+    const { data, rowProps } = props;
     return (
         <>
             <GridCell title="Name" targetField="name"><>{data.name}</></GridCell>

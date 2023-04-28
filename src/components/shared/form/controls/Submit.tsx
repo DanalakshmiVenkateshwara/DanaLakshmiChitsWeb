@@ -10,8 +10,10 @@ interface Iprops {
 }
 export default function Submit(props: Iprops) {
     const { disabled, tabIndex, onClick, label, hideIcon } = props
+
+
     return (
-        <Button size='sm' onClick={onClick} disabled={disabled} type='button' tabIndex={tabIndex}>
+        <Button size='sm' onClick={onClick} disabled={disabled} type='submit' tabIndex={tabIndex}>
             {!hideIcon ? <i className='fas fa-save me-2'></i> : <></>} {label ? label : "Save"}
         </Button>
     )

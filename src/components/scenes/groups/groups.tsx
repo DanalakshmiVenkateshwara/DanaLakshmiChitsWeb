@@ -14,11 +14,11 @@ export default function Groups() {
   const [isCrete, setIsCrete] = useState(false)
   return (
     <Card noPadding title="Groupwise List"
-      headerAction={!isCrete ?<Button size="sm" onClick={() => { setIsCrete(true) }}>Create</Button>: <Button size="sm" onClick={() => { setIsCrete(false) }}>List</Button>}
+      headerAction={!isCrete ? <Button size="sm" onClick={() => { setIsCrete(true) }}>Create</Button> : <Button size="sm" onClick={() => { setIsCrete(false) }}>List</Button>}
     // actionButtons={<><Button size="sm">Save</Button> </>}
     >
-      {isCrete ? <CreateGroup /> :
-      <GroupsGrid/>}
+      {isCrete ? <CreateGroup setIsCrete={setIsCrete} /> :
+        <GroupsGrid />}
     </Card>
   );
 }

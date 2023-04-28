@@ -133,7 +133,7 @@ export default function FormControl(props: Iprops) {
                                 isValid={props.isValid}
                                 isInvalid={props.isInvalid}
                             >
-                                {props.children ? props.children : <option hidden>Please Choose</option>}
+                                {props.children ? <><option hidden>{props.placeholder ? props.placeholder : "Please Choose"}</option>{props.children}</> : <option hidden>{props.placeholder ? props.placeholder : "Please Choose"}</option>}
                             </Form.Select></>
                         : (props.isAutoComplete) ?
                             <Dropdown.Toggle className='custom-dropdown' as='div' variant="success" id="dropdown-basic">

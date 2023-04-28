@@ -14,13 +14,16 @@ export default function UserEnrollment() {
     // const { setIsCrete } = props
     // const [groupDetails, setGroupDetails] = useState<any>();
     const { getToast } = useToast();
-    const { ENROLLMENT } = UrlConstants();
+    const { ENROLLMENT,GET_USERS } = UrlConstants();
     const [enrollMents, setenrollMents] = useState<any>()
-    const [amount, setAmount] =useState<any>();
+    const [amount, setAmount] = useState<any>();
+    const [groupsData, setGroupsData] = useState<Array<any>>([]);
+    const [usersData, setUsersData] = useState<Array<any>>([]);
 
     // false means we are getting only active groups
-    const { response:groupResponse, loading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
-    // const { response, loading, onRefresh: saveEnrollMents } = useFetch({ url: ENROLLMENT, Options: { method: 'POST', data: enrollMents } });
+    const { response: groupResponse, loading:groupsLoading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
+    const { response, loading, onRefresh: saveEnrollMents } = useFetch({ url: ENROLLMENT, Options: { method: 'POST', data: enrollMents } });
+    const { response:usersResponse, loading:usersLoading} = useFetch({ url: GET_USERS, Options: { method: 'GET', initialRender: true } });
     const enrollUser = () => {
         var data = enrollMents;
         // saveEnrollMents();
@@ -37,21 +40,38 @@ export default function UserEnrollment() {
 
     // }, [response])
 
-     useEffect(()=>{
+    useNoninitialEffect(() => {
+        let data:any =  groupResponse;
+        debugger
+        setGroupsData(data)
+    }, [groupResponse])
+    useNoninitialEffect(() => {
+        debugger
+        let data:any =  usersResponse;
+        debugger
+        setUsersData(data)
+    }, [usersResponse])
 
-     })
+    const onGroupChange = (e: any) => {
+        debugger
+        let amount = groupsData.filter((f: any) => f.id = e)[0].amount;
+        setAmount(amount)
+    }
+
 
     return (
-    <Form noValidate onSubmit={enrollUser}>
+        <Form noValidate onSubmit={enrollUser}>
             <Row className='mx-0'>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Select required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => {}} />
+                    <Form.Select defaultValue ={"..select Groups.."} required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => { onGroupChange(e) }}>
+                        {groupsData.map((gd: any) => <option value={gd.id} onChange={()=>{}}>{gd.groupName}</option>)}
+                    </Form.Select>
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Text value={amount} label="Amount"/>
+                    <Form.Text disabled={true} value={amount} label="Amount" />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Suggest required name='' errorMsg="UserName required" label="UserName" onChange={(e: any) => {}} />
+                    <Form.Suggest data={usersData} text="name" value='name'    name='' errorMsg="UserName required" label="UserName"   />
                 </Col>
             </Row>
 

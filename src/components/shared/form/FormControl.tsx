@@ -20,7 +20,7 @@ interface Iprops {
     readOnly?: boolean;
     name: string;
     className?: string;
-    maxlength?: number;
+    maxLength?: number;
     children?: JSX.Element | JSX.Element[];
     isValid?: boolean;
     isInvalid?: boolean;
@@ -45,7 +45,6 @@ export default function FormControl(props: Iprops) {
                 onKeyDown={(e) => { if (e.keyCode == 13 || e.key === 'Enter') { e.preventDefault(); return false }; if (props.onKeyDown) { props.onKeyDown(e) } }}
                 onChange={(e) => { props.onChange && props?.onChange(e.target.value) }}
                 onFocus={props.onFocus}
-                maxlength={props.maxlength}
                 className={props.className}
                 name={props.name}
                 tabIndex={props.tabIndex}
@@ -71,7 +70,7 @@ export default function FormControl(props: Iprops) {
                         value={props.value}
                         onKeyDown={(e) => { if (e.keyCode == 13 || e.key === 'Enter') { e.preventDefault(); return false }; if (props.onKeyDown) { props.onKeyDown(e) } }}
                         onChange={(e) => { props.onChange && props?.onChange(e.target.value) }}
-                        maxlength={props.maxlength}
+                        maxLength={props.maxLength}
                         className={props.className}
                         name={props.name}
                         tabIndex={props.tabIndex}
@@ -99,7 +98,6 @@ export default function FormControl(props: Iprops) {
                             value={props.value}
                             onKeyDown={(e) => { if (e.keyCode == 13 || e.key === 'Enter') { e.preventDefault(); return false }; if (props.onKeyDown) { props.onKeyDown(e) } }}
                             onChange={(e) => { props.onChange && props?.onChange(e.target.value) }}
-                            maxlength={props.maxlength}
                             className={props.className}
                             name={props.name}
                             tabIndex={props.tabIndex}

@@ -27,7 +27,7 @@ export default function GroupsGrid() {
                 onChange={(e:any)=>onGroupChange(e)}
               /><>ClosedGroup</>
   {/* <Button variant="primary" onClick={onLauchClick}>Start</Button> */}
-    <Grid data={response} as={CustomRow} loading={loading}>
+    <Grid data={response} as={CustomRow} loading={loading} >
       <GridColumn title="Group Name" targetField="groupName" />
       <GridColumn title="Amount" targetField="amount" />
       <GridColumn title="Duration" targetField="duration" />

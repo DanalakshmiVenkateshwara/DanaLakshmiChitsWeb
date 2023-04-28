@@ -18,11 +18,14 @@ export default function CustomRow(data: any) {
   const onLauchClick = () => {
     debugger
     saveGroupDetails();
+    window.location.reload();
     // const { response, loading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
   }
-  const onCloseClick = () => {
-    saveGroupDetails();
-  }
+  const convertDateTimeToDate = (date: string) => {
+    debugger
+    let newDate = date ? date.split('T')[0]: "";
+    return newDate;
+}
   // useEffect(()=>{
   //   const { response, loading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
   // },[data?.existed])
@@ -34,7 +37,7 @@ export default function CustomRow(data: any) {
       <GridCell title='Duration' targetField="duration">{data?.duration}</GridCell>
       <GridCell title='No of Members' targetField="noOfMembers">{data?.noOfMembers}</GridCell>
       <GridCell title='Installment Amount' targetField="installmentAmount">{data?.installmentAmount}</GridCell>
-      <GridCell title='Start Date/EndDate' targetField="startDate" >{data?.startDate}</GridCell>
+      <GridCell title='Start Date/EndDate' targetField="startDate" ><>{convertDateTimeToDate(data?.startDate)}</></GridCell>
       <GridCell title='Status' targetField="existed" ><>{data?.existed ? "Active" : "InActive"}</></GridCell>
       <GridCell title="Lauch" targetField="" ><Button variant="primary" onClick={onLauchClick}>{data?.existed ? "Close" : "Start"}</Button></GridCell>
     </>

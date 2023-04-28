@@ -25,7 +25,7 @@ export default function Users() {
   return (
     <>
       <Card noPadding title="Users List"
-        headerAction={!isCrete ? <Button size="sm" onClick={() => { setIsCrete(true) }}>Create</Button> : <Button size="sm" onClick={() => { setIsCrete(false); UserDetails(); }}>List</Button>}
+        headerAction={!isCrete ? <Button size="sm" onClick={() => { setUserDetails({ id: 0, name: '', phone: '', eMail: '', password: '', aadhar: '', address: '', city: '', state: '' }); setIsCrete(true) }}>Create</Button> : <Button size="sm" onClick={() => { setIsCrete(false); UserDetails(); }}>List</Button>}
       // actionButtons={<><Button size="sm">Save</Button> </>}
       >
         {isCrete ? <CreateUser setIsCrete={setIsCrete} setUserDetails={setUserDetails} userDetails={userDetails} /> :

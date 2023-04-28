@@ -24,6 +24,7 @@ interface Iprops {
     children?: JSX.Element | JSX.Element[];
     isValid?: boolean;
     isInvalid?: boolean;
+    errorMsg?: string;
     label?: string;
     checked?: boolean;
     defaultChecked?: boolean;
@@ -33,7 +34,7 @@ interface Iprops {
 }
 export default function FormControl(props: Iprops) {
     return (
-        <> {(props.type === 'checkbox' || props.type === 'radio' || props.type === 'switch') ?
+        <div className='pb-3'> {(props.type === 'checkbox' || props.type === 'radio' || props.type === 'switch') ?
             <Form.Check
                 id={props.id}
                 type={props.type}
@@ -85,6 +86,7 @@ export default function FormControl(props: Iprops) {
                         isInvalid={props.isInvalid}
                     >
                     </BSFormControl>
+                    <Form.Control.Feedback type="invalid">{props.errorMsg}</Form.Control.Feedback>
                 </>
                 :
                 (props.type === 'text' || props.type === 'email' || props.type === 'password') ?
@@ -108,6 +110,7 @@ export default function FormControl(props: Iprops) {
                             isValid={props.isValid}
                             isInvalid={props.isInvalid}
                         />
+                        <Form.Control.Feedback type="invalid">{props.errorMsg}</Form.Control.Feedback>
                     </>
                     : (props.as === 'select') ?
                         <>
@@ -161,6 +164,6 @@ export default function FormControl(props: Iprops) {
                             </Dropdown.Toggle>
 
                             : <></>}
-        </>
+        </div>
     )
 }

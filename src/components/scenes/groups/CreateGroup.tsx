@@ -36,24 +36,24 @@ export default function CreateGroup(props: any) {
         <Form noValidate onSubmit={saveGroup}>
             <Row className='mx-0'>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Text required name='' label="GroupName" onChange={(e: any) => setGroupDetails({ ...groupDetails, GroupName: e })} />
+                    <Form.Text required name='' errorMsg="group name required" label="GroupName" onChange={(e: any) => setGroupDetails({ ...groupDetails, GroupName: e })} />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Number required name='' label="Amount" onChange={(e: any) => setGroupDetails({ ...groupDetails, Amount: e })} />
+                    <Form.Number required name='' errorMsg="Amount name required" label="Amount" onChange={(e: any) => setGroupDetails({ ...groupDetails, Amount: e })} />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Number required name='' label="Duration" onChange={(e: any) => setGroupDetails({ ...groupDetails, Duration: e })} />
+                    <Form.Number required name='' errorMsg="Duration required" label="Duration" onChange={(e: any) => setGroupDetails({ ...groupDetails, Duration: e })} />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Number required name='' label="No OF Memebers" onChange={(e: any) => setGroupDetails({ ...groupDetails, NoOfMembers: e })} />
+                    <Form.Number required name='' errorMsg="No OF Memebers required" label="No OF Memebers" onChange={(e: any) => setGroupDetails({ ...groupDetails, NoOfMembers: e })} />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Number required name='' label="InstallMentAmount" onChange={(e: any) => setGroupDetails({ ...groupDetails, InstallMentAmount: e })} />
+                    <Form.Number required name='' errorMsg="InstallMent Amount required" label="InstallMentAmount" onChange={(e: any) => setGroupDetails({ ...groupDetails, InstallMentAmount: e })} />
                 </Col>
             </Row>
 
             <div>
-                <Form.Submit label="Save" />
+                <Form.Submit />
             </div>
         </Form>
     )

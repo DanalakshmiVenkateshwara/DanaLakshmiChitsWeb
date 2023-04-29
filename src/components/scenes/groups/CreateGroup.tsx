@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, Row } from 'react-bootstrap'
+import { Button, Col, OverlayTrigger, Row } from 'react-bootstrap'
 import { Container } from 'reactstrap'
 import Number from '../../shared/form/controls/Number'
 import Select from '../../shared/form/controls/Select'
@@ -53,7 +53,6 @@ export default function CreateGroup(props: any) {
                 </Col>
             </Row>
             <div>
-                <ToolTip text='hello'><i className='fas fa-edit' /></ToolTip>
                 <Form.Submit />
             </div>
         </Form>

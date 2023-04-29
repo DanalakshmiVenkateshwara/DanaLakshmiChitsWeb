@@ -10,35 +10,37 @@ import useToast from '../../hooks/useToast'
 import useNoninitialEffect from '../../hooks/useNoninitialEffect'
 import UrlConstants from '../../constants/UrlConstants'
 
-export default function UserEnrollment() {
-    // const { setIsCrete } = props
+export default function UserEnrollment(props:any) {
+    const { setIsCrete } = props
     // const [groupDetails, setGroupDetails] = useState<any>();
     const { getToast } = useToast();
     const { ENROLLMENT, GET_USERS } = UrlConstants();
-    const [enrollMents, setenrollMents] = useState<any>()
+    // const [enrollMents, setenrollMents] = useState<any>()
+    const [groupId , setGroupId] = useState<any>();
+    const [userId , setUserId] = useState<any>();
     const [amount, setAmount] = useState<any>();
     const [groupsData, setGroupsData] = useState<Array<any>>([]);
     const [usersData, setUsersData] = useState<Array<any>>([]);
 
     // false means we are getting only active groups
     const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
-    const { response, loading, onRefresh: saveEnrollMents } = useFetch({ url: ENROLLMENT, Options: { method: 'POST', data: enrollMents } });
+    const { response, loading, onRefresh: saveEnrollMents } = useFetch({ url: `/Admin/EnrollMent/${userId}/${groupId}`, Options: { method: 'POST'} });
     const { response: usersResponse, loading: usersLoading } = useFetch({ url: GET_USERS, Options: { method: 'GET', initialRender: true } });
     const enrollUser = () => {
-        var data = enrollMents;
-        // saveEnrollMents();
+        // var data = enrollMents;
+        saveEnrollMents();
         //how can we read the response
 
     }
-    // useNoninitialEffect(() => {
-    //     if (response === 1) {
-    //         getToast('successfull submitted', 'success');
-    //         // setIsCrete(false)
-    //     }
-    //     else
-    //         getToast('Failed submitted', 'error');
+    useNoninitialEffect(() => {
+        if (response === 1) {
+            getToast('successfull submitted', 'success');
+            setIsCrete(false)
+        }
+        else
+            getToast('Failed submitted', 'error');
 
-    // }, [response])
+    }, [response])
 
     useNoninitialEffect(() => {
         let data: any = groupResponse;
@@ -53,9 +55,13 @@ export default function UserEnrollment() {
     }, [usersResponse])
 
     const onGroupChange = (e: any) => {
+        setGroupId(e)
         debugger
         let amount = groupsData.filter((f: any) => f.id = e)[0].amount;
         setAmount(amount)
+    }
+    const onUserChange =(e:any)=>{
+        setUserId(e)
     }
 
 
@@ -63,7 +69,7 @@ export default function UserEnrollment() {
         <Form noValidate onSubmit={enrollUser}>
             <Row className='mx-0'>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Select placeholder='choose group name' defaultValue={"..select Groups.."} required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => { onGroupChange(e) }}>
+                    <Form.Select placeholder='choose group name' required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => { onGroupChange(e) }}>
                         {groupsData.map((gd: any) => <option value={gd.id} onChange={() => { }}>{gd.groupName}</option>)}
                     </Form.Select>
                 </Col>
@@ -71,7 +77,12 @@ export default function UserEnrollment() {
                     <Form.Text disabled={true} value={amount} label="Amount" />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Suggest data={usersData} text="name" value='name' name='' errorMsg="UserName required" label="UserName" />
+                    <Form.Suggest data={usersData} text="name" value='name' name='' onChanges ={(e:any)=>onUserChange(e)} errorMsg="UserName required" label="UserName" />
+                </Col>
+                <Col xl="3" lg="4" md="6">
+                <Form.Select placeholder='choose customer name'  errorMsg="GroupName required" label="UserName" onChange={(e: any) => { onUserChange(e) }}>
+                        {usersData.map((gd: any) => <option value={gd.id} onChange={() => { }}>{gd.name}</option>)}
+                    </Form.Select>
                 </Col>
             </Row>
 

@@ -50,7 +50,11 @@ export default function CreateUser(props: any) {
                     <Form.Text required name='' value={userDetails.city} label="City" onChange={(e: any) => setUserDetails({ ...userDetails, city: e })} />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Text required name='' value={userDetails.state} label="State" onChange={(e: any) => setUserDetails({ ...userDetails, state: e })} />
+                    {/* <Form.Text required name='' value={userDetails.state} label="State" onChange={(e: any) => setUserDetails({ ...userDetails, state: e })} /> */}
+                    <Form.Select placeholder='choose state'  errorMsg="state required" label="State" onChange={(e: any) => setUserDetails({ ...userDetails, state: e })}>
+                        <option value={"Telangana"}>{"Telangana"}</option>
+                        <option value={"AndraPradesh"}>{"AndraPradesh"}</option>
+                    </Form.Select>
                 </Col>
                 <div>
                     <Form.Submit />

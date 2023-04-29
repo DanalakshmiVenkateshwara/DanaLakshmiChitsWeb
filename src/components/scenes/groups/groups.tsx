@@ -13,7 +13,7 @@ import CreateGroup from "./CreateGroup";
 export default function Groups() {
   const [isCrete, setIsCrete] = useState(false)
   return (
-    <Card noPadding title="Groupwise List"
+    <Card noPadding title={isCrete ? "groupwise create" : "Groupwise List"}
       headerAction={!isCrete ? <Button size="sm" onClick={() => { setIsCrete(true) }}>Create</Button> : <Button size="sm" onClick={() => { setIsCrete(false) }}>List</Button>}
     // actionButtons={<><Button size="sm">Save</Button> </>}
     >

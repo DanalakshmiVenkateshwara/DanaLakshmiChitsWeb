@@ -17,7 +17,7 @@ export default function Sidebar(props: IProps) {
     <ul className="bg-dark list-unstyled mb-0 px-0" style={styles}>
       {props.children}
 
-      <li className="text-white p-3 text-center">
+      <li className="text-white p-3 text-end">
         <i className="fas fa-angles-right"></i>
       </li>
     </ul>

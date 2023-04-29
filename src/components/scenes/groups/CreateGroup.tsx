@@ -10,6 +10,7 @@ import UrlConstants from '../../constants/UrlConstants'
 import useFetch from '../../hooks/useFetch'
 import useToast from '../../hooks/useToast'
 import useNoninitialEffect from '../../hooks/useNoninitialEffect'
+import ToolTip from '../../shared/tooltip/ToolTip'
 export default function CreateGroup(props: any) {
     const { setIsCrete } = props
     // const [groupDetails, setGroupDetails] = useState<any>();
@@ -52,6 +53,7 @@ export default function CreateGroup(props: any) {
                 </Col>
             </Row>
             <div>
+                <ToolTip text='hello'><i className='fas fa-edit' /></ToolTip>
                 <Form.Submit />
             </div>
         </Form>

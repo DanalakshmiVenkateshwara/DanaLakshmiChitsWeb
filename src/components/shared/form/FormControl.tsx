@@ -30,11 +30,12 @@ interface Iprops {
     defaultChecked?: boolean;
     inline?: boolean;
     id?: string;
-    isAutoComplete?: boolean
+    isAutoComplete?: boolean;
+    noPadding?:boolean;
 }
 export default function FormControl(props: Iprops) {
     return (
-        <div className='pb-3'> {(props.type === 'checkbox' || props.type === 'radio' || props.type === 'switch') ?
+        <div className={props.noPadding?'':'pb-3'}> {(props.type === 'checkbox' || props.type === 'radio' || props.type === 'switch') ?
             <Form.Check
                 id={props.id}
                 type={props.type}

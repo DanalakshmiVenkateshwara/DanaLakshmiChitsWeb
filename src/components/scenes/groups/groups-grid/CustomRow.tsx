@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import UrlConstants from '../../../constants/UrlConstants';
 import useFetch from '../../../hooks/useFetch';
+import useNoninitialEffect from '../../../hooks/useNoninitialEffect';
+import useToast from '../../../hooks/useToast';
 import GridCell from '../../../shared/grid/GridCell';
 // import GridCell from '../../../shared/grid/GridCell'
 // import UrlConstants from '../../../../constants/UrlConstants';
@@ -11,25 +13,24 @@ import GridCell from '../../../shared/grid/GridCell';
 export default function CustomRow(props: any) {
   const { data, rowProps } = props
   const [onLauch, setOnlaunch] = useState(false);
-
   const { ADD_CHIT_PLANS } = UrlConstants();
-
-
+  const { getToast } = useToast();
   const { response, loading, onRefresh: saveGroupDetails } = useFetch({ url: ADD_CHIT_PLANS, Options: { method: 'POST', data: data } });
-  const onLauchClick = () => {
-    debugger
-    saveGroupDetails();
-    window.location.reload();
-    // const { response, loading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
-  }
+
   const convertDateTimeToDate = (date: string) => {
-    debugger
     let newDate = date ? date.split('T')[0] : "";
     return newDate;
   }
-  // useEffect(()=>{
-  //   const { response, loading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
-  // },[data?.existed])
+
+  useNoninitialEffect(() => {
+    if (response == 1) {
+      getToast('successfully updated', 'success');
+      rowProps.CompletedGroupDetails();
+    }
+    else {
+      getToast('successfully updated', 'warning');
+    }
+  }, [response])
 
   return (
     <>
@@ -40,7 +41,10 @@ export default function CustomRow(props: any) {
       <GridCell title='Installment Amount' targetField="installmentAmount">{data?.installmentAmount}</GridCell>
       <GridCell title='Start Date/EndDate' targetField="startDate" ><>{convertDateTimeToDate(data?.startDate)}</></GridCell>
       <GridCell title='Status' targetField="existed" ><>{data?.existed ? "Active" : "InActive"}</></GridCell>
-      <GridCell title="Lauch" targetField="" ><Button variant="primary" size='sm' onClick={onLauchClick}>{data?.existed ? "Close" : "Start"}</Button></GridCell>
+      <GridCell title="Lauch" targetField="">
+        <>{!data?.groupClosed && <Button variant="primary" size='sm' onClick={saveGroupDetails}>{data?.existed ? "Close" : "Start"}  </Button>}
+        </>
+         </GridCell>
     </>
   )
 }

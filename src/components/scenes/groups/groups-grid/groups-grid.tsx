@@ -9,25 +9,14 @@ import CustomRow from "./CustomRow";
 import useFetch from "../../../hooks/useFetch";
 import UrlConstants from "../../../constants/UrlConstants";
 
-export default function GroupsGrid() {
+export default function GroupsGrid({data,loading,setGroupStatus,CompletedGroupDetails}:any) {
   const { ADD_CHIT_PLANS } = UrlConstants();
-  const [groupStatus, setGroupStatus] = useState(false);
-  const { response, loading, onRefresh: CompletedGroupDetails } = useFetch({ url: `/User/GetAllChitPlans/${groupStatus}`, Options: { method: "GET", initialRender: true } });
-  const onGroupChange = (e: any) => {
-    debugger
-    setGroupStatus(e.currentTarget.value == "true" ? false : true); CompletedGroupDetails();
-  }
+  
   return (
     <>
-      <input
-        type="checkbox"
-        name="ClosedGroups"
-        value={groupStatus == true ? "true" : "false"}
-        checked={groupStatus}
-        onChange={(e: any) => onGroupChange(e)}
-      /><>ClosedGroup</>
+      
       {/* <Button variant="primary" onClick={onLauchClick}>Start</Button> */}
-      <Grid data={response} as={CustomRow} loading={loading} rowProps={{ setGroupStatus: setGroupStatus }}>
+      <Grid data={data} as={CustomRow} loading={loading} rowProps={{ setGroupStatus: setGroupStatus,CompletedGroupDetails:CompletedGroupDetails }}>
         <GridColumn title="Group Name" targetField="groupName" />
         <GridColumn title="Amount" targetField="amount" />
         <GridColumn title="Duration" targetField="duration" />

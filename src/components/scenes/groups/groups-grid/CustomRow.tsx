@@ -24,9 +24,9 @@ export default function CustomRow(props: any) {
   }
   const convertDateTimeToDate = (date: string) => {
     debugger
-    let newDate = date ? date.split('T')[0]: "";
+    let newDate = date ? date.split('T')[0] : "";
     return newDate;
-}
+  }
   // useEffect(()=>{
   //   const { response, loading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
   // },[data?.existed])
@@ -40,7 +40,7 @@ export default function CustomRow(props: any) {
       <GridCell title='Installment Amount' targetField="installmentAmount">{data?.installmentAmount}</GridCell>
       <GridCell title='Start Date/EndDate' targetField="startDate" ><>{convertDateTimeToDate(data?.startDate)}</></GridCell>
       <GridCell title='Status' targetField="existed" ><>{data?.existed ? "Active" : "InActive"}</></GridCell>
-      <GridCell title="Lauch" targetField="" ><Button variant="primary" onClick={onLauchClick}>{data?.existed ? "Close" : "Start"}</Button></GridCell>
+      <GridCell title="Lauch" targetField="" ><Button variant="primary" size='sm' onClick={onLauchClick}>{data?.existed ? "Close" : "Start"}</Button></GridCell>
     </>
   )
 }

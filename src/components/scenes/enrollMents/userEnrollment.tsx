@@ -86,10 +86,7 @@ export default function UserEnrollment(props: any) {
                     </Form.Select> */}
                 </Col>
             </Row>
-
-            <div>
                 <Form.Submit label="Enroll" />
-            </div>
         </Form>
     )
 }

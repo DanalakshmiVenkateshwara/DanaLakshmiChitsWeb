@@ -52,9 +52,7 @@ export default function CreateGroup(props: any) {
                     <Form.Number required name='' errorMsg="InstallMent Amount required" label="InstallMentAmount" onChange={(e: any) => setGroupDetails({ ...groupDetails, InstallMentAmount: e })} />
                 </Col>
             </Row>
-            <div>
-                <Form.Submit />
-            </div>
+            <Form.Submit />
         </Form>
     )
 }

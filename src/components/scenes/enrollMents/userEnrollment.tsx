@@ -9,22 +9,23 @@ import useFetch from '../../hooks/useFetch'
 import useToast from '../../hooks/useToast'
 import useNoninitialEffect from '../../hooks/useNoninitialEffect'
 import UrlConstants from '../../constants/UrlConstants'
+import uniqid from 'uniqid'
 
-export default function UserEnrollment(props:any) {
+export default function UserEnrollment(props: any) {
     const { setIsCrete } = props
     // const [groupDetails, setGroupDetails] = useState<any>();
     const { getToast } = useToast();
     const { ENROLLMENT, GET_USERS } = UrlConstants();
     // const [enrollMents, setenrollMents] = useState<any>()
-    const [groupId , setGroupId] = useState<any>();
-    const [userId , setUserId] = useState<any>();
+    const [groupId, setGroupId] = useState<any>();
+    const [userId, setUserId] = useState<any>();
     const [amount, setAmount] = useState<any>();
     const [groupsData, setGroupsData] = useState<Array<any>>([]);
     const [usersData, setUsersData] = useState<Array<any>>([]);
 
     // false means we are getting only active groups
     const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
-    const { response, loading, onRefresh: saveEnrollMents } = useFetch({ url: `/Admin/EnrollMent/${userId}/${groupId}`, Options: { method: 'POST'} });
+    const { response, loading, onRefresh: saveEnrollMents } = useFetch({ url: `/Admin/EnrollMent/${userId}/${groupId}`, Options: { method: 'POST' } });
     const { response: usersResponse, loading: usersLoading } = useFetch({ url: GET_USERS, Options: { method: 'GET', initialRender: true } });
     const enrollUser = () => {
         // var data = enrollMents;
@@ -60,7 +61,7 @@ export default function UserEnrollment(props:any) {
         let amount = groupsData.filter((f: any) => f.id = e)[0].amount;
         setAmount(amount)
     }
-    const onUserChange =(e:any)=>{
+    const onUserChange = (e: any) => {
         setUserId(e)
     }
 
@@ -70,19 +71,19 @@ export default function UserEnrollment(props:any) {
             <Row className='mx-0'>
                 <Col xl="3" lg="4" md="6">
                     <Form.Select placeholder='choose group name' required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => { onGroupChange(e) }}>
-                        {groupsData.map((gd: any) => <option value={gd.id} onChange={() => { }}>{gd.groupName}</option>)}
+                        {groupsData.map((gd: any) => <option key={uniqid()} value={gd.id} onChange={() => { }}>{gd.groupName}</option>)}
                     </Form.Select>
                 </Col>
                 <Col xl="3" lg="4" md="6">
                     <Form.Text disabled={true} value={amount} label="Amount" />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Suggest data={usersData} text="name" value='name' name='' onChanges ={(e:any)=>onUserChange(e)} errorMsg="UserName required" label="UserName" />
+                    <Form.Suggest onSelect={(d: any) => { setUserId(d.id) }} data={usersData} text="name" value='name' name='' errorMsg="UserName required" label="UserName" />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                <Form.Select placeholder='choose customer name'  errorMsg="GroupName required" label="UserName" onChange={(e: any) => { onUserChange(e) }}>
+                    {/* <Form.Select placeholder='choose customer name'  errorMsg="GroupName required" label="UserName" onChange={(e: any) => { onUserChange(e) }}>
                         {usersData.map((gd: any) => <option value={gd.id} onChange={() => { }}>{gd.name}</option>)}
-                    </Form.Select>
+                    </Form.Select> */}
                 </Col>
             </Row>
 

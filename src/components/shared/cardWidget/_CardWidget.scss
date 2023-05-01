@@ -1,0 +1,9 @@
+.card-widget {
+  &.shadow {
+    box-shadow: 0.25rem 0.25rem 1rem 0px rgba(0, 0, 0, 0.15) !important;
+    &:hover {
+      box-shadow: 0.25rem 0.25rem 1rem 3px rgba(0, 0, 0, 0.15) !important;
+      background: #eee;
+    }
+  }
+}

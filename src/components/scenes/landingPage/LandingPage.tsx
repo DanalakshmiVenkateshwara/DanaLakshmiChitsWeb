@@ -11,27 +11,32 @@ export default function LandingPage() {
   const routes = [
     {
       title: "Groups",
-      icon: <i className='fas fa-home fa-4x my-4' ></i>,
+      icon: <i className='fa-solid fa-sitemap fa-4x my-4' ></i>,
       path: '/Groups'
     },
     {
       title: "Users",
-      icon: <i className='fas fa-home fa-4x my-4' ></i>,
+      icon: <i className='fa-solid fa-users fa-4x my-4' ></i>,
       path: '/Users'
     },
     {
       title: "Enrollments",
-      icon: <i className='fas fa-home fa-4x my-4' ></i>,
+      icon: <i className='fa-solid fa-user-tag fa-4x my-4' ></i>,
       path: '/Enrollments'
     },
     {
       title: "Payments",
-      icon: <i className='fas fa-home fa-4x my-4' ></i>,
+      icon: <i className='fa-solid fa-wallet fa-4x my-4' ></i>,
       path: '/Payments'
     },
     {
+      title: "Auctions",
+      icon: <i className='fa-solid fa-briefcase fa-4x my-4' ></i>,
+      path: '/Auctions'
+    },
+    {
       title: "Aplication Users",
-      icon: <i className='fas fa-home fa-4x my-4' ></i>,
+      icon: <i className='fa-solid fa-chalkboard-user fa-4x my-4' ></i>,
       path: '/AplicationUsers'
     },
 

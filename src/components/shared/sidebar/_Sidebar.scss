@@ -1,11 +1,19 @@
 @import "../../../variables";
-
-.sideBarItem {
-  background: $dark;
-  &.active {
-    background-color: rgb(98, 137, 243);
+.sidebar {
+  &.close {
+    .sideBarItem {
+      .sidebar-label {
+        display: none;
+      }
+    }
   }
-  &:hover:not(.active) {
-    background: $darkHover;
+  .sideBarItem {
+    background: $dark;
+    &.active {
+      background-color: rgb(98, 137, 243);
+    }
+    &:hover:not(.active) {
+      background: $darkHover;
+    }
   }
 }

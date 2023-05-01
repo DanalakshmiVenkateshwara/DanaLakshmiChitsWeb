@@ -6,7 +6,7 @@ interface IProps {
   children: JSX.Element;
 }
 export default function Sidebar(props: IProps) {
-
+  const [sidebarClose, setSidebarClose] = useState(false);
   const styles = {
     height: "calc(100vh - 107px)",
     width: "auto",
@@ -14,10 +14,9 @@ export default function Sidebar(props: IProps) {
   };
 
   return (
-    <ul className="bg-dark list-unstyled mb-0 px-0" style={styles}>
+    <ul className={`sidebar bg-dark list-unstyled mb-0 px-0 ${sidebarClose ? 'close' : 'open'}`} style={styles}>
       {props.children}
-
-      <li className="text-white p-3 text-end">
+      <li className="text-white p-3 text-end" onClick={() => { setSidebarClose(prev => !prev) }}>
         <i className="fas fa-angles-right"></i>
       </li>
     </ul>

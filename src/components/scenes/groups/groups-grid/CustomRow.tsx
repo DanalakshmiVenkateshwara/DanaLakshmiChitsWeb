@@ -31,6 +31,11 @@ export default function CustomRow(props: any) {
       getToast('successfully updated', 'warning');
     }
   }, [response])
+  // const onDeleteClick =()=>{
+  //   var test= data;
+  //   data.existed = true;
+  //   saveGroupDetails
+  // }
 
   return (
     <>
@@ -40,11 +45,16 @@ export default function CustomRow(props: any) {
       <GridCell title='No of Members' targetField="noOfMembers">{data?.noOfMembers}</GridCell>
       <GridCell title='Installment Amount' targetField="installmentAmount">{data?.installmentAmount}</GridCell>
       <GridCell title='Start Date/EndDate' targetField="startDate" ><>{convertDateTimeToDate(data?.startDate)}</></GridCell>
-      <GridCell title='Status' targetField="existed" ><>{data?.existed ? "Active" : "InActive"}</></GridCell>
+      <GridCell title='EndDate' targetField="etartDate" ><>{convertDateTimeToDate(data?.endDate)}</></GridCell>
+      <GridCell title='Status' targetField="existed" ><>{data?.existed ? "InProgress" : "UpComing"}</></GridCell>
       <GridCell title="Lauch" targetField="">
         <>{!data?.groupClosed && <Button variant="primary" size='sm' onClick={saveGroupDetails}>{data?.existed ? "Close" : "Start"}  </Button>}
         </>
-         </GridCell>
+      </GridCell>
+      <GridCell title="Delete" targetField="">
+        <>{!data?.groupClosed && <Button disabled={data?.existed} variant="primary" size='sm' onClick={saveGroupDetails}>Delete</Button>}
+        </>
+      </GridCell>
     </>
   )
 }

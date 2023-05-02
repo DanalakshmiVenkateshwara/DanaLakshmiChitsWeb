@@ -13,7 +13,12 @@ export default function CustomRow(props: any) {
             <GridCell title="Email" targetField="email">{data.eMail}</GridCell>
             <GridCell title="Password" targetField="password">{data.password}</GridCell>
             <GridCell title="Address" targetField="address" >{data.address}</GridCell>
-            <GridCell title="Actions" targetField="Edit" ><><Button onClick={() => { console.log(data); rowProps.setUserDetails({ ...data }); rowProps.setIsCrete(true) }}><i className='fas fa-edit me-2'></i>Edit</Button></></GridCell>
+            <GridCell title="Actions" targetField="Edit" >
+                <><Button onClick={() => { console.log(data); rowProps.setUserDetails({ ...data }); rowProps.setIsCrete(true) }}>
+                   <i className='fas fa-edit me-2'></i>Edit</Button>
+                   <Button onClick={() => { console.log(data); rowProps.setUserDetails({ ...data }); rowProps.setIsDelete(true) }}>
+                   <i className='fas fa-delete me-2'></i>Delete</Button>
+                </></GridCell>
         </>
     )
 }

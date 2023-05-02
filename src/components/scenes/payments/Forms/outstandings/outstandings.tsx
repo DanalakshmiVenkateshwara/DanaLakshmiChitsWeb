@@ -1,26 +1,30 @@
-import react from "react";
+import react, { Dispatch } from "react";
 import { Card, Col, Modal, Row, Table } from "react-bootstrap";
 import { CardBody, CardHeader } from "reactstrap";
 import UrlConstants from "../../../../constants/UrlConstants";
 import useFetch from "../../../../hooks/useFetch";
 import Grid from "../../../../shared/grid";
 import GridColumn from "../../../../shared/grid/GridColumn";
-export default function OutStandings(){
+import CustomRow from "./customRow";
+interface Iprops {
+  data?: any; loading?: boolean; setIsCrete?: Dispatch<React.SetStateAction<boolean>>; setPaymentDetails?: Dispatch<React.SetStateAction<any>>
+}
+export default function OutStandings({ data, loading, setIsCrete, setPaymentDetails }: Iprops){
 
 
   //we need to change the api method name
-  const { GET_USERS } = UrlConstants();
-  const { response, loading } = useFetch({url:GET_USERS, Options:{method:'GET',initialRender:true}});
-
+  
   return (<>
-    <Grid data={response} loading={loading}>
+    <Grid data={data} as={CustomRow} loading={loading} rowProps={{ setIsCrete: setIsCrete, setPaymentDetails: setPaymentDetails }}>
       <GridColumn title="UserName" targetField="userName" />
-      <GridColumn title="Phone" targetField="phone" />
-      <GridColumn title="PendingAmount" targetField="pendingAmount" />
-      {/* <GridColumn title="No.of Members" targetField="noOfMembers" />
-      <GridColumn title="Installment Amount" targetField="installmentAmount" />
-      <GridColumn title="Start Date" targetField="startDate" />
-      <GridColumn title='Status' targetField="existed" /> */}
+      <GridColumn title="GroupName" targetField="groupName" />
+      <GridColumn title="CurrentMonthEmi" targetField="currentMonthEmi" />
+      <GridColumn title="Dividend" targetField="dividend" />
+      <GridColumn title="TotalAmount" targetField="totalAmount" />
+      <GridColumn title="DueAmount" targetField="dueAmount" />
+      <GridColumn title="PaymentDate" targetField="paymentDate" />
+      <GridColumn title='AuctionDate' targetField="auctionDate" />
+      <GridColumn title='Status' targetField="raised" />
     </Grid>
   </>
   );

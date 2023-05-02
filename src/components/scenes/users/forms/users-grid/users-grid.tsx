@@ -8,13 +8,13 @@ import GridColumn from "../../../../shared/grid/GridColumn";
 import CreateUser from "../create-user";
 import CustomRow from "./CustomRow";
 interface Iprops {
-  data?: any; loading?: boolean; setIsCrete?: Dispatch<React.SetStateAction<boolean>>; setUserDetails?: Dispatch<React.SetStateAction<any>>
+  data?: any; loading?: boolean;setIsDelete?:Dispatch<React.SetStateAction<boolean>>; setIsCrete?: Dispatch<React.SetStateAction<boolean>>; setUserDetails?: Dispatch<React.SetStateAction<any>>
 }
-export default function UsersGrid({ data, loading, setIsCrete, setUserDetails }: Iprops) {
+export default function UsersGrid({ data, loading, setIsCrete,setIsDelete, setUserDetails }: Iprops) {
   const [test, setTest] = useState()
 
   return (<>
-    <Grid data={data} as={CustomRow} loading={loading} rowProps={{ setIsCrete: setIsCrete, setUserDetails: setUserDetails }}>
+    <Grid data={data} as={CustomRow} loading={loading} rowProps={{ setIsCrete: setIsCrete,setIsDelete:setIsDelete, setUserDetails: setUserDetails }}>
       <GridColumn title="Name" targetField="name" />
       <GridColumn title="Phone" targetField="phone" />
       <GridColumn title="Email" targetField="eMail" />

@@ -56,9 +56,9 @@ export default function UserEnrollment(props: any) {
     }, [usersResponse])
 
     const onGroupChange = (e: any) => {
-        setGroupId(e)
         debugger
-        let amount = groupsData.filter((f: any) => f.id = e)[0].amount;
+        setGroupId(e)
+        let amount = groupsData.filter((f: any) => f.id == e)[0].amount;
         setAmount(amount)
     }
     const onUserChange = (e: any) => {

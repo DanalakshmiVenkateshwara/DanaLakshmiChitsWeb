@@ -10,9 +10,9 @@ export default function CreateUser(props: any) {
     const { userDetails, setUserDetails, setIsCrete } = props;
     const { getToast } = useToast()
     const { USERREGISTRATION } = UrlConstants();
-    const { response, loading, onRefresh: saveGroupDetails } = useFetch({ url: USERREGISTRATION, Options: { method: 'POST', data: userDetails } });
+    const { response, loading, onRefresh: saveUserDetails } = useFetch({ url: USERREGISTRATION, Options: { method: 'POST', data: userDetails } });
     const saveUser = () => {
-        saveGroupDetails();
+        saveUserDetails();
     }
     useNoninitialEffect(() => {
         if (response === 1) {
@@ -26,7 +26,7 @@ export default function CreateUser(props: any) {
 
 
     return (
-        <Form noValidate onSubmit={saveGroupDetails}>
+        <Form noValidate onSubmit={saveUserDetails}>
             <Row className="mx-0" >
                 <Col xl="3" lg="4" md="6">
                     <Form.Text required name='' value={userDetails.name} label="UserName" onChange={(e: any) => setUserDetails({ ...userDetails, name: e })} />

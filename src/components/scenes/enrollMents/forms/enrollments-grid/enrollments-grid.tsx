@@ -5,6 +5,7 @@ import UrlConstants from "../../../../constants/UrlConstants";
 import useFetch from "../../../../hooks/useFetch";
 import Grid from "../../../../shared/grid";
 import GridColumn from "../../../../shared/grid/GridColumn";
+import CustomRow from "./CustomRow";
 
 export default function EnrollMentsGrid(){
 
@@ -12,7 +13,7 @@ export default function EnrollMentsGrid(){
   const { response, loading } = useFetch({url:GET_ENROLLMENT, Options:{method:'GET',initialRender:true}});
 
   return (<>
-    <Grid data={response} loading={loading}>
+    <Grid data={response} as={CustomRow} loading={loading}>
       <GridColumn title="UserName" targetField="userName" />
       <GridColumn title="EnrollMentDate" targetField="enrollMentDate" />
       <GridColumn title="GroupName" targetField="groupName" />

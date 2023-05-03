@@ -18,8 +18,13 @@ export default function CustomRow(props: any) {
   const { response, loading, onRefresh: saveGroupDetails } = useFetch({ url: ADD_CHIT_PLANS, Options: { method: 'POST', data: data } });
 
   const convertDateTimeToDate = (date: string) => {
-    let newDate = date ? date.split('T')[0] : "";
-    return newDate;
+    debugger
+    if (date == "0001-01-01T00:00:00")
+      return ""
+    else {
+      let newDate = date ? date.split('T')[0] : "";
+      return newDate;
+     }
   }
 
   useNoninitialEffect(() => {
@@ -31,11 +36,12 @@ export default function CustomRow(props: any) {
       getToast('successfully updated', 'warning');
     }
   }, [response])
-  // const onDeleteClick =()=>{
-  //   var test= data;
-  //   data.existed = true;
-  //   saveGroupDetails
-  // }
+  
+  const deleteGroup =()=>{
+    data.isDelete = true ;
+    // we need to check the confm 
+     saveGroupDetails();
+  }
 
   return (
     <>
@@ -44,15 +50,15 @@ export default function CustomRow(props: any) {
       <GridCell title='Duration' targetField="duration">{data?.duration}</GridCell>
       <GridCell title='No of Members' targetField="noOfMembers">{data?.noOfMembers}</GridCell>
       <GridCell title='Installment Amount' targetField="installmentAmount">{data?.installmentAmount}</GridCell>
-      <GridCell title='Start Date/EndDate' targetField="startDate" ><>{convertDateTimeToDate(data?.startDate)}</></GridCell>
-      <GridCell title='EndDate' targetField="etartDate" ><>{convertDateTimeToDate(data?.endDate)}</></GridCell>
-      <GridCell title='Status' targetField="existed" ><>{data?.existed ? "InProgress" : "UpComing"}</></GridCell>
+      <GridCell title='Start Date' targetField="startDate" ><>{convertDateTimeToDate(data?.startDate)}</></GridCell>
+      <GridCell title='CloseDate' targetField="etartDate" ><>{convertDateTimeToDate(data?.endDate)}</></GridCell>
+      <GridCell title='Status' targetField="existed" ><>{data?.isDelete? "Closed" :(data?.existed ? "InProgress" : "UpComing")}</></GridCell>
       <GridCell title="Lauch" targetField="">
         <>{!data?.groupClosed && <Button variant="primary" size='sm' onClick={saveGroupDetails}>{data?.existed ? "Close" : "Start"}  </Button>}
         </>
       </GridCell>
       <GridCell title="Delete" targetField="">
-        <>{!data?.groupClosed && <Button disabled={data?.existed} variant="primary" size='sm' onClick={saveGroupDetails}>Delete</Button>}
+        <>{!data?.groupClosed && <Button disabled={data?.existed} variant="primary" size='sm' onClick={deleteGroup}>Delete</Button>}
         </>
       </GridCell>
     </>

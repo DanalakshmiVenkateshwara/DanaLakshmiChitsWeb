@@ -28,6 +28,7 @@ export default function CreateGroup(props: any) {
         if (response === 1) {
             getToast('successfull submitted', 'success');
             setIsCrete(false)
+            props.CompletedGroupDetails();
         }
         else
             getToast('Failed submitted', 'error');

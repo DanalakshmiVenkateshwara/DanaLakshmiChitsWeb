@@ -15,10 +15,10 @@ export default function CustomRow(props: any) {
             <GridCell title="Address" targetField="address" >{data?.address}</GridCell>
             <GridCell title="Actions" targetField="Edit" >
                 {/* we need disable for buttons disabled={!data?.isActive} */}
-                <><Button  onClick={() => {rowProps.setUserDetails({ ...data }); rowProps.setIsCrete(true) }}>
-                   <i  className='fas fa-edit me-2'></i>Edit</Button>
-                   <Button onClick={() => {rowProps.setUserDetails({ ...data }); rowProps.setIsDelete(true) }}>
-                   <i className='fas fa-delete me-2'></i>Delete</Button>
+                <>{data?.isActive && <Button  onClick={() => {rowProps.setUserDetails({ ...data }); rowProps.setIsCrete(true) }}>
+                   <i  className='fas fa-edit me-2'></i>Edit</Button>}
+                   {data?.isActive && <Button onClick={() => {debugger; rowProps.setUserDetails({ ...data }); rowProps.setIsDelete(true) }}>
+                   <i className='fas fa-delete me-2'></i>Delete</Button>}
                 </></GridCell>
         </>
     )

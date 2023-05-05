@@ -20,6 +20,7 @@ export default function OutStandings({ data, loading, setIsCrete, setPaymentDeta
       <GridColumn title="GroupName" targetField="groupName" />
       <GridColumn title="CurrentMonthEmi" targetField="currentMonthEmi" />
       <GridColumn title="Dividend" targetField="dividend" />
+      <GridColumn title="PaymrntMonth" targetField="paymentMonth" />
       <GridColumn title="TotalAmount" targetField="totalAmount" />
       <GridColumn title="DueAmount" targetField="dueAmount" />
       <GridColumn title="PaymentDate" targetField="paymentDate" />

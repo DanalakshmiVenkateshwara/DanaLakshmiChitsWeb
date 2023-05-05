@@ -31,6 +31,7 @@ export default function CustomRow(props: any) {
     if (response == 1) {
       getToast('successfully updated', 'success');
       rowProps.CompletedGroupDetails();
+      
     }
     else {
       getToast('successfully updated', 'warning');
@@ -52,7 +53,7 @@ export default function CustomRow(props: any) {
       <GridCell title='Installment Amount' targetField="installmentAmount">{data?.installmentAmount}</GridCell>
       <GridCell title='Start Date' targetField="startDate" ><>{convertDateTimeToDate(data?.startDate)}</></GridCell>
       <GridCell title='CloseDate' targetField="etartDate" ><>{convertDateTimeToDate(data?.endDate)}</></GridCell>
-      <GridCell title='Status' targetField="existed" ><>{data?.isDelete? "Closed" :(data?.existed ? "InProgress" : "UpComing")}</></GridCell>
+      <GridCell title='Status' targetField="existed" ><>{data?.isDelete ||data?.groupClosed? "Closed" :(data?.existed ? "InProgress" : "UpComing")}</></GridCell>
       <GridCell title="Lauch" targetField="">
         <>{!data?.groupClosed && <Button variant="primary" size='sm' onClick={saveGroupDetails}>{data?.existed ? "Close" : "Start"}  </Button>}
         </>

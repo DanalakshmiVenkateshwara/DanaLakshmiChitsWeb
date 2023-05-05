@@ -39,7 +39,7 @@ export default function Groups() {
       }
     // actionButtons={<><Button size="sm">Save</Button> </>}
     >
-      {isCrete ? <CreateGroup setIsCrete={setIsCrete} /> :
+      {isCrete ? <CreateGroup setIsCrete={setIsCrete} setGroupStatus={setGroupStatus} CompletedGroupDetails={CompletedGroupDetails} /> :
         <GroupsGrid data={response} loading={loading} setGroupStatus={setGroupStatus} CompletedGroupDetails={CompletedGroupDetails} />}
     </Card>
   );

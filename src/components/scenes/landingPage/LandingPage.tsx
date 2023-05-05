@@ -39,6 +39,11 @@ export default function LandingPage() {
       icon: <i className='fa-solid fa-chalkboard-user fa-4x my-4' ></i>,
       path: '/AplicationUsers'
     },
+    {
+      title: "MyChits",
+      icon: <i className='fa-solid fa-chalkboard-user fa-4x my-4' ></i>,
+      path: '/MyChits'
+    },
 
   ]
 

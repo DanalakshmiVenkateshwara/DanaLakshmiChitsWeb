@@ -25,8 +25,8 @@ export default function UserEnrollment(props: any) {
 
     // false means we are getting only active groups
     const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
-    const { response, loading, onRefresh: saveEnrollMents } = useFetch({ url: `/Admin/EnrollMent/${userId}/${groupId}`, Options: { method: 'POST' } });
-    const { response: usersResponse, loading: usersLoading } = useFetch({ url: GET_USERS, Options: { method: 'GET', initialRender: true } });
+    const { response, loading, onRefresh: saveEnrollMents } = useFetch({ url: `/Admin/EnrollMent/${userId}/${groupId}/${true}`, Options: { method: 'POST' } });
+    const { response: usersResponse, loading: usersLoading } = useFetch({ url: `/Admin/GetUsers/${0}/${true}`, Options: { method: 'GET', initialRender: true } });
     const enrollUser = () => {
         // var data = enrollMents;
         saveEnrollMents();

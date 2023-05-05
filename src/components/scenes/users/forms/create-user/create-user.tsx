@@ -4,7 +4,7 @@ import { CardBody, Input } from "reactstrap";
 
 export default function CreateUser() {
 
-    const [userDetails, setUserDetails] = useState({Username: '', Phone: '', Email: '', Password: '',Aadhar:'', Address: '', City: '', State:''});
+    const [userDetails, setUserDetails] = useState({Username: '', Phone: '', Email: '', Password: '',Aadhar:'', Address: '', City: '', State:'',isActive:true});
     
      const AddUseDetails =()=>{
 

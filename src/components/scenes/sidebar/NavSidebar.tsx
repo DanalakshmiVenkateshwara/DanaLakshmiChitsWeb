@@ -13,6 +13,7 @@ function NavSidebar() {
         <SideBarItem icon={<i className="fa-solid fa-wallet"></i>} path="/Payments" label="Payments" />
         <SideBarItem icon={<i className="fa-solid fa-briefcase"></i>} path="/Auctions" label="Auctions" />
         <SideBarItem icon={<i className="fa-solid fa-chalkboard-user"></i>} path="/AplicationUsers" label="Aplication Users" />
+        <SideBarItem icon={<i className="fa-solid fa-chalkboard-user"></i>} path="/MyChits" label="MyChits" />
       </>
     </Sidebar>
   );

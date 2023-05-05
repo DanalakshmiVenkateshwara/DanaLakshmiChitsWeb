@@ -5,10 +5,12 @@ import UrlConstants from "../../constants/UrlConstants";
 import useFetch from "../../hooks/useFetch";
 import useNoninitialEffect from "../../hooks/useNoninitialEffect";
 import Form from "../../shared/form";
+import useToast from '../../hooks/useToast'
 import uniqid from 'uniqid'
 
 export default function UserPayments(props:any) {
     const { setIsCrete } = props
+    const { getToast } = useToast();
     
     const [paymentDetails, setPaymentDetails] = useState<any>({
             id: 0,
@@ -28,21 +30,19 @@ export default function UserPayments(props:any) {
             paymentMonth: 0,
             raised: true
           });
-        
-        
-        
     const { GET_ENROLLMENT, GET_USERS, USER_PAYMENTS } = UrlConstants();
     const { response: savePaymentResponse, loading: savePaymentLoading, onRefresh: savePaymentDetails } = useFetch({ url: `/Admin/UserPayment`, Options: { method: 'POST', data: paymentDetails }});
     const [ installMentAmount, setInstallmentAMount] = useState<any>();
     const [monthOfInstallMent, setMonthOfInstallMent] = useState<any>();
     const [enrollMentsData, setEnrollMentsData] = useState<Array<any>>([]);
     const [usersData, setUsersData] = useState<Array<any>>([]);
-    const { response: enrollMentresponce, loading } = useFetch({ url: GET_ENROLLMENT, Options: { method: 'GET', initialRender: true } });
-    const { response: usersResponse, loading: usersLoading } = useFetch({ url: GET_USERS, Options: { method: 'GET', initialRender: true } });
+    const { response: enrollMentresponce, loading } = useFetch({ url: `/Admin/GetEnrollMents/${0}/${0}/${true}`, Options: { method: 'GET', initialRender: true } });
+    const { response: usersResponse, loading: usersLoading } = useFetch({ url: `/Admin/GetUsers/${0}/${true}`, Options: { method: 'GET', initialRender: true } });
     
-    const { response: paymentResponse, loading: paymentLoading, onRefresh: getPaymentDetails } = useFetch({ url: `/Admin/GetAuctionDetails/${paymentDetails.groupId}`, Options: { method: 'GET', initialRender: true } });
+    const { response: paymentResponse, loading: paymentLoading, onRefresh: getPaymentDetails } = useFetch({ url: `/Admin/GetAuctionDetails/${paymentDetails.groupId}`, Options: { method: 'GET', initialRender: false } });
 
     useNoninitialEffect(() => {
+        debugger;
         if (savePaymentResponse === 1) {
             getToast('successfull submitted', 'success');
             setIsCrete(false)
@@ -77,12 +77,13 @@ export default function UserPayments(props:any) {
         debugger
         let data: any = paymentResponse;
         if(data.length >0)
-        setPaymentDetails({ ...paymentDetails,dividend:data[0].dividend ,totalAmount:data[0].totalAmount,monthOfInstallMent:data[0].paidUpto })
+        setPaymentDetails({ ...paymentDetails,dividend:data[0].dividend ,totalAmount:data[0].totalAmount,paymentMonth:data[0].paidUpto })
         // setDividend(data[0].dividend);
         // setAmount(data[0].totalAmount);
         // setMonthOfInstallMent(data[0].paidUpto);
     }, [paymentResponse])
     const onInstamentPay = () => {
+        debugger
         savePaymentDetails();
     }
     return (
@@ -108,7 +109,11 @@ export default function UserPayments(props:any) {
                     <Form.Number value={paymentDetails.currentMonthEmi} onChange={(e: any) => setPaymentDetails({ ...paymentDetails,currentMonthEmi: e })} label="InstallMentAmount" />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Number disabled={true} value={paymentDetails.monthOfInstallMent} label="MonthOfInstallMent" />
+                    <Form.Number disabled={true} value={paymentDetails.paymentMonth} label="MonthOfInstallMent" />
+                </Col>
+                {/* for the time being using static amount we need to change */}
+                <Col xl="3" lg="4" md="6">
+                    <Form.Number disabled={true} value={5000} label="DueAmount" />
                 </Col>
                 <Col xl="3" lg="4" md="6">
                     <Form.Number disabled={true} value={paymentDetails.totalAmount} label="TotalAmount" />

@@ -13,8 +13,8 @@ import useNoninitialEffect from "../../hooks/useNoninitialEffect";
 export default function Users() {
   const [userStatus, setUserStatus] = useState(true);
   const { GET_USERS,USERREGISTRATION } = UrlConstants();
-  const { response, loading, onRefresh: UserDetails } = useFetch({ url: `/Admin/GetUsers/${0}/${userStatus}`, Options: { method: 'GET', initialRender: true } });
-  const [userDetails, setUserDetails] = useState<any>({ id: 0, name: '', phone: '', eMail: '', password: '', aadhar: '', address: '', city: '', state: '',isActive:true });
+  const { response, loading, onRefresh: GetUserDetails } = useFetch({ url: `/Admin/GetUsers/${0}/${userStatus}`, Options: { method: 'GET', initialRender: true } });
+  const [userDetails, setUserDetails] = useState<any>({ id: 0, name: '', phone: '', eMail: '', password: '', aadhar: '', address: '', city: '', state: '', isActive:true });
   const { response:userResponse, loading:userLoading, onRefresh: saveUserDetails } = useFetch({ url: USERREGISTRATION, Options: { method: 'POST', data: userDetails } });
   const [isCrete, setIsCrete] = useState(false);
   const [isDelete, setIsDelete] = useState(false);
@@ -22,25 +22,30 @@ export default function Users() {
 
   useNoninitialEffect(() => {
     debugger
-    UserDetails();
+    GetUserDetails();
   }, [userStatus]);
   useNoninitialEffect(() => {
     if (!isCrete) {
-      UserDetails();
+      GetUserDetails();
     }
   }, [isCrete])
   useNoninitialEffect(() => {
     debugger
     if (isDelete) {
+      userDetails.isActive = false;
       setUserDetails({...userDetails,isActive:false});
       saveUserDetails();
+      setIsDelete(false);
+      //userDetails.isActive = true;
+      setUserDetails({...userDetails,isActive:true});
     }
   }, [isDelete])
 
   useNoninitialEffect(() => {
+    debugger
     if (userResponse === 1)
-      UserDetails();
-  }, [userResponse])
+    GetUserDetails();
+  }, [userResponse,isDelete])
 
   return (
     <>
@@ -56,7 +61,7 @@ export default function Users() {
           {/* <Button size="sm" onClick={() => { setIsCrete(!isCrete ? true : false) }}>{!isCrete ? "Create" : "List"}</Button> */}
         </div>
         <Card noPadding title="Users List"
-        headerAction={!isCrete ? <Button size="sm" onClick={() => { setUserDetails({ id: 0, name: '', phone: '', eMail: '', password: '', aadhar: '', address: '', city: '', state: '' }); setIsCrete(true) }}>Create</Button> : <Button size="sm" onClick={() => { setIsCrete(false); UserDetails(); }}>List</Button>}
+        headerAction={!isCrete ? <Button size="sm" onClick={() => { setUserDetails({ id: 0, name: '', phone: '', eMail: '', password: '', aadhar: '', address: '', city: '', state: '' }); setIsCrete(true) }}>Create</Button> : <Button size="sm" onClick={() => { setIsCrete(false); GetUserDetails(); }}>List</Button>}
       // actionButtons={<><Button size="sm">Save</Button> </>}
       >
         {isCrete ? <CreateUser setIsCrete={setIsCrete} setUserDetails={setUserDetails} userDetails={userDetails} /> :

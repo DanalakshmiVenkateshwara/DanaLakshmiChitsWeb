@@ -2,6 +2,7 @@ import react, { useState } from "react";
 import { Button } from "react-bootstrap";
 import UrlConstants from "../../constants/UrlConstants";
 import useFetch from "../../hooks/useFetch";
+import useNoninitialEffect from "../../hooks/useNoninitialEffect";
 import Card from "../../shared/card";
 import Footer from "../../shared/footer";
 import Header from "../../shared/header";
@@ -29,7 +30,13 @@ export default function Payments(){
         raised: true
       });
 
-  const { response, loading } = useFetch({url:USER_OUTSTANDINGS, Options:{method:'GET',initialRender:true}});
+    const { response, loading, onRefresh: getPaymentsData } = useFetch({ url: USER_OUTSTANDINGS, Options: { method: 'GET', initialRender: true } });
+
+    useNoninitialEffect(() => {
+        debugger
+        getPaymentsData();
+    }, [isCrete])
+     
 
     return(
         <>

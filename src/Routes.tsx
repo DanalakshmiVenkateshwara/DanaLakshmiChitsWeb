@@ -10,6 +10,9 @@ import Header from "./components/shared/header";
 import { Col, Row } from "react-bootstrap";
 import NavSidebar from "./components/scenes/sidebar/NavSidebar";
 import Footer from "./components/shared/footer";
+import AuctionsGrid from "./components/scenes/auctionDetails/auctionsgrid";
+import Auctions from "./components/scenes/auctionDetails/auctions";
+import MyChits from "./components/scenes/mychits/mychits";
 
 const routes = createBrowserRouter([
   {
@@ -36,6 +39,14 @@ const routes = createBrowserRouter([
     path: "/AplicationUsers",
     element: <AplicationUsers />,
   },
+  {
+    path: "/Auctions",
+    element: <Auctions />,
+  },
+  {
+    path: "/Mychits",
+    element: <MyChits />,
+  },
 ]);
 
 function Routes() {
@@ -55,6 +66,8 @@ function Routes() {
                 <Route path="/Enrollments" element={<Enrollments />} />
                 <Route path="/Payments" element={<Payments />} />
                 <Route path="/AplicationUsers" element={<AplicationUsers />} />
+                <Route path="/Auctions" element={<Auctions />} />
+                <Route path="/MyChits" element={<MyChits />} />
               </CRoutes>
             </Col>
           </div>

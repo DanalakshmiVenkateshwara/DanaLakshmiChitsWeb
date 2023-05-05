@@ -7,6 +7,7 @@ import useToast from '../../hooks/useToast';
 import Form from '../../shared/form'
 
 export default function CreateUser(props: any) {
+    debugger
     const { userDetails, setUserDetails, setIsCrete } = props;
     const { getToast } = useToast()
     const { USERREGISTRATION } = UrlConstants();
@@ -23,10 +24,15 @@ export default function CreateUser(props: any) {
             getToast("saved/updated failed", 'error')
         }
     }, [response])
+    const onsave=(e:any)=>{
+        userDetails.isActive =true;
+        debugger
+        saveUserDetails();
+    }
 
 
     return (
-        <Form noValidate onSubmit={saveUserDetails}>
+        <Form noValidate onSubmit={(e:any)=> onsave(e)}>
             <Row className="mx-0" >
                 <Col xl="3" lg="4" md="6">
                     <Form.Text required name='' value={userDetails.name} label="UserName" onChange={(e: any) => setUserDetails({ ...userDetails, name: e })} />

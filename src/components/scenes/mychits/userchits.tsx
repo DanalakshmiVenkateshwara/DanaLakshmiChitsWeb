@@ -6,12 +6,13 @@ import useNoninitialEffect from "../../hooks/useNoninitialEffect";
 import Form from "../../shared/form";
 import Grid from "../../shared/grid";
 import GridColumn from "../../shared/grid/GridColumn";
+import CustomRow from "./customrow";
 
 export default function UserChits(props:any){
 
   return (
   <>
-    <Grid data={props.data} loading={props.loading}>
+    <Grid data={props.data} loading={props.loading} as={CustomRow} >
       <GridColumn title="GroupName" targetField="groupName" />
       <GridColumn title="Amount" targetField="amount" />
       <GridColumn title="NextAuctionDate" targetField="nextAuctionDate" />

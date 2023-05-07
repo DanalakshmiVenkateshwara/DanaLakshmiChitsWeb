@@ -13,6 +13,7 @@ import Footer from "./components/shared/footer";
 import AuctionsGrid from "./components/scenes/auctionDetails/auctionsgrid";
 import Auctions from "./components/scenes/auctionDetails/auctions";
 import MyChits from "./components/scenes/mychits/mychits";
+import Acdetails from "./components/scenes/myacdetails/acdetails";
 
 const routes = createBrowserRouter([
   {
@@ -47,6 +48,10 @@ const routes = createBrowserRouter([
     path: "/Mychits",
     element: <MyChits />,
   },
+  {
+    path: "/MyacDetails",
+    element: <Acdetails />,
+  },
 ]);
 
 function Routes() {
@@ -68,6 +73,7 @@ function Routes() {
                 <Route path="/AplicationUsers" element={<AplicationUsers />} />
                 <Route path="/Auctions" element={<Auctions />} />
                 <Route path="/MyChits" element={<MyChits />} />
+                <Route path="/MyacDetails" element={<Acdetails />} />
               </CRoutes>
             </Col>
           </div>

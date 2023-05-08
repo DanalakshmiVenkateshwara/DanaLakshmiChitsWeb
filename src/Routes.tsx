@@ -14,6 +14,9 @@ import AuctionsGrid from "./components/scenes/auctionDetails/auctionsgrid";
 import Auctions from "./components/scenes/auctionDetails/auctions";
 import MyChits from "./components/scenes/mychits/mychits";
 import Acdetails from "./components/scenes/myacdetails/acdetails";
+import Newlycommenced from "./components/scenes/newlycommenced/newlycommenced";
+import UserProfile from "./components/scenes/userprofile/userprofile";
+import ContactUs from "./components/scenes/contactus/contactus";
 
 const routes = createBrowserRouter([
   {
@@ -74,6 +77,9 @@ function Routes() {
                 <Route path="/Auctions" element={<Auctions />} />
                 <Route path="/MyChits" element={<MyChits />} />
                 <Route path="/MyacDetails" element={<Acdetails />} />
+                <Route path="/Newlycommenced" element={<Newlycommenced />} />
+                <Route path="/UserProfile" element={<UserProfile />} />
+                <Route path="/ContactUs" element={<ContactUs />} />
               </CRoutes>
             </Col>
           </div>

@@ -4,24 +4,61 @@ import { CardBody, CardHeader } from "reactstrap";
 import UrlConstants from "../../../../constants/UrlConstants";
 import useFetch from "../../../../hooks/useFetch";
 import useNoninitialEffect from "../../../../hooks/useNoninitialEffect";
-import Form from "../../../../shared/form";
 import Grid from "../../../../shared/grid";
+import Form from "../../../../shared/form";
 import GridColumn from "../../../../shared/grid/GridColumn";
 import CustomRow from "./CustomRow";
 
-export default function EnrollMentsGrid(){
-
+export default function EnrollMentsGrid() {
+  // const [groupsData, setGroupsData] = useState<Array<any>>([]);
   const [isActiveEnrollMents, setIsActiveEnrollments] = useState(true);
-
+  const [groupId, setGroupId] = useState<any>(0);
+  // const [enrollments, setEnrollments] = useState<Array<any>>([]);
   const { GET_ENROLLMENT } = UrlConstants();
-  const { response, loading , onRefresh: getEnrollMents } = useFetch({url:`/Admin/GetEnrollMents/${0}/${0}/${isActiveEnrollMents}`, Options:{method:'GET',initialRender:true}});
-  useNoninitialEffect(()=>{
+  // const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetAllChitPlans?groupClosed =${false}`, Options: { method: "GET", initialRender: true } });
+  const { response, loading, onRefresh: getEnrollMents } = useFetch({ url: `/Admin/GetEnrollMents/${0}/${groupId}/${isActiveEnrollMents}`, Options: { method: 'GET', initialRender: true } });
+  useNoninitialEffect(() => {
     getEnrollMents();
-  },[isActiveEnrollMents])
-
+  }, [isActiveEnrollMents])
+  // useNoninitialEffect(() => {
+  //   debugger
+  //   let data: any = groupResponse;
+  //   debugger
+  //   setGroupsData(data)
+  // }, [groupResponse])
+  // useNoninitialEffect(() => {
+  //   let data: any = response;
+  //   debugger
+  //   setEnrollments(data)
+  // }, [response, groupId])
+  // const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   debugger
+  //   setGroupId(Number(e.target.value));
+  //   getEnrollMents()
+  //   debugger
+  //   // let gropWiseDetails = userChits.filter((f: any) => f.groupId  == e.target.value);
+  //   // setEnrollments(gropWiseDetails)
+  // }
 
   return (<>
-  <Form.CheckBox
+    {/* <h5 className="mb-0 mr-3">{"Select Group "}</h5>
+    <Form.Control as="select" className="col-6 col-sm-3 col-xl-2" size="sm" value={groupId}
+      onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+        onGroupChange(e)
+      }
+    >
+      <option key={-1} value={-1}>
+        {"..Choose group.."}
+      </option>
+      {groupsData.map((item) => {
+        return (
+          <option key={item.id} value={item.id}>
+            {item.groupName}
+          </option>
+        );
+      })}
+    </Form.Control> */}
+    <Form.CheckBox
             label="InActive Users"
             name="InActiveUsers"
             value={isActiveEnrollMents == true ? "true" : "false"}
@@ -29,7 +66,7 @@ export default function EnrollMentsGrid(){
             onChange={(e: any) => setIsActiveEnrollments(prev => !prev)}
             noPadding
             className="me-3" />
-    <Grid data={response} as={CustomRow} loading={loading} rowProps={{ getEnrollMents:getEnrollMents }}>
+    <Grid data={response} as={CustomRow} loading={loading} rowProps={{ getEnrollMents: getEnrollMents }}>
       <GridColumn title="UserName" targetField="userName" />
       <GridColumn title="GroupName" targetField="groupName" />
       <GridColumn title="EnrollMentDate" targetField="enrollMentDate" />

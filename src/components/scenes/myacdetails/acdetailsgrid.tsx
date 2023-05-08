@@ -9,6 +9,7 @@ export default function AcDetailsGrid(props:any){
             <Grid data={props.data} as={CustomROw} loading={props.loading} >
                 <GridColumn title="Date" targetField="paymentDate" />
                 <GridColumn title="Amount" targetField="totalAmount" />
+                <GridColumn title="DueAmount" targetField="dueAmount" />
                 <GridColumn title="month Of Installment" targetField="paymentMonth" />
             </Grid>
         </>

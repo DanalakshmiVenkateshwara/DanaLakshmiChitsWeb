@@ -49,6 +49,21 @@ export default function LandingPage() {
       icon: <i className='fa-solid fa-chalkboard-user fa-4x my-4' ></i>,
       path: '/MyacDetails'
     },
+    {
+      title: "Newlycommenced",
+      icon: <i className='fa-solid fa-chalkboard-user fa-4x my-4' ></i>,
+      path: '/Newlycommenced'
+    },
+    {
+      title: "UserProfile",
+      icon: <i className='fa-solid fa-chalkboard-user fa-4x my-4' ></i>,
+      path: '/UserProfile'
+    },
+    {
+      title: "ContactUs",
+      icon: <i className='fa-solid fa-chalkboard-user fa-4x my-4' ></i>,
+      path: '/ContactUs'
+    },
 
   ]
 

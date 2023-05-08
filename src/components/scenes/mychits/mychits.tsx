@@ -15,7 +15,7 @@ export default function MyChits(){
 
   return (
   <>
-    <Card noPadding title="User Chit Details"
+    <Card noPadding title="Chits Details"
       >
         <UserChits data={response} loading={loading}/>
        </Card>

@@ -3,11 +3,15 @@ import GridCell from '../../shared/grid/GridCell'
 
 export default function CustomROw(props:any) {
     const { data} = props;
-    const convertDateTimeToDate = (date: string) => {
-        debugger
-        let newDate = date ? date.split('T')[0] : "";
-        return newDate;
-      }
+  const convertDateTimeToDate = (date: string) => {
+    debugger
+    if (date == "0001-01-01T00:00:00")
+      return ""
+    else {
+      let newDate = date ? date.split('T')[0] : "";
+      return newDate;
+    }
+  }
   return (
    <>
                <GridCell title="Date" targetField="paymentDate"><>{convertDateTimeToDate(data?.paymentDate)}</></GridCell>

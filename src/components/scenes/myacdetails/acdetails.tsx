@@ -13,7 +13,7 @@ export default function Acdetails() {
 
   // const { response:userChitsResponse, loading:userChitsResponseLoading } = useFetch({ url: `/Admin/GetEnrollMents/${3}/${0}/${true}`, Options: { method: 'GET', initialRender: true } });
 
-  const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetAllChitPlans?groupClosed =${false}`, Options: { method: "GET", initialRender: true } });
+  const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
   const { response, loading,onRefresh: getAcDetails } = useFetch({ url: `/User/GetUserAcCopy?userId=${4}&groupId=${groupId}`, Options: { method: 'GET', initialRender: false } });
   useNoninitialEffect(() => {
     debugger

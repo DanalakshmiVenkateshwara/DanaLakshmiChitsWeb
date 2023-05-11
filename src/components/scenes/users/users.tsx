@@ -29,15 +29,24 @@ export default function Users() {
       GetUserDetails();
     }
   }, [isCrete])
+  // useEffect(()=>{
+  //   if (isDelete){
+  //     setUserDetails({...userDetails,isActive:false});
+  //     if(!userDetails.isActive)
+  //      saveUserDetails();
+  //   }
+    
+  // },[userDetails])
+
   useNoninitialEffect(() => {
     debugger
     if (isDelete) {
-      userDetails.isActive = false;
+      //userDetails.isActive = false;
       setUserDetails({...userDetails,isActive:false});
       saveUserDetails();
-      setIsDelete(false);
+      //setIsDelete(false);
       //userDetails.isActive = true;
-      setUserDetails({...userDetails,isActive:true});
+      //setUserDetails({...userDetails,isActive:true});
     }
   }, [isDelete])
 

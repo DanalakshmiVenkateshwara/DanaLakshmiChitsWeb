@@ -59,18 +59,25 @@ export default function Users() {
   return (
     <>
     <div className="d-flex align-items-center">
-          <Form.CheckBox
+          {!isCrete && <Form.CheckBox
             label="InActive Users"
             name="InActiveUsers"
             value={userStatus == true ? "true" : "false"}
             checked={!userStatus}
             onChange={(e: any) => setUserStatus(prev => !prev)}
             noPadding
-            className="me-3" />
+            className="me-3" />}
           {/* <Button size="sm" onClick={() => { setIsCrete(!isCrete ? true : false) }}>{!isCrete ? "Create" : "List"}</Button> */}
         </div>
-        <Card noPadding title="Users List"
-        headerAction={!isCrete ? <Button size="sm" onClick={() => { setUserDetails({ id: 0, name: '', phone: '', eMail: '', password: '', aadhar: '', address: '', city: '', state: '' }); setIsCrete(true) }}>Create</Button> : <Button size="sm" onClick={() => { setIsCrete(false); GetUserDetails(); }}>List</Button>}
+
+        
+        <Card noPadding title={isCrete?"Create user":(userStatus?"Users List":"InActive users")}
+        headerAction={
+          !isCrete ?
+         <Button size="sm" 
+         onClick={() => { setUserDetails({ id: 0, name: '', phone: '', eMail: '', password: '', aadhar: '', address: '', city: '', state: '' });
+          setIsCrete(true) }}>Create</Button> :
+           <Button size="sm" onClick={() => { setIsCrete(false); GetUserDetails(); }}>List</Button>}
       // actionButtons={<><Button size="sm">Save</Button> </>}
       >
         {isCrete ? <CreateUser setIsCrete={setIsCrete} setUserDetails={setUserDetails} userDetails={userDetails} /> :

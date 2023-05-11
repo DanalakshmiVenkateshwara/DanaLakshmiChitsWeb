@@ -1,4 +1,4 @@
-import react, { useState } from "react";
+import react, { useEffect, useState } from "react";
 import { Card, Col, Modal, Row, Table } from "react-bootstrap";
 import { CardBody, CardHeader } from "reactstrap";
 import UrlConstants from "../../../../constants/UrlConstants";
@@ -9,17 +9,23 @@ import Form from "../../../../shared/form";
 import GridColumn from "../../../../shared/grid/GridColumn";
 import CustomRow from "./CustomRow";
 
-export default function EnrollMentsGrid() {
+export default function EnrollMentsGrid(props:any) {
+  debugger
   // const [groupsData, setGroupsData] = useState<Array<any>>([]);
   const [isActiveEnrollMents, setIsActiveEnrollments] = useState(true);
   const [groupId, setGroupId] = useState<any>(0);
   // const [enrollments, setEnrollments] = useState<Array<any>>([]);
   const { GET_ENROLLMENT } = UrlConstants();
   // const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetAllChitPlans?groupClosed =${false}`, Options: { method: "GET", initialRender: true } });
-  const { response, loading, onRefresh: getEnrollMents } = useFetch({ url: `/Admin/GetEnrollMents/${0}/${groupId}/${isActiveEnrollMents}`, Options: { method: 'GET', initialRender: true } });
+  const { response, loading, onRefresh: getEnrollMents } = useFetch({ url: `/Admin/GetEnrollMents/${0}/${props.groupId}/${false}`, Options: { method: 'GET', initialRender: false } });
+  // useEffect(()=>{
+  //   debugger
+  //   getEnrollMents();
+  // },[props.groupId!=0])
   useNoninitialEffect(() => {
+    debugger
     getEnrollMents();
-  }, [isActiveEnrollMents])
+  }, [isActiveEnrollMents ,props.groupId])
   // useNoninitialEffect(() => {
   //   debugger
   //   let data: any = groupResponse;
@@ -58,14 +64,14 @@ export default function EnrollMentsGrid() {
         );
       })}
     </Form.Control> */}
-    <Form.CheckBox
+    {/* <Form.CheckBox
             label="InActive Users"
             name="InActiveUsers"
             value={isActiveEnrollMents == true ? "true" : "false"}
             checked={!isActiveEnrollMents}
             onChange={(e: any) => setIsActiveEnrollments(prev => !prev)}
             noPadding
-            className="me-3" />
+            className="me-3" /> */}
     <Grid data={response} as={CustomRow} loading={loading} rowProps={{ getEnrollMents: getEnrollMents }}>
       <GridColumn title="UserName" targetField="userName" />
       <GridColumn title="GroupName" targetField="groupName" />

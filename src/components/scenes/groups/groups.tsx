@@ -23,17 +23,17 @@ export default function Groups() {
   }, [groupStatus]);
 
   return (
-    <Card noPadding title={isCrete ? "groupwise create" : "Groupwise List"}
+    <Card noPadding title={isCrete ? "Create Group" :(groupStatus?"Closed Group List": "Groups List")}
       headerAction={
         <div className="d-flex align-items-center">
-          <Form.CheckBox
+          {!isCrete && <Form.CheckBox
             label="Closed Groups"
             name="ClosedGroups"
             value={groupStatus == true ? "true" : "false"}
             checked={groupStatus}
             onChange={(e: any) => setGroupStatus(prev => !prev)}
             noPadding
-            className="me-3" />
+            className="me-3" />}
           <Button size="sm" onClick={() => { setIsCrete(!isCrete ? true : false) }}>{!isCrete ? "Create" : "List"}</Button>
         </div>
       }

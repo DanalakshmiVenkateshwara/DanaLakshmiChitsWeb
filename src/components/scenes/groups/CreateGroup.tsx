@@ -19,8 +19,14 @@ export default function CreateGroup(props: any) {
     const [groupDetails, setGroupDetails] = useState({ GroupName: "", Amount: 0, Duration: 0, Existed: true, GroupClosed: true, NoOfMembers: 0, InstallMentAmount: 0 });
     const { response, loading, onRefresh: saveGroupDetails } = useFetch({ url: ADD_CHIT_PLANS, Options: { method: 'POST', data: groupDetails } });
     const saveGroup = () => {
-        var data = groupDetails;
-        saveGroupDetails();
+        if(groupDetails.GroupName.length>0 && groupDetails.Amount>0 &&groupDetails.Duration>0&& groupDetails.NoOfMembers>0 && groupDetails.InstallMentAmount>0 ){
+            var data = groupDetails;
+            saveGroupDetails();
+        }
+        else{
+            getToast('All are Mandatory.', 'error');
+        }
+        
         //how can we read the response
 
     }

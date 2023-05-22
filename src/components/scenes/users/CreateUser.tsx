@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Col, Row } from 'react-bootstrap'
+import { Col,Form as RForm, Row } from 'react-bootstrap'
 import UrlConstants from '../../constants/UrlConstants';
 import useFetch from '../../hooks/useFetch';
 import useNoninitialEffect from '../../hooks/useNoninitialEffect';
 import useToast from '../../hooks/useToast';
-import Form from '../../shared/form'
+import Form from '../../shared/form';
+import NumberFormat from 'react-number-format';
 
 export default function CreateUser(props: any) {
     debugger
@@ -24,25 +25,78 @@ export default function CreateUser(props: any) {
             getToast("saved/updated failed", 'error')
         }
     }, [response])
-    const onsave=(e:any)=>{
-        userDetails.isActive =true;
+    const onSave=(e:any)=>{
         debugger
-        saveUserDetails();
+        let error: Array<string> = [];
+        if (userDetails.phone) {
+            debugger
+            let reg = /^(?!0+$)\d{10,}$/;
+            if (!userDetails.phone.match(reg))
+              error.push("Pleaseentervalidmobilenumber");
+            if (userDetails.phone.length < 10)
+               error.push("Mobilenumbermustconsistof10digits");
+               if (userDetails.phone.length > 10)
+               error.push("Mobilenumbermustconsistof10digits");
+          }
+        if(userDetails.name=== "") error.push("Name Is Mandatory")
+        if (userDetails.eMail) {
+            let reg = /^[a-zA-Z0-9.]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*$/;
+            if (!reg.test(userDetails.eMail))
+              error.push("Pleaseentervalidemail");
+          }
+        // if(userDetails.aadhar>0) error.push("aadhar Is Mandatory")
+        if (error.length > 0) {
+            getToast(error.join(", ").toString(), 'error');
+          }
+          else{
+            userDetails.isActive =true;
+            debugger
+            saveUserDetails();
+          }
+    }
+    const emailValidationHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        let reg = /^[a-zA-Z0-9@.]*$/;
+    
+        if (reg.test(e.target.value)) {
+            setUserDetails({ ...userDetails, eMail: e.target.value });
+        }
     }
 
-
     return (
-        <Form noValidate onSubmit={(e:any)=> onsave(e)}>
+        <Form noValidate onSubmit={(e:any)=> onSave(e)}>
             <Row className="mx-0" >
                 <Col xl="3" lg="4" md="6">
                     <Form.Text required name='' value={userDetails.name} label="UserName" onChange={(e: any) => setUserDetails({ ...userDetails, name: e })} />
                 </Col>
+                {/* <Col xl="3" lg="4" md="6">
+                    
+                <NumberFormat
+              format="(###) ###-####"
+              className="form-control"
+              placeholder="(###) ###-####"
+              mask="_"
+              allowEmptyFormatting={false}
+              value={userDetails.phone}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setUserDetails({ ...userDetails, phone: e.target.value })
+              }
+            />
+            </Col> */}
                 <Col xl="3" lg="4" md="6">
                     <Form.Text required name='' value={userDetails.phone} label="Phone" onChange={(e: any) => setUserDetails({ ...userDetails, phone: e })} />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Text required name='' value={userDetails.eMail} label="Email" onChange={(e: any) => setUserDetails({ ...userDetails, eMail: e })} />
-                </Col>
+                    <label>Email</label>
+                <RForm.Control
+              required
+              type="email"
+              placeholder={"EnterEmail"} autoComplete="off"
+              value={userDetails.eMail}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                emailValidationHandler(e)
+              }
+            />
+            </Col>
                 <Col xl="3" lg="4" md="6">
                     <Form.Text required name='' value={userDetails.password} label="Password" onChange={(e: any) => setUserDetails({ ...userDetails, password: e })} />
                 </Col>

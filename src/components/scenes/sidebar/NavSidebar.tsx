@@ -18,6 +18,7 @@ function NavSidebar() {
         <SideBarItem icon={<i className="fa-solid fa-chalkboard-user"></i>} path="/Newlycommenced" label="Newlycommenced"/>
         <SideBarItem icon={<i className="fa-solid fa-chalkboard-user"></i>} path="/UserProfile" label="UserProfile"/>
         <SideBarItem icon={<i className="fa-solid fa-chalkboard-user"></i>} path="/ContactUs" label="ContactUs"/>
+        <SideBarItem icon={<i className="fa-solid fa-chalkboard-user"></i>} path="/LoginPage" label="LoginPage"/>
       </>
     </Sidebar>
   );

@@ -1,0 +1,27 @@
+.sceneContainer{
+    width: 100vw;
+    height: 100vh;
+    background-size: cover;
+
+    .formContainer{
+        height: calc(100% - 150px);
+    .formPanel{
+        width: 600px;
+        // min-height: 500px;
+    }
+    .logo {
+        width: 275px;
+        // Medium devices (tablets, less than 992px)
+        // @include bs.media-breakpoint-down(sm) {
+        //   width: 50%;
+        // }
+      }
+    }
+    .loginFooter{
+        height: 150px;
+        img{
+            width: 200px;
+        }
+    }
+
+}

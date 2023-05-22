@@ -17,6 +17,7 @@ import Acdetails from "./components/scenes/myacdetails/acdetails";
 import Newlycommenced from "./components/scenes/newlycommenced/newlycommenced";
 import UserProfile from "./components/scenes/userprofile/userprofile";
 import ContactUs from "./components/scenes/contactus/contactus";
+import LoginPage from "./components/scenes/login-form";
 
 const routes = createBrowserRouter([
   {
@@ -55,6 +56,10 @@ const routes = createBrowserRouter([
     path: "/MyacDetails",
     element: <Acdetails />,
   },
+  {
+    path: "/LoginPage",
+    element: <LoginPage />,
+  }
 ]);
 
 function Routes() {
@@ -80,6 +85,7 @@ function Routes() {
                 <Route path="/Newlycommenced" element={<Newlycommenced />} />
                 <Route path="/UserProfile" element={<UserProfile />} />
                 <Route path="/ContactUs" element={<ContactUs />} />
+                <Route path="/LoginPage" element={<LoginPage />} />
               </CRoutes>
             </Col>
           </div>

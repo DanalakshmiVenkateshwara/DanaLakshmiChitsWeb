@@ -64,6 +64,11 @@ export default function LandingPage() {
       icon: <i className='fa-solid fa-chalkboard-user fa-4x my-4' ></i>,
       path: '/ContactUs'
     },
+    {
+      title: "LoginPage",
+      icon: <i className='fa-solid fa-chalkboard-user fa-4x my-4' ></i>,
+      path: '/LoginPage'
+    },
 
   ]
 

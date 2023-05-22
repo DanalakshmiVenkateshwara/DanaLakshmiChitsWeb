@@ -12,7 +12,7 @@ export default function CustomRow(props: any) {
             <GridCell title="Phone" targetField="phone"><>{data?.phone}</></GridCell>
             <GridCell title="Email" targetField="email">{data?.eMail}</GridCell>
             <GridCell title="Password" targetField="password">{data?.password}</GridCell>
-            <GridCell title="Address" targetField="address" >{data?.address}</GridCell>
+            <GridCell title="Address" targetField="address" ><>{data?.address +','+ data?.city+','+ data?.state}</></GridCell>
             <GridCell title="Actions" targetField="Edit" >
                 {/* we need disable for buttons disabled={!data?.isActive} */}
                 <>{data?.isActive && <Button  onClick={() => {rowProps.setUserDetails({ ...data }); rowProps.setIsCrete(true) }}>

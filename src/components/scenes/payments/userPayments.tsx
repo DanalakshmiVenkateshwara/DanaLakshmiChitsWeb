@@ -119,8 +119,17 @@ export default function UserPayments(props: any) {
     // setMonthOfInstallMent(data[0].paidUpto);
   }, [paymentResponse]);
   const onInstamentPay = () => {
+    debugger
+    let error: Array<string> = [];
+    if(paymentDetails.userId<=0) error.push("Please select username");
+    if(paymentDetails.groupId<=0) error.push("Please choose group");
+    if(paymentDetails.currentMonthEmi<=0) error.push("Installment amount is mandatory");
+    if(error.length>0){
+      getToast(error.join(", ").toString(),"error")
+    }else{
     debugger;
     savePaymentDetails();
+  }
   };
   return (
     <Form noValidate onSubmit={onInstamentPay}>

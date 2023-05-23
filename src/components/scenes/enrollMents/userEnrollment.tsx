@@ -4,7 +4,7 @@ import Select from '../../shared/form/controls/Select'
 import Submit from '../../shared/form/controls/Submit'
 import Text from '../../shared/form/controls/Text'
 import Form from '../../shared/form'
-import { Col, Row } from 'react-bootstrap'
+import { Col, Row,Form as RForm } from 'react-bootstrap'
 import useFetch from '../../hooks/useFetch'
 import useToast from '../../hooks/useToast'
 import useNoninitialEffect from '../../hooks/useNoninitialEffect'
@@ -55,24 +55,52 @@ export default function UserEnrollment(props: any) {
         setUsersData(data)
     }, [usersResponse])
 
-    const onGroupChange = (e: any) => {
-        debugger
-        setGroupId(e)
-        let amount = groupsData.filter((f: any) => f.id == e)[0].amount;
-        setAmount(amount)
-    }
+    // const onGroupChange = (e: any) => {
+    //     debugger
+    //     setGroupId(e)
+    //     let amount = groupsData.filter((f: any) => f.id == e)[0].amount;
+    //     setAmount(amount)
+    // }
     const onUserChange = (e: any) => {
         setUserId(e)
     }
+    const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        debugger
+        setGroupId(e.target.value)
+        let amount = groupsData.filter((f: any) => f.id == e.target.value)[0].amount;
+        setAmount(amount);
+      }
 
 
     return (
         <Form noValidate onSubmit={enrollUser}>
             <Row className='mx-0'>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Select placeholder='choose group name' required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => { onGroupChange(e) }}>
+                    <label>Select Group</label>
+                    <RForm.Control
+            as="select"
+            className="col-6 col-sm-3 col-xl-2"
+            size="sm"
+            value={groupId}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                onGroupChange(e)
+            }
+          >
+            <option key={-1} value={-1}>
+              {"..Choose group.."}
+            </option>
+            {groupsData.map((item) => {
+              debugger
+              return (
+                <option key={item.id} value={item.id}>
+                  {item.groupName}
+                </option>
+              );
+            })}
+          </RForm.Control>
+                    {/* <Form.Select placeholder='choose group name' required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => { onGroupChange(e) }}>
                         {groupsData.map((gd: any) => <option key={uniqid()} value={gd.id} onChange={() => { }}>{gd.groupName}</option>)}
-                    </Form.Select>
+                    </Form.Select> */}
                 </Col>
                 <Col xl="3" lg="4" md="6">
                     <Form.Text disabled={true} value={amount} label="Amount" />

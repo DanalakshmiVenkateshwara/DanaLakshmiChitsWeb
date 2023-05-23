@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Col, Row, Button, Container } from 'react-bootstrap';
-// import md5 from 'md5';
+import useToast from '../../hooks/useToast';
 
 export default function LoginPage() {
+    const { getToast } = useToast();
     const [userName, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [triggerValidate, setTriggerValidate] = React.useState<boolean>(true);
@@ -11,6 +12,7 @@ export default function LoginPage() {
 
 
     const validationHandler = (): boolean => {
+        debugger
         let error = "";
         let isValid = true;
 
@@ -22,7 +24,7 @@ export default function LoginPage() {
             error = "Password is required to login.";
 
         if (error != "") {
-            //write error 
+           getToast(error, 'error');
             isValid = false;
         }
 

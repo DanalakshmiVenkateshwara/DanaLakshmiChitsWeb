@@ -33,7 +33,8 @@ export default function Enrollments() {
   }
   return (
     <>
-    {!isCrete && <Form.Control as="select" className="col-6 col-sm-3 col-xl-2" size="sm" value={groupId}
+    {!isCrete && <label>Select Group</label>}
+    {!isCrete &&  <Form.Control as="select" className="col-6 col-sm-3 col-xl-2" size="sm" value={groupId}
       onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
         onGroupChange(e)
       }

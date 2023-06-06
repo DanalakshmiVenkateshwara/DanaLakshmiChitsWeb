@@ -28,8 +28,21 @@ export default function UserEnrollment(props: any) {
     const { response, loading, onRefresh: saveEnrollMents } = useFetch({ url: `/Admin/EnrollMent/${userId}/${groupId}/${true}`, Options: { method: 'POST' } });
     const { response: usersResponse, loading: usersLoading } = useFetch({ url: `/Admin/GetUsers/${0}/${true}`, Options: { method: 'GET', initialRender: true } });
     const enrollUser = () => {
-        // var data = enrollMents;
+        debugger
+        let error: Array<string> = [];
+        if(groupId==undefined|| groupId == -1)
+        error.push("Groupname is Mandatory");
+        if(amount==undefined|| amount =="")
+        error.push("Amount is Mandatory");
+        if(userId==undefined)
+        error.push("UserName is Mandatory");
+        if (error.length > 0) {
+            getToast(error.join(", ").toString(), 'error');
+        }
+        else
         saveEnrollMents();
+        // var data = enrollMents;
+        
         //how can we read the response
 
     }
@@ -62,13 +75,16 @@ export default function UserEnrollment(props: any) {
     //     setAmount(amount)
     // }
     const onUserChange = (e: any) => {
-        setUserId(e)
+        setUserId(e);
     }
     const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         debugger
         setGroupId(e.target.value)
+        if(e.target.value != '-1'){
         let amount = groupsData.filter((f: any) => f.id == e.target.value)[0].amount;
         setAmount(amount);
+        }
+        else(setAmount(''))
       }
 
 

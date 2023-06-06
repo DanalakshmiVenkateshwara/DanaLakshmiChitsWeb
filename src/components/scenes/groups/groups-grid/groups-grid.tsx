@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Button, Card, Col, Modal, Row, Table } from "react-bootstrap";
 import { CardBody, CardHeader } from "reactstrap";
-import CreateGroup from "../forms/create-group";
 import axios from "axios";
 import Grid from "../../../shared/grid";
 import GridColumn from "../../../shared/grid/GridColumn";

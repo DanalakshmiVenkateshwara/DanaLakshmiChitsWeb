@@ -5,7 +5,6 @@ import UrlConstants from "../../../../constants/UrlConstants";
 import useFetch from "../../../../hooks/useFetch";
 import Grid from "../../../../shared/grid";
 import GridColumn from "../../../../shared/grid/GridColumn";
-import CreateUser from "../create-user";
 import CustomRow from "./CustomRow";
 interface Iprops {
   data?: any; loading?: boolean;setIsDelete?:Dispatch<React.SetStateAction<boolean>>; setIsCrete?: Dispatch<React.SetStateAction<boolean>>; setUserDetails?: Dispatch<React.SetStateAction<any>>

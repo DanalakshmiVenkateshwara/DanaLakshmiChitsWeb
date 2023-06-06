@@ -7,10 +7,6 @@ export default function LoginPage() {
     const [userName, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [triggerValidate, setTriggerValidate] = React.useState<boolean>(true);
-
-
-
-
     const validationHandler = (): boolean => {
         debugger
         let error = "";

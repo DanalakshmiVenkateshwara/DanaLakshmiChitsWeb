@@ -25,6 +25,17 @@ const BDHY = [
     time: "2023-06-10T17:11:00",
   },
 ];
+const pList=[
+  {
+    user:"anvesh",
+    joinedAt:"2023-06-10T17:00:00"
+  },
+  {
+    user:"sandeep",
+    joinedAt:"2023-06-10T17:00:00"
+  },
+]
+
 
  
 function secondsToMinutes(seconds:number) {
@@ -178,8 +189,26 @@ function getTimeAgo(timestamp:any) {
         <Offcanvas.Title>Participates</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-        Some text as placeholder. In real life you can have the elements you
-        have chosen. Like, text, images, lists, etc.
+     {pList.map((item,index)=>{
+      return  <Card noPadding className="p-2 m-2 shadow border-0">
+      <Row className="m-0 align-items-center">
+        <div
+          className="bg-primary d-flex rounded-circle text-white"
+          style={{ width: "40px", height: "40px" }}
+        >
+          <label className="m-auto">{index + 1}</label>
+        </div>
+        <Col sm={6}>
+          <h6 className="mb-0">{item?.user}</h6>
+          <span>
+            <small className="d-block" style={{ fontSize: "10px" }}>{'Joined at '}  
+              {getTimeAgo(item?.joinedAt)}
+            </small>
+          </span>
+        </Col> 
+      </Row>
+    </Card>
+     })}
       </Offcanvas.Body>
     </Offcanvas>
   </>

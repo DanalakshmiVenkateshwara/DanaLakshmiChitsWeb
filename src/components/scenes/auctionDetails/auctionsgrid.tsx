@@ -6,18 +6,20 @@ import useNoninitialEffect from "../../hooks/useNoninitialEffect";
 import Form from "../../shared/form";
 import Grid from "../../shared/grid";
 import GridColumn from "../../shared/grid/GridColumn";
+import CustomRow from "./customrow";
 
 export default function AuctionsGrid(props:any){
    
   return (
   <>
-    <Grid data={props.data} loading={props.loading}>
+    <Grid data={props.data} loading={props.loading} as={CustomRow}>
       <GridColumn title="UserName" targetField="userName" />
       <GridColumn title="GroupName" targetField="groupName" />
       <GridColumn title="AuctionDate" targetField="auctionDate" />
       <GridColumn title="AuctionMonth" targetField="paidUpto" />
       <GridColumn title="Amount" targetField="amount" />
       <GridColumn title="Dividend" targetField="dividend" />
+      <GridColumn title="" targetField=""/>
     </Grid>
   </>
 

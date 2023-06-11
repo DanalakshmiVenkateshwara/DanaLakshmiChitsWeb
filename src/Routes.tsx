@@ -18,6 +18,7 @@ import Newlycommenced from "./components/scenes/newlycommenced/newlycommenced";
 import UserProfile from "./components/scenes/userprofile/userprofile";
 import ContactUs from "./components/scenes/contactus/contactus";
 import LoginPage from "./components/scenes/login-form/login-form";
+import Participate from "./components/scenes/auctionDetails/participate";
 
 
 const routes = createBrowserRouter([
@@ -87,6 +88,7 @@ function Routes() {
                 <Route path="/UserProfile" element={<UserProfile />} />
                 <Route path="/ContactUs" element={<ContactUs />} />
                 <Route path="/LoginPage" element={<LoginPage />} />
+                <Route path="/participate" element={<Participate />} />
               </CRoutes>
             </Col>
           </div>

@@ -15,6 +15,7 @@ interface Iprops {
     isInvalid?: boolean;
     value?: string;
     tabIndex?: number;
+    style?:any;
 }
 export default function Text(props: Iprops) {
     return (

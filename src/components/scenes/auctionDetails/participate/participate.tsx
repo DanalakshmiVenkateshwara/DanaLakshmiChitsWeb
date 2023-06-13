@@ -105,30 +105,30 @@ function getTimeAgo(timestamp:any) {
           <Card
             title="Bidding Amount"
             className="mt-3"
-            actionButtons={<Button>Bid</Button>}
+            actionButtons={<Button>Bid amount</Button>}
           >
             <Row>
             <Col sm={8} >
            <Row>
            <Col sm="4">
-                <Button size="default">+100</Button>{" "}
+                <Button size="default">+ 100</Button>{" "}
               </Col>
               <Col  sm="4">
-                <Button size="default" className="mx-3">+200</Button>
+                <Button size="default"  >+ 200</Button>
               </Col>
               <Col  sm="4">
-                <Button size="default">+500</Button>
+                <Button size="default">+ 500</Button>
               </Col>
            </Row>
             <Row className="mt-3">
             <Col  sm="4">
-                <Button size="default">+1000</Button>
+                <Button size="default">+ 1000</Button>
               </Col>
               <Col  sm="4">
-                <Button size="default" className="mx-3">+2000</Button>
+                <Button size="default"  >+ 2000</Button>
               </Col>
               <Col  sm="4">
-                <Button size="default">+5000</Button>
+                <Button size="default">+ 5000</Button>
               </Col>
             
               </Row>

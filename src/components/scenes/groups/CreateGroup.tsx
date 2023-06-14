@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Col, OverlayTrigger, Row } from 'react-bootstrap'
+import { Button, Col, Form as RForm, OverlayTrigger, Row } from 'react-bootstrap'
 import { Container } from 'reactstrap'
 import Number from '../../shared/form/controls/Number'
 import Select from '../../shared/form/controls/Select'
@@ -18,6 +18,8 @@ export default function CreateGroup(props: any) {
     const { ADD_CHIT_PLANS } = UrlConstants();
     const [groupDetails, setGroupDetails] = useState({ GroupName: "", Amount: 0, Duration: 0, Existed: true, GroupClosed: true, NoOfMembers: 0, InstallMentAmount: 0 });
     const { response, loading, onRefresh: saveGroupDetails } = useFetch({ url: ADD_CHIT_PLANS, Options: { method: 'POST', data: groupDetails } });
+    const { response:validateGroupResponse, loading:validateGroupLoading, onRefresh: validateGroupName } = useFetch({ url: `/Admin/ValidateGroup?groupName=${groupDetails.GroupName}`, Options: { method: 'GET'} });
+
     const saveGroup = () => {
         if(groupDetails.GroupName.length>0 && groupDetails.Amount>0 &&groupDetails.Duration>0&& groupDetails.NoOfMembers>0 && groupDetails.InstallMentAmount>0 ){
             var data = groupDetails;
@@ -40,12 +42,41 @@ export default function CreateGroup(props: any) {
             getToast('Failed submitted', 'error');
 
     }, [response])
+    useNoninitialEffect(() => {
+        debugger
+        var validateGroupName:any = validateGroupResponse
+        if (validateGroupName >= 1) {
+            getToast('GroupName existed please change the groupName', 'error');
+        }
+    }, [validateGroupResponse])
+    const groupNameChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setGroupDetails({ ...groupDetails, GroupName: e.target.value})
+    };
+    const groupNameBlurHandler = () => {
+        validateGroupName();
+    };
+
     return (
         <Form noValidate onSubmit={saveGroup}>
             <Row className='mx-0'>
-                <Col xl="3" lg="4" md="6">
-                    <Form.Text required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => setGroupDetails({ ...groupDetails, GroupName: e })} />
+            <Col xl="3" lg="4" md="6">
+            <RForm.Label>{"GroupName"}</RForm.Label>
+            <RForm.Control
+              required
+              type="text"
+              placeholder={"EnterGroupName"}
+              maxLength={25}
+              value={groupDetails.GroupName}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                groupNameChangeHandler(e)
+              }
+              onBlur={() => groupNameBlurHandler()}
+            />
                 </Col>
+
+                {/* <Col xl="3" lg="4" md="6">
+                    <Form.Text required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => setGroupDetails({ ...groupDetails, GroupName: e })} />
+                </Col> */}
                 <Col xl="3" lg="4" md="6">
                     <Form.Number required name='' errorMsg="Amount is required" label="Amount" onChange={(e: any) => setGroupDetails({ ...groupDetails, Amount: e })} />
                 </Col>

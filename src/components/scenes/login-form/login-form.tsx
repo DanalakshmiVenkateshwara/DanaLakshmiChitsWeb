@@ -1,12 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { Form, Col, Row, Button, Container } from 'react-bootstrap';
 import useToast from '../../hooks/useToast';
+import useFetch from '../../hooks/useFetch';
+import useNoninitialEffect from "../../hooks/useNoninitialEffect";
+import {connect} from 'react-redux'
+import appStore from '../../shared/Store/Store';
 
 export default function LoginPage() {
     const { getToast } = useToast();
     const [userName, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [triggerValidate, setTriggerValidate] = React.useState<boolean>(true);
+    const [userInfo, setUserInfo] = useState<any>({ userId: 0, userName: ''});
+   
+    // const [triggerValidate, setTriggerValidate] = React.useState<boolean>(true);
+    const { response, loading, onRefresh: validateUser } = useFetch({ url:`/Admin/ValidateUser?userName=${userName}&password=${password}` , Options: { method: 'GET', initialRender: false} });
     const validationHandler = (): boolean => {
         debugger
         let error = "";
@@ -26,10 +33,20 @@ export default function LoginPage() {
 
         return isValid;
     }
+    useNoninitialEffect(() => {
+        debugger
+        var data:any = response;
+         if(data!=null){
+            localStorage.setItem('userInfo', JSON.stringify(response));
+            //  Store.update("updateUserInformation", { ...userInfo, userId: Number(data?.id), userName: data?.name});
+    }       
+      }, [response]);
+    
 
     const loginClickHandler = () => {
         if (validationHandler()) {
-            setTriggerValidate(!triggerValidate);
+            validateUser();
+            // setTriggerValidate(!triggerValidate);
         }
     }
     const enterKeyPressed = (event: any) => {

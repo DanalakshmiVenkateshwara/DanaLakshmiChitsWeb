@@ -6,6 +6,8 @@ import useNoninitialEffect from '../../hooks/useNoninitialEffect';
 import useToast from '../../hooks/useToast';
 import Form from '../../shared/form';
 import NumberFormat from 'react-number-format';
+import firebase from './fireBase';
+// import firebase from './fireBase';
 
 export default function CreateUser(props: any) {
     debugger
@@ -61,6 +63,15 @@ export default function CreateUser(props: any) {
             setUserDetails({ ...userDetails, eMail: e.target.value });
         }
     }
+    // const configureCapch =()=>{
+    //     window.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sign-in-button', {
+    //         'size': 'invisible',
+    //         'callback': (response) => {
+    //           // reCAPTCHA solved, allow signInWithPhoneNumber.
+    //           onSignInSubmit();
+    //         }
+    //       });
+    // }
 
     return (
         <Form noValidate onSubmit={(e:any)=> onSave(e)}>

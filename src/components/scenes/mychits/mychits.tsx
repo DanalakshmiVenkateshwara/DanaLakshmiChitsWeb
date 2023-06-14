@@ -1,4 +1,4 @@
-import react, { useState } from "react";
+import react, { useEffect, useState } from "react";
 import {Col, Modal, Row, Table } from "react-bootstrap";
 import { CardBody, CardHeader } from "reactstrap";
 import useFetch from "../../hooks/useFetch";
@@ -10,8 +10,17 @@ import GridColumn from "../../shared/grid/GridColumn";
 import UserChits from "../mychits/userchits";
 
 export default function MyChits(){
-
-  const { response, loading } = useFetch({ url: `/Admin/GetEnrollMents/${3}/${0}/${true}`, Options: { method: 'GET', initialRender: true } });
+  debugger
+  const [userInfo, setUserInfo] = useState<any>({ userId: 0, userName: ''});
+  useEffect(() => {
+    debugger
+    const items = localStorage.getItem('userInfo');
+    if (items) {
+      setUserInfo(items);
+      getChits();
+    }
+  }, []);
+  const { response, loading, onRefresh:getChits } = useFetch({ url: `/Admin/GetEnrollMents/${userInfo.userId}/${0}/${true}`, Options: { method: 'GET', initialRender:false} });
 
   return (
   <>

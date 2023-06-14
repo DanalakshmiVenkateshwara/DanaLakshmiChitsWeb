@@ -10,8 +10,6 @@ import GridColumn from "../../shared/grid/GridColumn";
 import AuctionsGrid from "./auctionsgrid";
 
 export default function Auctions(){
-    debugger;
-
   const { response: auctionsResponse, loading: auctionsLoading, onRefresh: getAuctionDetails } = useFetch({ url: `/Admin/GetAuctionDetails/${0}`, Options: { method: 'GET', initialRender: true } });
 
   return (

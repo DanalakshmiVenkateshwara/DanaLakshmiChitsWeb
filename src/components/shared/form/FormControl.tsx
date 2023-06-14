@@ -33,6 +33,7 @@ interface Iprops {
     isAutoComplete?: boolean;
     noPadding?:boolean;
     parentClassName?:string;
+    style?:any;
 }
 export default function FormControl(props: Iprops) {
     return (
@@ -111,6 +112,7 @@ export default function FormControl(props: Iprops) {
                             size={'sm'}
                             isValid={props.isValid}
                             isInvalid={props.isInvalid}
+                            style={props.style}
                         />
                         <Form.Control.Feedback type="invalid">{props.errorMsg}</Form.Control.Feedback>
                     </>

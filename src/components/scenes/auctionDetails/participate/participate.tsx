@@ -5,8 +5,40 @@ import Button from "../../../shared/button";
 import Card from "../../../shared/card";
 import Form from "../../../shared/form";
 import './_participate.scss'
+import { io } from 'socket.io-client';
+
+
+
 
 export default function Participate() {
+  React.useEffect(() => {
+    const socket = new WebSocket('ws://127.0.0.1:5000/websocket');
+
+    socket.addEventListener('open', (event) => {
+      // Send a handshake request to the server
+      socket.send(JSON.stringify({ action: 'handshake' }));
+    });
+
+    socket.addEventListener('message', (event) => {
+      const message = JSON.parse(event.data);
+
+      if (message.action === 'handshakeResponse') {
+        const connectionId = message.connectionId;
+        console.log('WebSocket connection established. Connection ID:', connectionId);
+      } else {
+        console.log('Received message:', message);
+      }
+    });
+
+    socket.addEventListener('close', () => {
+      console.log('WebSocket connection closed.');
+    });
+
+    return () => {
+      socket.close();
+    };
+  }, []);
+  // const socket = new WebSocket('ws://localhost:5000/api/websocket');
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);

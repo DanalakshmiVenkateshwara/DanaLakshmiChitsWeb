@@ -67,9 +67,16 @@ export default function UserPayments(props: any) {
     url: `/Admin/GetAuctionDetails/${paymentDetails.groupId}`,
     Options: { method: "GET", initialRender: false },
   });
+  const {
+    response: PendingpaymentResponse,
+    loading: PendingpaymentLoading,
+    onRefresh: getPendingPaymentDetails,
+  } = useFetch({
+    url: `/Admin/GetPendingPayments/?userId=${paymentDetails.userId}&groupId=${paymentDetails.groupId}`,
+    Options: { method: "GET", initialRender: false },
+  });
 
   useNoninitialEffect(() => {
-    debugger;
     if (savePaymentResponse === 1) {
       getToast("successfull submitted", "success");
       setIsCrete(false);
@@ -78,17 +85,13 @@ export default function UserPayments(props: any) {
 
   useNoninitialEffect(() => {
     let data: any = enrollMentresponce;
-    debugger;
     setEnrollMentsData(data);
   }, [enrollMentresponce]);
   useNoninitialEffect(() => {
-    debugger;
     let data: any = usersResponse;
-    debugger;
     setUsersData(data);
   }, [usersResponse]);
   const onUserChange = (e: any) => {
-    debugger;
     if (enrollMentsData.length > 0)
       setEnrollMentsData(enrollMentsData.filter((m: any) => m.userId == e.id));
     setPaymentDetails({ ...paymentDetails, userId: e.id });
@@ -99,13 +102,19 @@ export default function UserPayments(props: any) {
   //   getPaymentDetails();
   // };
   const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      debugger
       setPaymentDetails({ ...paymentDetails,groupId:Number(e.target.value)});
+      getPendingPaymentDetails();
       getPaymentDetails();
+      
 
     }
+    useNoninitialEffect(() => {
+      debugger;
+      let data: any = PendingpaymentResponse;
+      if (data> 0)
+        setPaymentDetails({ ...paymentDetails, dueAmount: data });
+    }, [PendingpaymentResponse]);
   useNoninitialEffect(() => {
-    debugger;
     let data: any = paymentResponse;
     if (data.length > 0)
       setPaymentDetails({
@@ -118,8 +127,7 @@ export default function UserPayments(props: any) {
     // setAmount(data[0].totalAmount);
     // setMonthOfInstallMent(data[0].paidUpto);
   }, [paymentResponse]);
-  const onInstamentPay = () => {
-    debugger
+  const onInstallmentPay = () => {
     let error: Array<string> = [];
     if(paymentDetails.userId<=0) error.push("Please select username");
     if(paymentDetails.groupId<=0) error.push("Please choose group");
@@ -127,12 +135,11 @@ export default function UserPayments(props: any) {
     if(error.length>0){
       getToast(error.join(", ").toString(),"error")
     }else{
-    debugger;
     savePaymentDetails();
   }
   };
   return (
-    <Form noValidate onSubmit={onInstamentPay}>
+    <Form noValidate onSubmit={onInstallmentPay}>
       <Row className="mx-0">
         <Col xl="3" lg="4" md="6">
           <Form.Suggest
@@ -160,7 +167,6 @@ export default function UserPayments(props: any) {
               {"..Choose group.."}
             </option>
             {enrollMentsData.map((item) => {
-              debugger
               return (
                 <option key={item.groupId} value={item.groupId}>
                   {item.groupName}
@@ -202,7 +208,7 @@ export default function UserPayments(props: any) {
         </Col>
         {/* for the time being using static amount we need to change */}
         <Col xl="3" lg="4" md="6">
-          <Form.Number disabled={true} value={5000} label="DueAmount" />
+          <Form.Number disabled={true} value={paymentDetails.dueAmount} label="DueAmount" />
         </Col>
         <Col xl="3" lg="4" md="6">
           <Form.Number

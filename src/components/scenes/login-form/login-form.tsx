@@ -5,13 +5,17 @@ import useFetch from '../../hooks/useFetch';
 import useNoninitialEffect from "../../hooks/useNoninitialEffect";
 import {connect} from 'react-redux'
 import appStore from '../../shared/Store/Store';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+ 
+import { useNavigate } from "react-router-dom";
+import { auth } from '../../../App';
 
 export default function LoginPage() {
     const { getToast } = useToast();
     const [userName, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [userInfo, setUserInfo] = useState<any>({ userId: 0, userName: ''});
-   
+    const  navigate  = useNavigate();
     // const [triggerValidate, setTriggerValidate] = React.useState<boolean>(true);
     const { response, loading, onRefresh: validateUser } = useFetch({ url:`/Admin/ValidateUser?userName=${userName}&password=${password}` , Options: { method: 'GET', initialRender: false} });
     const validationHandler = (): boolean => {
@@ -33,6 +37,22 @@ export default function LoginPage() {
 
         return isValid;
     }
+    const onLogin = ( ) => {
+        
+        signInWithEmailAndPassword(auth, userName, password)
+        .then((userCredential) => {
+            // Signed in
+            const user = userCredential.user;
+            navigate("/home")
+            console.log(user);
+        })
+        .catch((error) => {
+            const errorCode = error.code;
+            const errorMessage = error.message;
+            console.log(errorCode, errorMessage)
+        });
+       
+    }
     useNoninitialEffect(() => {
         debugger
         var data:any = response;
@@ -47,6 +67,7 @@ export default function LoginPage() {
         if (validationHandler()) {
             validateUser();
             // setTriggerValidate(!triggerValidate);
+            onLogin();
         }
     }
     const enterKeyPressed = (event: any) => {

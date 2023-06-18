@@ -21,49 +21,6 @@ import LoginPage from "./components/scenes/login-form/login-form";
 import Participate from "./components/scenes/auctionDetails/participate";
 
 
-const routes = createBrowserRouter([
-  {
-    path: "/",
-    element: <LandingPage />,
-  },
-  {
-    path: "/Groups",
-    element: <Groups />,
-  },
-  {
-    path: "/Users",
-    element: <Users />,
-  },
-  {
-    path: "/Enrollments",
-    element: <Enrollments />,
-  },
-  {
-    path: "/Payments",
-    element: <Payments />,
-  },
-  {
-    path: "/AplicationUsers",
-    element: <AplicationUsers />,
-  },
-  {
-    path: "/Auctions",
-    element: <Auctions />,
-  },
-  {
-    path: "/Mychits",
-    element: <MyChits />,
-  },
-  {
-    path: "/MyacDetails",
-    element: <Acdetails />,
-  },
-  {
-    path: "/LoginPage",
-    element: <LoginPage />,
-  }
-]);
-
 function Routes() {
   const [isLogin, setIsLogin] = useState(false);
   return (

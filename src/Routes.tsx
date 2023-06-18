@@ -20,36 +20,42 @@ import ContactUs from "./components/scenes/contactus/contactus";
 import LoginPage from "./components/scenes/login-form/login-form";
 import Participate from "./components/scenes/auctionDetails/participate";
 
-
 function Routes() {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
+  const [isAdmin, setIsAdmin] = useState(true);
+
   return (
     <>
       <BrowserRouter>
         <>
-          {!isLogin && <Header />}
+          {isLogin && <Header />}
           <div className="row mx-0 w-100" style={{ flexWrap: "nowrap" }}>
-            <NavSidebar />
+           {(isLogin) && <NavSidebar />}
             <Col className="m-3">
               <CRoutes>
-                <Route path="/" element={<LandingPage />} />
-                <Route path="/Groups" element={<Groups />} />
-                <Route path="/Users" element={<Users />} />
-                <Route path="/Enrollments" element={<Enrollments />} />
-                <Route path="/Payments" element={<Payments />} />
-                <Route path="/AplicationUsers" element={<AplicationUsers />} />
-                <Route path="/Auctions" element={<Auctions />} />
-                <Route path="/MyChits" element={<MyChits />} />
-                <Route path="/MyacDetails" element={<Acdetails />} />
-                <Route path="/Newlycommenced" element={<Newlycommenced />} />
-                <Route path="/UserProfile" element={<UserProfile />} />
-                <Route path="/ContactUs" element={<ContactUs />} />
-                <Route path="/LoginPage" element={<LoginPage />} />
-                <Route path="/participate" element={<Participate />} />
+                {isLogin ? <>{isAdmin ? <>
+                  <Route path="/" element={<LandingPage />} />
+                  <Route path="/Groups" element={<Groups />} />
+                  <Route path="/Users" element={<Users />} />
+                  <Route path="/Enrollments" element={<Enrollments />} />
+                  <Route path="/Payments" element={<Payments />} />
+                  <Route path="/AplicationUsers" element={<AplicationUsers />} />
+                  <Route path="/Auctions" element={<Auctions />} />
+                </>
+                  : <>
+                    <Route path="/MyChits" element={<MyChits />} />
+                    <Route path="/MyacDetails" element={<Acdetails />} />
+                    <Route path="/Newlycommenced" element={<Newlycommenced />} />
+                    <Route path="/UserProfile" element={<UserProfile />} />
+                    <Route path="/ContactUs" element={<ContactUs />} />
+                    <Route path="/participate" element={<Participate />} />
+                  </>
+                }</> :
+                  <Route path="/" element={<LoginPage />} />}
               </CRoutes>
             </Col>
           </div>
-          {!isLogin && <Footer />}
+          {isLogin && <Footer />}
         </>
       </BrowserRouter>
     </>

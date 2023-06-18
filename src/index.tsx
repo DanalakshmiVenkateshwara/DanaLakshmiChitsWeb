@@ -5,10 +5,18 @@ import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import Treble from "treble-gsm";
 import { appStore } from "./components/shared/Store";
+import { Provider } from "react-redux";
+import { PersistGate } from 'redux-persist/integration/react'
+import { persistor, store } from "./components/store";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
+
 root.render(
-    <App />
+  <Provider store={store}>
+    <PersistGate loading={null} persistor={persistor}>
+      <App />
+    </PersistGate>
+  </Provider>
 );
 declare global {
   interface Window {

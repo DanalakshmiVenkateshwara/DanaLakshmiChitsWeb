@@ -43,7 +43,7 @@ export default function CreateGroup(props: any) {
 
     }, [response])
     useNoninitialEffect(() => {
-        debugger
+        
         var validateGroupName:any = validateGroupResponse
         if (validateGroupName >= 1) {
             getToast('GroupName existed please change the groupName', 'error');

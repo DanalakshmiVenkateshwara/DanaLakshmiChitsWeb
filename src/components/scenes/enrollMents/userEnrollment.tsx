@@ -28,7 +28,7 @@ export default function UserEnrollment(props: any) {
     const { response, loading, onRefresh: saveEnrollMents } = useFetch({ url: `/Admin/EnrollMent/${userId}/${groupId}/${true}`, Options: { method: 'POST' } });
     const { response: usersResponse, loading: usersLoading } = useFetch({ url: `/Admin/GetUsers/${0}/${true}`, Options: { method: 'GET', initialRender: true } });
     const enrollUser = () => {
-        debugger
+        
         let error: Array<string> = [];
         if(groupId==undefined|| groupId == -1)
         error.push("Groupname is Mandatory");
@@ -58,18 +58,18 @@ export default function UserEnrollment(props: any) {
 
     useNoninitialEffect(() => {
         let data: any = groupResponse;
-        debugger
+        
         setGroupsData(data)
     }, [groupResponse])
     useNoninitialEffect(() => {
-        debugger
+        
         let data: any = usersResponse;
-        debugger
+        
         setUsersData(data)
     }, [usersResponse])
 
     // const onGroupChange = (e: any) => {
-    //     debugger
+    //     
     //     setGroupId(e)
     //     let amount = groupsData.filter((f: any) => f.id == e)[0].amount;
     //     setAmount(amount)
@@ -78,7 +78,7 @@ export default function UserEnrollment(props: any) {
         setUserId(e);
     }
     const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        debugger
+        
         setGroupId(e.target.value)
         if(e.target.value != '-1'){
         let amount = groupsData.filter((f: any) => f.id == e.target.value)[0].amount;
@@ -106,7 +106,7 @@ export default function UserEnrollment(props: any) {
               {"..Choose group.."}
             </option>
             {groupsData.map((item) => {
-              debugger
+              
               return (
                 <option key={item.id} value={item.id}>
                   {item.groupName}

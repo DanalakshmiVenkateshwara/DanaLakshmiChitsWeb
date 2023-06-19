@@ -8,11 +8,11 @@ export default function ContactUs() {
   
     const { response, loading} = useFetch({ url: `/Admin/GetAdminProfile`, Options: { method: 'GET', initialRender: true } });
     useEffect(() => {
-      debugger
+      
       let data: any = response;
-      debugger
+      
       if(data != undefined){
-          debugger
+          
       setAdminDetails({...adminDetails, landlineno:data[0]?.landLineNo})
       setAdminDetails({...adminDetails, phone:data[0]?.mobileNo})
       setAdminDetails({...adminDetails, address:data[0]?.address})

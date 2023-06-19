@@ -17,7 +17,7 @@ export default function CustomRow(props: any) {
                 {/* we need disable for buttons disabled={!data?.isActive} */}
                 <>{data?.isActive && <Button  onClick={() => {rowProps.setUserDetails({ ...data }); rowProps.setIsCrete(true) }}>
                    <i  className='fas fa-edit me-2'></i>Edit</Button>}
-                   {data?.isActive && <Button onClick={() => {debugger; rowProps.setUserDetails({ ...data }); rowProps.setIsDelete(true) }}>
+                   {data?.isActive && <Button onClick={() => {; rowProps.setUserDetails({ ...data }); rowProps.setIsDelete(true) }}>
                    <i className='fas fa-delete me-2'></i>Delete</Button>}
                 </></GridCell>
         </>

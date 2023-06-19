@@ -6,7 +6,7 @@ import GridCell from '../../../../shared/grid/GridCell'
 
 export default function CustomRow(props: any) {
     const convertDateTimeToDate = (date: string) => {
-        debugger
+        
         let newDate = date ? date.split('T')[0] : "";
         return newDate;
       }

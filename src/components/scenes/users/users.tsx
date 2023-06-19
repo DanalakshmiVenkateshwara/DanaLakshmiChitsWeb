@@ -21,7 +21,7 @@ export default function Users() {
   // const [userStatus, setUserStatus] = useState(true);
 
   useNoninitialEffect(() => {
-    debugger
+    
     GetUserDetails();
   }, [userStatus]);
   useNoninitialEffect(() => {
@@ -42,7 +42,7 @@ export default function Users() {
   }, [isDelete])
 
   useNoninitialEffect(() => {
-    debugger
+    
     if (userResponse === 1)
       GetUserDetails();
   }, [userResponse, isDelete])

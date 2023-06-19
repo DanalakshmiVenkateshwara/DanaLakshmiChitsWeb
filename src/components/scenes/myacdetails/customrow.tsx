@@ -4,7 +4,7 @@ import GridCell from '../../shared/grid/GridCell'
 export default function CustomROw(props:any) {
     const { data} = props;
   const convertDateTimeToDate = (date: string) => {
-    debugger
+    
     if (date == "0001-01-01T00:00:00")
       return ""
     else {

@@ -10,7 +10,7 @@ import GridColumn from "../../../../shared/grid/GridColumn";
 import CustomRow from "./CustomRow";
 
 export default function EnrollMentsGrid(props:any) {
-  debugger
+  
   // const [groupsData, setGroupsData] = useState<Array<any>>([]);
   const [isActiveEnrollMents, setIsActiveEnrollments] = useState(true);
   const [groupId, setGroupId] = useState<any>(0);
@@ -19,29 +19,29 @@ export default function EnrollMentsGrid(props:any) {
   // const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetAllChitPlans?groupClosed =${false}`, Options: { method: "GET", initialRender: true } });
   const { response, loading, onRefresh: getEnrollMents } = useFetch({ url: `/Admin/GetEnrollMents/${0}/${props.groupId}/${false}`, Options: { method: 'GET', initialRender: false } });
   // useEffect(()=>{
-  //   debugger
+  //   
   //   getEnrollMents();
   // },[props.groupId!=0])
   useNoninitialEffect(() => {
-    debugger
+    
     getEnrollMents();
   }, [isActiveEnrollMents ,props.groupId])
   // useNoninitialEffect(() => {
-  //   debugger
+  //   
   //   let data: any = groupResponse;
-  //   debugger
+  //   
   //   setGroupsData(data)
   // }, [groupResponse])
   // useNoninitialEffect(() => {
   //   let data: any = response;
-  //   debugger
+  //   
   //   setEnrollments(data)
   // }, [response, groupId])
   // const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  //   debugger
+  //   
   //   setGroupId(Number(e.target.value));
   //   getEnrollMents()
-  //   debugger
+  //   
   //   // let gropWiseDetails = userChits.filter((f: any) => f.groupId  == e.target.value);
   //   // setEnrollments(gropWiseDetails)
   // }

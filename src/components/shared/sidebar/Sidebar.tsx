@@ -11,8 +11,7 @@ export default function Sidebar(props: IProps) {
   const styles = {
     height: "calc(100vh - 107px)",
     width: "auto",
-    maxWidth: "280px",
-    minWidth:"240px"
+    maxWidth: "280px"
   };
 
   return (

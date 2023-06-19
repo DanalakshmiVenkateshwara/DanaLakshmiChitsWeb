@@ -20,13 +20,13 @@ export default function Enrollments() {
   //   }
   // }, [isCrete])
   useNoninitialEffect(() => {
-    debugger
+    
     let data: any = groupResponse;
-    debugger
+    
     setGroupsData(data)
   }, [groupResponse])
   const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    debugger
+    
     setGroupId(Number(e.target.value));
     // let gropWiseDetails = userChits.filter((f: any) => f.groupId  == e.target.value);
     // setEnrollments(gropWiseDetails)
@@ -40,7 +40,6 @@ export default function Enrollments() {
           <Col sm={4} className="d-flex align-items-end justify-content-end">
             {!isCrete && (
               <Form.Group className="col-6">
-                <label>Select Group</label>
                 <Form.Control
                   as="select"
                   

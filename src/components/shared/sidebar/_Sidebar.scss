@@ -15,5 +15,8 @@
     &:hover:not(.active) {
       background: $darkHover;
     }
+    .sidebar-label{
+      width: 170px;
+    }
   }
 }

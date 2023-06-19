@@ -16,28 +16,34 @@ export default function Acdetails() {
   const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetChitsDropDown`, Options: { method: "GET", initialRender: true } });
   const { response, loading,onRefresh: getAcDetails } = useFetch({ url: `/User/GetUserAcCopy?userId=${4}&groupId=${groupId}`, Options: { method: 'GET', initialRender: false } });
   useNoninitialEffect(() => {
-    debugger
+    
     let data: any = groupResponse;
-    debugger
+    
     setGroupsData(data)
   }, [groupResponse])
   const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    debugger
+    
     setGroupId(Number(e.target.value));
     getAcDetails()
-    debugger
+    
     let gropWiseDetails = userChits.filter((f: any) => f.groupId  == e.target.value);
     setuserChits(gropWiseDetails)
   }
   useNoninitialEffect(() => {
     let data: any = response;
-    debugger
+    
     setuserChits(data)
   }, [response,groupId])
   return (
     <>
     {/* <Form.Row as={Col} className="m-0 align-items-center "> */}
       <h5 className="mb-0 mr-3">{"Select Group "}</h5>
+  
+      {/* </Form.Row> */}
+      {/* <Form.Select placeholder='choose group name' required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => { onGroupChange(e) }}>
+                        {groupsData.map((gd: any) => <option key={uniqid()} value={gd.id} onChange={() => { }}>{gd.groupName}</option>)}
+                    </Form.Select> */}
+      <Card noPadding title="Users payment Details" headerAction={<Col sm={4} className="d-flex align-items-end justify-content-end">
       <Form.Control as="select" className="col-6 col-sm-3 col-xl-2" size="sm" value={groupId}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           onGroupChange(e)
@@ -53,11 +59,8 @@ export default function Acdetails() {
           );
         })}
       </Form.Control>
-      {/* </Form.Row> */}
-      {/* <Form.Select placeholder='choose group name' required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => { onGroupChange(e) }}>
-                        {groupsData.map((gd: any) => <option key={uniqid()} value={gd.id} onChange={() => { }}>{gd.groupName}</option>)}
-                    </Form.Select> */}
-      <Card noPadding title="Users payment Details"
+
+      </Col>}
       >
         <AcDetailsGrid data={userChits} loading={loading} />
       </Card>

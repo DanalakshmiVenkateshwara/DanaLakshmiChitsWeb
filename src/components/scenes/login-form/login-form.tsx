@@ -3,23 +3,24 @@ import { Form, Col, Row, Button, Container } from 'react-bootstrap';
 import useToast from '../../hooks/useToast';
 import useFetch from '../../hooks/useFetch';
 import useNoninitialEffect from "../../hooks/useNoninitialEffect";
-import {connect} from 'react-redux'
+import { connect } from 'react-redux'
 import appStore from '../../shared/Store/Store';
 import { signInWithEmailAndPassword } from 'firebase/auth';
- 
+import loginImage from '../../assets/images/login.png'
 import { useNavigate } from "react-router-dom";
 import { auth } from '../../../App';
+
 
 export default function LoginPage() {
     const { getToast } = useToast();
     const [userName, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
-    const [userInfo, setUserInfo] = useState<any>({ userId: 0, userName: ''});
-    const  navigate  = useNavigate();
+    const [userInfo, setUserInfo] = useState<any>({ userId: 0, userName: '' });
+    const navigate = useNavigate();
     // const [triggerValidate, setTriggerValidate] = React.useState<boolean>(true);
-    const { response, loading, onRefresh: validateUser } = useFetch({ url:`/Admin/ValidateUser?userName=${userName}&password=${password}` , Options: { method: 'GET', initialRender: false} });
+    const { response, loading, onRefresh: validateUser } = useFetch({ url: `/Admin/ValidateUser?userName=${userName}&password=${password}`, Options: { method: 'GET', initialRender: false } });
     const validationHandler = (): boolean => {
-        debugger
+
         let error = "";
         let isValid = true;
 
@@ -31,37 +32,37 @@ export default function LoginPage() {
             error = "Password is required to login.";
 
         if (error != "") {
-           getToast(error, 'error');
+            getToast(error, 'error');
             isValid = false;
         }
 
         return isValid;
     }
-    const onLogin = ( ) => {
-        
+    const onLogin = () => {
+
         signInWithEmailAndPassword(auth, userName, password)
-        .then((userCredential) => {
-            // Signed in
-            const user = userCredential.user;
-            navigate("/home")
-            console.log(user);
-        })
-        .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorCode, errorMessage)
-        });
-       
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                navigate("/home")
+                console.log(user);
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorCode, errorMessage)
+            });
+
     }
     useNoninitialEffect(() => {
-        debugger
-        var data:any = response;
-         if(data!=null){
+
+        var data: any = response;
+        if (data != null) {
             localStorage.setItem('userInfo', JSON.stringify(response));
             //  Store.update("updateUserInformation", { ...userInfo, userId: Number(data?.id), userName: data?.name});
-    }       
-      }, [response]);
-    
+        }
+    }, [response]);
+
 
     const loginClickHandler = () => {
         if (validationHandler()) {
@@ -77,8 +78,13 @@ export default function LoginPage() {
     }
 
     return (
-        <>
-            {
+        <Row className='vh-100'>
+            <Col className='d-flex bg-primary'>
+                <img src={loginImage} width='80%' className='m-auto' />
+            </Col>
+            <Row as={Col}>
+                <Col sm='8' className='m-auto'>
+                    <h1>logo</h1>
                     <Form className='pt-3'>
                         <Form.Group controlId="loginPageUsername">
                             <Form.Label>Username</Form.Label>
@@ -93,12 +99,15 @@ export default function LoginPage() {
                                 onKeyPress={(e: any) => enterKeyPressed(e)} />
                         </Form.Group>
                         <div className={'d-flex justify-content-center py-3'}>
-                            <Button variant="primary" className={'px-3'} onClick={() => { loginClickHandler() }}>
+                            <Button variant="primary" className={'px-3 col'} onClick={() => { loginClickHandler() }}>
                                 Sign In
                             </Button>
                         </div>
                     </Form>
+                </Col>
+            </Row>  {
+
             }
-        </>
+        </Row>
     )
 }

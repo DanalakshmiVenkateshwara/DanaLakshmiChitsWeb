@@ -21,8 +21,8 @@ import LoginPage from "./components/scenes/login-form/login-form";
 import Participate from "./components/scenes/auctionDetails/participate";
 
 function Routes() {
-  const [isLogin, setIsLogin] = useState(true);
-  const [isAdmin, setIsAdmin] = useState(true);
+  const [isLogin, setIsLogin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   return (
     <>
@@ -31,7 +31,7 @@ function Routes() {
           {isLogin && <Header />}
           <div className="row mx-0 w-100" style={{ flexWrap: "nowrap" }}>
            {(isLogin) && <NavSidebar />}
-            <Col className="m-3">
+            <Col className="">
               <CRoutes>
                 {isLogin ? <>{isAdmin ? <>
                   <Route path="/" element={<LandingPage />} />
@@ -43,6 +43,7 @@ function Routes() {
                   <Route path="/Auctions" element={<Auctions />} />
                 </>
                   : <>
+                    <Route path="/" element={<LandingPage />} />
                     <Route path="/MyChits" element={<MyChits />} />
                     <Route path="/MyacDetails" element={<Acdetails />} />
                     <Route path="/Newlycommenced" element={<Newlycommenced />} />

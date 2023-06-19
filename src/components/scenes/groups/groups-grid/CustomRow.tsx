@@ -18,7 +18,7 @@ export default function CustomRow(props: any) {
   const { response, loading, onRefresh: saveGroupDetails } = useFetch({ url: ADD_CHIT_PLANS, Options: { method: 'POST', data: data } });
 
   const convertDateTimeToDate = (date: string) => {
-    debugger
+    
     if (date == "0001-01-01T00:00:00")
       return ""
     else {

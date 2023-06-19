@@ -8,11 +8,11 @@ export default function UserProfile() {
     const { response: usersResponse, loading: usersLoading } = useFetch({ url: `/Admin/GetUsers/${2}/${true}`, Options: { method: 'GET', initialRender: true } });
   
     useEffect(() => {
-        debugger
+        
         let data: any = usersResponse;
-        debugger
+        
         if(data != undefined){
-            debugger
+            
         setUserDetails({...userDetails, name:data[0]?.name})
         setUserDetails({...userDetails, phone:data[0]?.phone})
         setUserDetails({...userDetails, eMail:data[0]?.eMail})

@@ -10,7 +10,7 @@ import firebase from './fireBase';
 // import firebase from './fireBase';
 
 export default function CreateUser(props: any) {
-    debugger
+    
     const { userDetails, setUserDetails, setIsCrete } = props;
     const { getToast } = useToast()
     const { USERREGISTRATION } = UrlConstants();
@@ -28,10 +28,10 @@ export default function CreateUser(props: any) {
         }
     }, [response])
     const onSave=(e:any)=>{
-        debugger
+        
         let error: Array<string> = [];
         if (userDetails.phone) {
-            debugger
+            
             let reg = /^(?!0+$)\d{10,}$/;
             if (!userDetails.phone.match(reg))
               error.push("Pleaseentervalidmobilenumber");
@@ -52,7 +52,7 @@ export default function CreateUser(props: any) {
           }
           else{
             userDetails.isActive =true;
-            debugger
+            
             saveUserDetails();
           }
     }

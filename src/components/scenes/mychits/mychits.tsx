@@ -10,10 +10,8 @@ import GridColumn from "../../shared/grid/GridColumn";
 import UserChits from "../mychits/userchits";
 
 export default function MyChits(){
-  debugger
   const [userInfo, setUserInfo] = useState<any>({ userId: 0, userName: ''});
   useEffect(() => {
-    debugger
     const items = localStorage.getItem('userInfo');
     if (items) {
       setUserInfo(items);
@@ -29,6 +27,5 @@ export default function MyChits(){
         <UserChits data={response} loading={loading}/>
        </Card>
   </>
-
   );
 }

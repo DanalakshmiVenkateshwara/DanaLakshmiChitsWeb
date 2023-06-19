@@ -109,7 +109,7 @@ export default function UserPayments(props: any) {
 
     }
     useNoninitialEffect(() => {
-      debugger;
+      ;
       let data: any = PendingpaymentResponse;
       if (data> 0)
         setPaymentDetails({ ...paymentDetails, dueAmount: data });

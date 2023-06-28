@@ -3,12 +3,11 @@ import { Form, Col, Row, Button, Container } from 'react-bootstrap';
 import useToast from '../../hooks/useToast';
 import useFetch from '../../hooks/useFetch';
 import useNoninitialEffect from "../../hooks/useNoninitialEffect";
-import { connect } from 'react-redux'
-import appStore from '../../shared/Store/Store';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import loginImage from '../../assets/images/login.png'
 import { useNavigate } from "react-router-dom";
 import { auth } from '../../../App';
+import { useActionTypes, useStore } from '../../store';
 
 
 export default function LoginPage() {
@@ -17,6 +16,12 @@ export default function LoginPage() {
     const [password, setPassword] = useState<string>("");
     const [userInfo, setUserInfo] = useState<any>({ userId: 0, userName: '' });
     const navigate = useNavigate();
+
+    //store setup
+    const {State,Store} =useStore();
+    const {getActionTypes}=useActionTypes();
+const actionTypes:any=getActionTypes();
+
     // const [triggerValidate, setTriggerValidate] = React.useState<boolean>(true);
     const { response, loading, onRefresh: validateUser } = useFetch({ url: `/Admin/ValidateUser?userName=${userName}&password=${password}`, Options: { method: 'GET', initialRender: false } });
     const validationHandler = (): boolean => {
@@ -84,6 +89,9 @@ export default function LoginPage() {
             </Col>
             <Row as={Col}>
                 <Col sm='8' className='m-auto'>
+                <h4>{State.user.name}</h4>
+                <h4>{State.user.email}</h4>
+                <Button onClick={()=>{Store.update(actionTypes?.updateuser,{name:'test@gmail',email:"test@gmail.com"})}}>store update</Button>
                     <h1>logo</h1>
                     <Form className='pt-3'>
                         <Form.Group controlId="loginPageUsername">

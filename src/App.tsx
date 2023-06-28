@@ -5,11 +5,14 @@ import Routes from "./Routes";
 import Config from "./Config";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Treble from "treble-gsm/lib/treble";
-import appStore from "./components/shared/Store/Store";
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { getAuth } from "firebase/auth";
+import { useActionTypes, useCreateStore } from "./components/store";
+import { PersistGate } from "redux-persist/integration/react";
+import { Provider } from "react-redux";
+import Store from "./components/store/store";
+
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -30,16 +33,20 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const analytics = getAnalytics(app);
 export const auth = getAuth(app);
- 
+
+//store
+
 function App() {
+  const { store, persistor,actionTypes } = useCreateStore(Store);
+  const{setActionTypes}=useActionTypes();
+  setActionTypes(actionTypes);
   return <>
-    {/* app routes/config should stay here */}
-    {/* <Config/> */}
-    <Routes />
-    {/* <Treble store={appStore}>
-            {/* Components */}
-        {/* </Treble> */} 
-    <ToastContainer />
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Routes />
+        <ToastContainer />
+      </PersistGate>
+    </Provider>
   </>;
 }
 

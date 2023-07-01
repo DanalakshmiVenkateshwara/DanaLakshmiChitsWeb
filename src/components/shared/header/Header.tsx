@@ -22,7 +22,7 @@ export default function Header() {
           </Nav> */}
           <Nav className="ms-auto">
             <Nav.Link>
-              <i className="fa-solid fa-right-from-bracket me-2"></i>
+              <i onClick={()=>{}} className="fa-solid fa-right-from-bracket me-2"></i>
               Logout
             </Nav.Link>
           </Nav>

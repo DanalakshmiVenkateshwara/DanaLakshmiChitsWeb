@@ -2,7 +2,7 @@ const Store = [
   {
     action: "updateuser",
     state: {
-      user: { name: "anvesh", email: "anvesh@dschits.com" },
+      user: { name: "", email: "", Id:0,isAdmin: false },
     },
     features: {
       persist: false,

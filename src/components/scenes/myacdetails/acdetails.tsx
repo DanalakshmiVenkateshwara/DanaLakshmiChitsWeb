@@ -5,16 +5,19 @@ import AcDetailsGrid from './acdetailsgrid'
 import uniqid from 'uniqid';
 import useNoninitialEffect from '../../hooks/useNoninitialEffect';
 import { Form, Button, Col } from "react-bootstrap";
+import { useStore } from '../../store';
 
 export default function Acdetails() {
+  debugger
   const [groupsData, setGroupsData] = useState<Array<any>>([]);
   const [userChits, setuserChits] = useState<Array<any>>([]);
   const [groupId, setGroupId] = useState<any>(-1);
+  const {State,Store} = useStore();
 
   // const { response:userChitsResponse, loading:userChitsResponseLoading } = useFetch({ url: `/Admin/GetEnrollMents/${3}/${0}/${true}`, Options: { method: 'GET', initialRender: true } });
 
   const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetChitsDropDown`, Options: { method: "GET", initialRender: true } });
-  const { response, loading,onRefresh: getAcDetails } = useFetch({ url: `/User/GetUserAcCopy?userId=${4}&groupId=${groupId}`, Options: { method: 'GET', initialRender: false } });
+  const { response, loading,onRefresh: getAcDetails } = useFetch({ url: `/User/GetUserAcCopy?userId=${State.user.id}&groupId=${groupId}`, Options: { method: 'GET', initialRender: false } });
   useNoninitialEffect(() => {
     
     let data: any = groupResponse;

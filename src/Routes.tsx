@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter, createBrowserRouter, Route, RouterProvider, Routes as CRoutes } from "react-router-dom";
 import LandingPage from "./components/scenes/landingPage";
 import Groups from "./components/scenes/groups";
@@ -19,10 +19,27 @@ import UserProfile from "./components/scenes/userprofile/userprofile";
 import ContactUs from "./components/scenes/contactus/contactus";
 import LoginPage from "./components/scenes/login-form/login-form";
 import Participate from "./components/scenes/auctionDetails/participate";
+import { useActionTypes, useStore } from "./components/store";
 
 function Routes() {
+  debugger
   const [isLogin, setIsLogin] = useState(false);
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
+  const {State,Store} =useStore();
+    const {getActionTypes}=useActionTypes();
+     const actionTypes:any=getActionTypes();
+     useEffect(()=>{
+      debugger
+           if(State.user.isAdmin){
+            setIsLogin(true);
+            setIsAdmin(true)
+           }else if(State.user.id > 0){
+            setIsLogin(true);
+            setIsAdmin(false)
+           }
+           else
+          setIsLogin(false);
+     },[State.user.isAdmin|| State.user.id])
 
   return (
     <>

@@ -8,17 +8,20 @@ import Form from "../../shared/form";
 import Grid from "../../shared/grid";
 import GridColumn from "../../shared/grid/GridColumn";
 import UserChits from "../mychits/userchits";
+import { useStore } from "../../store";
 
 export default function MyChits(){
+  debugger
   const [userInfo, setUserInfo] = useState<any>({ userId: 0, userName: ''});
+  const {State,Store} = useStore();
   useEffect(() => {
-    const items = localStorage.getItem('userInfo');
-    if (items) {
-      setUserInfo(items);
+    // const items = localStorage.getItem('userInfo');
+    if (State.user.id>0) {
+      // setUserInfo(items);
       getChits();
     }
-  }, []);
-  const { response, loading, onRefresh:getChits } = useFetch({ url: `/Admin/GetEnrollMents/${userInfo.userId}/${0}/${true}`, Options: { method: 'GET', initialRender:false} });
+  }, [State.user.id]);
+  const { response, loading, onRefresh:getChits } = useFetch({ url: `/Admin/GetEnrollMents/${State.user.id}/${0}/${true}`, Options: { method: 'GET', initialRender:false} });
 
   return (
   <>

@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Sidebar from "../../shared/sidebar";
 import SideBarItem from "../../shared/sidebar/SideBarItem";
 import { useLocation } from "react-router-dom";
+import useStore from "../../store/useStore";
+import { useActionTypes } from "../../store/useActionTypes";
 function NavSidebar() {
+  debugger
   const [isAdmin, setIsAdmin] = React.useState(false);
+  const {State,Store} = useStore();
+    const {getActionTypes}=useActionTypes();
+     const actionTypes:any=getActionTypes();
+     useEffect(()=>{
+      debugger
+           if(State.user.isAdmin){
+            setIsAdmin(true)
+           }else if(State.userId > 0){
+            setIsAdmin(false)
+           }
+     },[State.user.isAdmin])
 const location=useLocation()
 React.useEffect(() => {
+  debugger
 console.log(location)
 }, [location])
 

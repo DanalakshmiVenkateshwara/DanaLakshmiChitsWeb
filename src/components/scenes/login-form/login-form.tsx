@@ -11,6 +11,7 @@ import { useActionTypes, useStore } from '../../store';
 
 
 export default function LoginPage() {
+    debugger
     const { getToast } = useToast();
     const [userName, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -60,20 +61,35 @@ const actionTypes:any=getActionTypes();
 
     }
     useNoninitialEffect(() => {
-
+       debugger
         var data: any = response;
-        if (data != null) {
-            localStorage.setItem('userInfo', JSON.stringify(response));
+        if (data !="") {
+            if(data.iSAdmin == "True"){
+                Store.update(actionTypes?.updateuser,{id:0,isAdmin:true})
+                navigate("/home")
+            }
+            else{
+                Store.update(actionTypes?.updateuser,{id:data.id,isAdmin:false})
+                navigate("/home")
+            }
+            // Store.update(actionTypes?.updateuser,{name:'test',email:"test@gmail.com"})
+            // Store.update(actionTypes?.updateuser,{name:'test'})
+            
+           // localStorage.setItem('userInfo', JSON.stringify(response));
             //  Store.update("updateUserInformation", { ...userInfo, userId: Number(data?.id), userName: data?.name});
+        }else{
+            getToast("Invalid Credentials", 'error');
         }
     }, [response]);
 
 
     const loginClickHandler = () => {
+        // Store.update(actionTypes?.updateuser,{name:'test'})
+        // navigate("/home")
         if (validationHandler()) {
             validateUser();
             // setTriggerValidate(!triggerValidate);
-            onLogin();
+            // onLogin();
         }
     }
     const enterKeyPressed = (event: any) => {
@@ -91,12 +107,12 @@ const actionTypes:any=getActionTypes();
                 <Col sm='8' className='m-auto'>
                 <h4>{State.user.name}</h4>
                 <h4>{State.user.email}</h4>
-                <Button onClick={()=>{Store.update(actionTypes?.updateuser,{name:'test@gmail',email:"test@gmail.com"})}}>store update</Button>
+                {/* <Button onClick={()=>{Store.update(actionTypes?.updateuser,{name:'test',email:"test@gmail.com"})}}>store update</Button> */}
                     <h1>logo</h1>
                     <Form className='pt-3'>
                         <Form.Group controlId="loginPageUsername">
-                            <Form.Label>Username</Form.Label>
-                            <Form.Control type="username" placeholder="Enter Username" value={userName}
+                            <Form.Label>MobileNo</Form.Label>
+                            <Form.Control type="username" placeholder="Enter MobileNo" value={userName}
                                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserName(e.target.value)}
                                 onKeyPress={(e: any) => enterKeyPressed(e)} />
                         </Form.Group>

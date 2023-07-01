@@ -88,7 +88,8 @@ export default function LoginPage() {
                 navigate("/home")
             }
             else {
-                Store.update(actionTypes?.updateuser, { id: data.id, isAdmin: false })
+                debugger
+                Store.update(actionTypes?.updateuser, { id: data.id, isAdmin: false,name:data.name,email:data.email })
                 navigate("/home")
             }
             // Store.update(actionTypes?.updateuser,{name:'test',email:"test@gmail.com"})
@@ -188,9 +189,11 @@ export default function LoginPage() {
 
     const verifyOTP = (otp: any) => {
         const credential = PhoneAuthProvider.credential(confirmation?.verificationId, otp);
-
+        
         signInWithCredential(auth, credential)
             .then((userCredential: any) => {
+                
+                debugger
                 // User signed in successfully with OTP
                 // Proceed to collect email and password
                 // createUserWithEmailAndPassword(auth, userDetails.eMail, userDetails.password)
@@ -208,7 +211,8 @@ export default function LoginPage() {
                     let userData =  linkWithCredential(auth?.currentUser as any,response).then((userCredential) => {
                         // Account linking successful
                         // const user = userCredential.user;
-                  
+                        registerClickHandler();
+                        setIsNewUser(false)
                         // Add display name to the user
                         return updateProfile(auth.currentUser as any,{
                           displayName: userDetails.name,
@@ -250,7 +254,7 @@ export default function LoginPage() {
                                     onKeyPress={(e: any) => enterKeyPressed(e)} />
                             </Form.Group>
                             <div className={'d-flex justify-content-center py-3'}>
-                                <Button variant="primary" className={'px-3 col'} onClick={() => onLogin()}>
+                                <Button variant="primary" className={'px-3 col'} onClick={() => loginClickHandler()}>
                                     Sign In
                                 </Button>
                             </div>

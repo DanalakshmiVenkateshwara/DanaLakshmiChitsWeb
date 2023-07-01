@@ -57,7 +57,6 @@ function Routes() {
                   <Route path="/Enrollments" element={<Enrollments />} />
                   <Route path="/Payments" element={<Payments />} />
                   <Route path="/AplicationUsers" element={<AplicationUsers />} />
-                  <Route path="/Auctions" element={<Auctions />} />
                 </>
                   : <>
                     <Route path="/" element={<LandingPage />} />
@@ -66,10 +65,14 @@ function Routes() {
                     <Route path="/Newlycommenced" element={<Newlycommenced />} />
                     <Route path="/UserProfile" element={<UserProfile />} />
                     <Route path="/ContactUs" element={<ContactUs />} />
-                    <Route path="/participate" element={<Participate />} />
                   </>
                 }</> :
-                  <Route path="/" element={<LoginPage />} />}
+                 <>
+                  <Route path="/" element={<LoginPage />} />
+                  <Route path="/participate" element={<Participate />} />
+                  <Route path="/Auctions" element={<Auctions />} />
+                  </>
+                  }
               </CRoutes>
             </Col>
           </div>

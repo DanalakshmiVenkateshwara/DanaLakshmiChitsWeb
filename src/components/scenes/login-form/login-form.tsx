@@ -8,6 +8,7 @@ import loginImage from '../../assets/images/login.png'
 import { useNavigate } from "react-router-dom";
 import { auth } from '../../../App';
 import { useActionTypes, useStore } from '../../store';
+import UrlConstants from '../../constants/UrlConstants';
 
 
 export default function LoginPage() {
@@ -16,14 +17,17 @@ export default function LoginPage() {
     const [userName, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [userInfo, setUserInfo] = useState<any>({ userId: 0, userName: '' });
+    const [userDetails, setUserDetails] = useState<any>({ id: 0, name: '',eMail: '', phone: '',  password: '', district: '', state: '', isActive: true });
     const navigate = useNavigate();
+    const { USERREGISTRATION } = UrlConstants();
 
     //store setup
     const {State,Store} =useStore();
     const {getActionTypes}=useActionTypes();
-const actionTypes:any=getActionTypes();
+    const actionTypes:any=getActionTypes();
 
     // const [triggerValidate, setTriggerValidate] = React.useState<boolean>(true);
+    const { response:saveUserresponse, loading:saveUserloading, onRefresh: saveUserDetails } = useFetch({ url: USERREGISTRATION, Options: { method: 'POST', data: userDetails } });
     const { response, loading, onRefresh: validateUser } = useFetch({ url: `/Admin/ValidateUser?userName=${userName}&password=${password}`, Options: { method: 'GET', initialRender: false } });
     const validationHandler = (): boolean => {
 
@@ -44,6 +48,14 @@ const actionTypes:any=getActionTypes();
 
         return isValid;
     }
+    useNoninitialEffect(() => {
+        if (saveUserresponse === 1) {
+            getToast("saved/updated successfully", 'success');
+        }
+        else {
+            getToast("saved/updated failed", 'error')
+        }
+    }, [saveUserresponse])
     const onLogin = () => {
 
         signInWithEmailAndPassword(auth, userName, password)
@@ -97,7 +109,53 @@ const actionTypes:any=getActionTypes();
             loginClickHandler();
         }
     }
-
+    const onStateChange =(e: any) => {
+        debugger
+        setUserDetails({ ...userDetails, state: e.target.value })
+    }
+    const registerClickHandler =()=>{
+        debugger
+        let error: Array<string> = [];
+        if (userDetails.phone) {
+            let reg = /^(?!0+$)\d{10,}$/;
+            if (!userDetails.phone.match(reg))
+              error.push("Pleaseentervalidmobilenumber");
+            if (userDetails.phone.length < 10)
+               error.push("Mobilenumbermustconsistof10digits");
+               if (userDetails.phone.length > 10)
+               error.push("Mobilenumbermustconsistof10digits");
+          }
+          if(userDetails.name=== "") error.push("Name Is Mandatory")
+          if(userDetails.password=== "") error.push("Password Is Mandatory")
+          if (userDetails.phone === "") error.push("mobile No Is Mandatory")
+          if (userDetails.eMail === "") error.push("email  Is Mandatory")
+          if (userDetails.eMail) {
+            let reg = /^[a-zA-Z0-9.]+@[a-zA-Z]+(?:\.[a-zA-Z]+)*$/;
+            if (!reg.test(userDetails.eMail))
+              error.push("Pleaseentervalidemail");
+          }
+          if (userDetails.district=="") {
+              error.push("Pleaselectrdistrict");
+          }
+          if (userDetails.state<=0) {
+            error.push("Pleaseselectstate");
+        }
+        // if(userDetails.aadhar>0) error.push("aadhar Is Mandatory")
+        if (error.length > 0) {
+            getToast(error.join(", ").toString(), 'error');
+         }else{
+            saveUserDetails();
+         }
+          
+    }
+    const emailValidationHandler =(e: any)=>{
+        let reg = /^[a-zA-Z0-9@.]*$/;
+    
+        if (reg.test(e.target.value)) {
+            setUserDetails({ ...userDetails, eMail: e.target.value });
+        }
+    }
+    
     return (
         <Row className='vh-100'>
             <Col className='d-flex bg-primary'>
@@ -109,7 +167,7 @@ const actionTypes:any=getActionTypes();
                 <h4>{State.user.email}</h4>
                 {/* <Button onClick={()=>{Store.update(actionTypes?.updateuser,{name:'test',email:"test@gmail.com"})}}>store update</Button> */}
                     <h1>logo</h1>
-                    <Form className='pt-3'>
+                    {<Form className='pt-3'>
                         <Form.Group controlId="loginPageUsername">
                             <Form.Label>MobileNo</Form.Label>
                             <Form.Control type="username" placeholder="Enter MobileNo" value={userName}
@@ -127,7 +185,49 @@ const actionTypes:any=getActionTypes();
                                 Sign In
                             </Button>
                         </div>
+                    </Form>}
+
+                    <Form className='pt-3'>
+                        <Form.Group>
+                            <Form.Label>Name</Form.Label>
+                            <Form.Control type="name" placeholder="Enter Name" value={userDetails.name}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserDetails({ ...userDetails, name: e.target.value })}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>Email</Form.Label>
+                            <Form.Control type="email" placeholder="Enter Email" value={userDetails.eMail}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => emailValidationHandler(e)}/>
+                        </Form.Group>
+                        <Form.Group>
+                            <Form.Label>MobileNo</Form.Label>
+                            <Form.Control type="mobile" placeholder="Enter MobileNo" value={userDetails.phone}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserDetails({ ...userDetails, phone: e.target.value })}/>
+                        </Form.Group>
+                        <Form.Group >
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Enter Password" value={userDetails.password}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserDetails({ ...userDetails, password: e.target.value })} />
+                        </Form.Group>
+                        <Form.Group >
+                            <Form.Label>District</Form.Label>
+                            <Form.Control type="district" placeholder="Enter district" value={userDetails.district}
+                                onChange={(e: React.ChangeEvent<HTMLInputElement>) => setUserDetails({ ...userDetails, district: e.target.value })} />
+                        </Form.Group>
+                        <Form.Group >
+                            <Form.Label>State</Form.Label>
+                            <Form.Control as="select"className="col-6 col-sm-3 col-xl-2" size="sm" value={userDetails.state} onChange={(e: React.ChangeEvent<HTMLInputElement>) => onStateChange(e) }>
+                                <option key={-1} value={-1}>{"..Choose group.."} </option>
+                                <option key={1} value={2}>{"Telangana"}</option>
+                                <option key={2} value={3}>{"AndraPradesh"}</option>
+                            </Form.Control>
+                        </Form.Group>
+                        <div className={'d-flex justify-content-center py-3'}>
+                            <Button variant="primary" className={'px-3 col'} onClick={() => {registerClickHandler() }}>
+                                Register
+                            </Button>
+                        </div>
                     </Form>
+
                 </Col>
             </Row>  {
 

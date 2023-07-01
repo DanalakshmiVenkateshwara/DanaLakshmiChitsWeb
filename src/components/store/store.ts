@@ -2,11 +2,11 @@ const Store = [
   {
     action: "updateuser",
     state: {
-      user: { name: "", email: "", Id:0,isAdmin: true },
+      user: { name: "", email: "", Id: 0, isAdmin: false },
     },
     features: {
       persist: false,
-    }
+    },
   },
 ];
 

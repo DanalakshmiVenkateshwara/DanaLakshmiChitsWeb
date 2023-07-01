@@ -43,13 +43,13 @@ export default function useFetch(props: Iprops) {
 
   //initial Render
   useEffect(() => {
-    if (initialRender) 
+    if (initialRender && !undefined) 
     fetch();
   }, [Refresh]);
 
   //do not initial Render
   useNoninitialEffect(() => {
-    if (!initialRender) 
+    if (!initialRender  && !undefined) 
     fetch();
   }, [Refresh]);
 

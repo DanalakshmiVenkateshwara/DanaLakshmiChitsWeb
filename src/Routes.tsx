@@ -20,6 +20,8 @@ import ContactUs from "./components/scenes/contactus/contactus";
 import LoginPage from "./components/scenes/login-form/login-form";
 import Participate from "./components/scenes/auctionDetails/participate";
 import { useActionTypes, useStore } from "./components/store";
+import { onAuthStateChanged } from "firebase/auth";
+import { auth } from "./App";
 
 function Routes() {
   debugger
@@ -40,7 +42,13 @@ function Routes() {
            else
           setIsLogin(false);
      },[State.user.isAdmin|| State.user.id])
-
+     function onAuthStateChange(user: any) {
+     console.log(user)
+  }
+  useEffect(() => {
+      const subscriber = onAuthStateChanged(auth,onAuthStateChange);
+      return subscriber; // unsubscribe on unmount
+  }, []);
   return (
     <>
       <BrowserRouter>
@@ -67,12 +75,12 @@ function Routes() {
                     <Route path="/ContactUs" element={<ContactUs />} />
                   </>
                 }</> :
-                 <>
                   <Route path="/" element={<LoginPage />} />
+                  }
+                    <>
                   <Route path="/participate" element={<Participate />} />
                   <Route path="/Auctions" element={<Auctions />} />
                   </>
-                  }
               </CRoutes>
             </Col>
           </div>

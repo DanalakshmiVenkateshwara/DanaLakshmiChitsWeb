@@ -16,13 +16,13 @@ export default function Participate() {
 
     socket.addEventListener('open', (event) => {
       // Send a handshake request to the server
-      socket.send(JSON.stringify({ action: 'handshake' }));
+      socket.send(JSON.stringify({ action: 'connect' }));
     });
 
     socket.addEventListener('message', (event) => {
       const message = JSON.parse(event.data);
 
-      if (message.action === 'handshakeResponse') {
+      if (message.action === 'connectResponse') {
         const connectionId = message.connectionId;
         console.log('WebSocket connection established. Connection ID:', connectionId);
       } else {

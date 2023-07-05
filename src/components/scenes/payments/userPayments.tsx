@@ -60,18 +60,18 @@ export default function UserPayments(props: any) {
     loading: paymentLoading,
     onRefresh: getPaymentDetails,
   } = useFetch({
-    url: `/Admin/GetAuctionDetails/${paymentDetails.groupId}`,
+    url: `/Admin/GetAuctionDetails/${paymentDetails.groupId}/?userId=${paymentDetails.userId}`,
     Options: { method: "GET", initialRender: false },
   });
 
-  const {
-    response: PendingpaymentResponse,
-    loading: PendingpaymentLoading,
-    onRefresh: getPendingPaymentDetails,
-  } = useFetch({
-    url: `/Admin/GetPendingPayments/?userId=${paymentDetails.userId}&groupId=${paymentDetails.groupId}`,
-    Options: { method: "GET", initialRender: false },
-  });
+  // const {
+  //   response: PendingpaymentResponse,
+  //   loading: PendingpaymentLoading,
+  //   onRefresh: getPendingPaymentDetails,
+  // } = useFetch({
+  //   url: `/Admin/GetPendingPayments/?userId=${paymentDetails.userId}&groupId=${paymentDetails.groupId}`,
+  //   Options: { method: "GET", initialRender: false },
+  // });
 
   useNoninitialEffect(() => {
     debugger
@@ -130,17 +130,21 @@ export default function UserPayments(props: any) {
     // setPaymentDetails({ ...paymentDetails, totalAmount: 0, paymentMonth: 0, dividend:0, dueAmount: 0 });
       setIsUserChange(true)
       setPaymentDetails({ ...paymentDetails,groupId:Number(e.target.value)});
-      
-      getPaymentDetails();
-      getPendingPaymentDetails();
+      if(Number(e.target.value) > 0)
+         getPaymentDetails();
+         else{
+          setPaymentDetails({ ...paymentDetails, totalAmount: 0, paymentMonth: 0, dividend:0, dueAmount: 0 ,groupId:Number(e.target.value)});
+          // setPaymentDetails({ ...paymentDetails,groupId:Number(e.target.value)}); 
+        }
+      // getPendingPaymentDetails();
     }
-    useNoninitialEffect(() => {
-      debugger
-      let data: any = PendingpaymentResponse;
-      if (data> 0)
-      getPendingPaymentDetails();
-        setPaymentDetails({ ...paymentDetails, dueAmount: data });
-    }, [PendingpaymentResponse]);
+    // useNoninitialEffect(() => {
+    //   debugger
+    //   let data: any = PendingpaymentResponse;
+    //   if (data> 0)
+    //   getPendingPaymentDetails();
+    //     setPaymentDetails({ ...paymentDetails, dueAmount: data });
+    // }, [PendingpaymentResponse]);
   useNoninitialEffect(() => {
     debugger
     let data: any = paymentResponse;
@@ -150,6 +154,7 @@ export default function UserPayments(props: any) {
         dividend: data[0].dividend,
         totalAmount: data[0].totalAmount,
         paymentMonth: data[0].paidUpto,
+        dueAmount: data[0].dueAmount
       });
     // setDividend(data[0].dividend);
     // setAmount(data[0].totalAmount);

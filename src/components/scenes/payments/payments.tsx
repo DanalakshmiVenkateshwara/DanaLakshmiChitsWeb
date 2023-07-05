@@ -1,5 +1,5 @@
 import react, { useState } from "react";
-import { Button, Col, Form } from "react-bootstrap";
+import { Button, Col, Form as RForm } from "react-bootstrap";
 import UrlConstants from "../../constants/UrlConstants";
 import useFetch from "../../hooks/useFetch";
 import useNoninitialEffect from "../../hooks/useNoninitialEffect";
@@ -8,6 +8,7 @@ import Footer from "../../shared/footer";
 import Header from "../../shared/header";
 import OutStandings from "./Forms/outstandings";
 import UserPayments from "./userPayments";
+import Form  from "../../shared/form";
 export default function Payments() {
   const [isCrete, setIsCrete] = useState(false);
   const { USER_OUTSTANDINGS } = UrlConstants();
@@ -30,7 +31,9 @@ export default function Payments() {
     raised: true
   });
   const [groupsData, setGroupsData] = useState<Array<any>>([]);
+  const [usersData, setUsersData] = useState<Array<any>>([]);
   const [groupId, setGroupId] = useState<any>(0);
+  const [userId, setUserId] = useState<any>(0);
   const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
   // useNoninitialEffect(() => {
   //   if (!isCrete) {
@@ -51,20 +54,38 @@ export default function Payments() {
     // setEnrollments(gropWiseDetails)
   }
 
-  const { response, loading, onRefresh: getPaymentsData } = useFetch({ url: `/Admin/UserOutStandings?groupId=${groupId}`, Options: { method: 'GET', initialRender: true } });
-
+  const { response, loading, onRefresh: getPaymentsData } = useFetch({ url: `/Admin/UserOutStandings?groupId=${groupId}&userId=${userId}`, Options: { method: 'GET', initialRender: true } });
+  const { response: usersResponse, loading: usersLoading } = useFetch({ url: `/Admin/GetUsers/${0}/${true}`, Options: { method: "GET", initialRender: true },});
   useNoninitialEffect(() => {
     
     getPaymentsData();
   }, [isCrete])
-
+  const onUserChange = (e: any) => {
+    debugger
+    setUserId(e.id);
+    getPaymentsData();
+  };
+  useNoninitialEffect(() => {
+    debugger
+    let data: any = usersResponse;
+    setUsersData(data);
+  }, [usersResponse]);
 
   return (
     <>
+    
       <Card noPadding
         title="Payments List"
-        headerAction={<Col sm={4} className="d-flex align-items-end justify-content-end">  {!isCrete &&
-          <Form.Control as="select" className="col-6 " size="sm" value={groupId}
+        headerAction={<Col sm={4} className="d-flex align-items-end justify-content-end">{!isCrete &&<Form.Suggest
+          onSelect={(e: any) => onUserChange(e)}
+          data={usersData}
+          text="name"
+          value="name"
+          name=""
+          errorMsg="UserName required"
+          label="SearchByUser"
+        />}  {!isCrete &&
+          <RForm.Control as="select" className="col-4 " size="sm" value={groupId}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               onGroupChange(e)
             }
@@ -79,7 +100,7 @@ export default function Payments() {
                 </option>
               );
             })}
-          </Form.Control>}{!isCrete ? <Button size="sm" className="ms-3" onClick={() => { setIsCrete(true) }}>Create</Button> : <Button size="sm" onClick={() => { setIsCrete(false) }}>List</Button>}</Col>}
+          </RForm.Control>}{!isCrete ? <Button size="sm" className="ms-3" onClick={() => { setIsCrete(true) }}>Create</Button> : <Button size="sm" onClick={() => { setIsCrete(false) }}>List</Button>}</Col>}
       >
         {isCrete ? <UserPayments setIsCrete={setIsCrete} /> :
           <OutStandings data={response} loading={loading} setIsCrete={setIsCrete} setPaymentDetails={setPaymentDetails} />}</Card>

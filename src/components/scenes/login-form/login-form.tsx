@@ -22,6 +22,7 @@ export default function LoginPage() {
     const [isNewUser, setIsNewUser] = useState<boolean>(false);
     const [otp, setOtp] = useState('');
     const [confirmation, setConfirmation] = useState<any>(null);
+    const [mobileNo, setMobileNo] = useState<any>("");
     const [userInfo, setUserInfo] = useState<any>({ userId: 0, userName: '' });
     const [userDetails, setUserDetails] = useState<any>({ id: 0, name: '', eMail: '', phone: '', password: '', district: '', state: '', isActive: true });
     const navigate = useNavigate();
@@ -35,6 +36,7 @@ export default function LoginPage() {
     // const [triggerValidate, setTriggerValidate] = React.useState<boolean>(true);
     const { response: saveUserresponse, loading: saveUserloading, onRefresh: saveUserDetails } = useFetch({ url: USERREGISTRATION, Options: { method: 'POST', data: userDetails } });
     const { response, loading, onRefresh: validateUser } = useFetch({ url: `/Admin/ValidateUser?userName=${userName}&password=${password}`, Options: { method: 'GET', initialRender: false } });
+    const { response:userExistedresponse, loading:userExistedLoading, onRefresh: isUserExisted } = useFetch({ url: `/Admin/CheckuserExist?phone=${userDetails.phone}`, Options: { method: 'GET', initialRender: false } });
     const validationHandler = (): boolean => {
 
         let error = "";
@@ -164,9 +166,15 @@ export default function LoginPage() {
         }
     }
 
-    //mobile authentication
-    const sendOTP = (phoneNumber: any) => {
-        const recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
+    useNoninitialEffect(() => {
+        debugger
+        var existedUserCount: any = userExistedresponse;
+        if (existedUserCount > 0) {
+            getToast("user existed with this mobile no", 'error');
+
+        }
+        else {
+            const recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
             'size': 'invisible',
             'callback': (response: any) => {
                 // reCAPTCHA solved, allow signInWithPhoneNumber.
@@ -175,7 +183,7 @@ export default function LoginPage() {
 
         }, auth);
 
-        signInWithPhoneNumber(auth, `+91${phoneNumber}`, recaptchaVerifier)
+        signInWithPhoneNumber(auth, `+91${mobileNo}`, recaptchaVerifier)
             .then((confirmationResult: any) => {
                 // OTP sent to the user's phone number
                 // Store the confirmationResult to be used later for OTP verification
@@ -185,6 +193,34 @@ export default function LoginPage() {
             .catch((error: any) => {
                 // Handle sign-in error
             });
+        }
+    }, [userExistedresponse])
+
+    //mobile authentication
+    const sendOTP = (phoneNumber: any) => {
+        debugger
+        setMobileNo(phoneNumber);
+        
+        isUserExisted();
+        // const recaptchaVerifier = new RecaptchaVerifier('sign-in-button', {
+        //     'size': 'invisible',
+        //     'callback': (response: any) => {
+        //         // reCAPTCHA solved, allow signInWithPhoneNumber.
+        //         //   onSignInSubmit();
+        //     }
+
+        // }, auth);
+
+        // signInWithPhoneNumber(auth, `+91${phoneNumber}`, recaptchaVerifier)
+        //     .then((confirmationResult: any) => {
+        //         // OTP sent to the user's phone number
+        //         // Store the confirmationResult to be used later for OTP verification
+        //         setConfirmation(confirmationResult);
+
+        //     })
+        //     .catch((error: any) => {
+        //         // Handle sign-in error
+        //     });
     };
 
     const verifyOTP = (otp: any) => {

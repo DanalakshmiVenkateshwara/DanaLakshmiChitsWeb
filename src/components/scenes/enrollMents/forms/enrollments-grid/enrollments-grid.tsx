@@ -78,6 +78,7 @@ export default function EnrollMentsGrid(props:any) {
       <GridColumn title="EnrollMentDate" targetField="enrollMentDate" />
       <GridColumn title="CloseDate" targetField="closeDate" />
       <GridColumn title="Amount" targetField="amount" />
+      <GridColumn title='Actions' targetField="" />
     </Grid>
   </>
 

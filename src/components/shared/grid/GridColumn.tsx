@@ -2,7 +2,7 @@ import React from "react";
 
 interface Iprops {
   title: string;
-  targetField: string;
+  targetField?: string;
   width?: string;
   children?: any;
 }

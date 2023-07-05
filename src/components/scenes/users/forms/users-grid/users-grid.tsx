@@ -19,6 +19,7 @@ export default function UsersGrid({ data, loading, setIsCrete,setIsDelete, setUs
       <GridColumn title="Email" targetField="eMail" />
       <GridColumn title="Password" targetField="password" />
       <GridColumn title="Address" targetField="address" />
+      <GridColumn title="Actions" targetField="" />
     </Grid>
   </>
 

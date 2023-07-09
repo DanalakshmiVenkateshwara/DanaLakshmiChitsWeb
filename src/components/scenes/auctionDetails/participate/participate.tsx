@@ -20,7 +20,7 @@ export default function Participate() {
 
 
   React.useEffect(() => {
-    const socket = new WebSocket(`ws://127.0.0.1:5000/websocket?connectionId=${State?.user.socketId}`);
+    const socket = new WebSocket(`wss://localhost:5001/websocket?connectionId=${State?.user.socketId}`);
 
      socket.onopen = () => {
         console.log('WebSocket connection established');

@@ -13,6 +13,7 @@ import { useActionTypes, useStore } from "../../../store";
 
 export default function Participate() {
   const { Store, State } = useStore();
+  const [sockets, setsocket] = useState<any>();
   const { getActionTypes } = useActionTypes();
   const actionTypes: any = getActionTypes();
   const [connectedClients, setConnectedClients] = useState([])
@@ -20,15 +21,15 @@ export default function Participate() {
 
 
   React.useEffect(() => {
-    const socket = new WebSocket(`ws://127.0.0.1:5000/websocket?connectionId=${State?.user.socketId}`);
-
+    const userDetails={Username: 'JohnDoe',Email:"testinf@test.com"}
+    const socket = new WebSocket(`ws://127.0.0.1:5000/websocket?connectionId=${State?.user.socketId}&userDetails=${encodeURIComponent(JSON.stringify(userDetails))}`);
+    setsocket(socket)
      socket.onopen = () => {
         console.log('WebSocket connection established');
         // Send a handshake request
         // webSocketRef.current.send(`{"action":"connect","connectionId": ${State.user.socketId}}`);
-        socket.send(JSON.stringify({ Action: 'connected' }));
-        socket.send(JSON.stringify({ Action: 'sendMessage' }));
-        
+        // socket.send(JSON.stringify({ Action: 'connected' }));
+        // socket.send(JSON.stringify({ Action: 'sendMessage' }));
       };
     
   // Handle incoming messages
@@ -117,6 +118,7 @@ export default function Participate() {
   }
   return (<>
     <Card title="Auction Participation" className="h-100 participate" headerAction={<Button onClick={handleShow}>Participation list</Button>}>
+      <Button onClick={()=>{sockets.send(JSON.stringify({ Action: 'sendMessage' }));}}>send</Button>
       <Row className="h-100">
         {/* Group_details */}
         <Col sm={8}>

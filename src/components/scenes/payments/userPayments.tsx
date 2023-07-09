@@ -74,7 +74,7 @@ export default function UserPayments(props: any) {
   // });
 
   useNoninitialEffect(() => {
-    debugger
+    
     if (savePaymentResponse === 1) {
       getToast("successfull submitted", "success");
       setIsCrete(false);
@@ -82,19 +82,19 @@ export default function UserPayments(props: any) {
   }, [savePaymentResponse]);
 
   useNoninitialEffect(() => {
-    debugger
+    
     let data: any = enrollMentresponce;
     //setEnrollMentsData(data);
     setGroupsData(data);
   }, [enrollMentresponce]);
 
   useNoninitialEffect(() => {
-    debugger
+    
     let data: any = usersResponse;
     setUsersData(data);
   }, [usersResponse]);
   useNoninitialEffect(() => {
-    debugger
+    
     paymentDetails.totalAmount = 0;
     paymentDetails.paymentMonth = 0;
     // setPaymentDetails({...paymentDetails, totalAmount: 0,});
@@ -103,7 +103,7 @@ export default function UserPayments(props: any) {
     // setPaymentDetails({ ...paymentDetails, dueAmount: 0 });
   }, [isUserChange]);
   const onUserChange = (e: any) => {
-    debugger
+    
     setIsUserChange(false)
     if (groupsData.length > 0){
       setEnrollMentsData(groupsData.filter((m: any) => m.userId == e.id));
@@ -122,7 +122,7 @@ export default function UserPayments(props: any) {
   //   getPaymentDetails();
   // };
   const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    debugger
+    
     // paymentDetails.totalAmount = 0;
     // paymentDetails.paymentMonth = 0;
     // paymentDetails.dividend = 0;
@@ -146,7 +146,7 @@ export default function UserPayments(props: any) {
     //     setPaymentDetails({ ...paymentDetails, dueAmount: data });
     // }, [PendingpaymentResponse]);
   useNoninitialEffect(() => {
-    debugger
+    
     let data: any = paymentResponse;
     if (data.length > 0)
       setPaymentDetails({
@@ -161,7 +161,7 @@ export default function UserPayments(props: any) {
     // setMonthOfInstallMent(data[0].paidUpto);
   }, [paymentResponse]);
   const onInstallmentPay = () => {
-    debugger
+    
     let error: Array<string> = [];
     if(paymentDetails.userId<=0) error.push("Please select username");
     if(paymentDetails.groupId<=0) error.push("Please choose group");

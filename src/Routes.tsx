@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, createBrowserRouter, Route, RouterProvider, Routes as CRoutes } from "react-router-dom";
+import { BrowserRouter, createBrowserRouter, Navigate, Route, RouterProvider, Routes as CRoutes } from "react-router-dom";
 import LandingPage from "./components/scenes/landingPage";
 import Groups from "./components/scenes/groups";
 import Users from "./components/scenes/users";
@@ -24,30 +24,31 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./App";
 
 function Routes() {
-  debugger
+
   const [isLogin, setIsLogin] = useState(false);
   const [isAdmin, setIsAdmin] = useState(true);
-  const {State,Store} =useStore();
-    const {getActionTypes}=useActionTypes();
-     const actionTypes:any=getActionTypes();
-     useEffect(()=>{
-      debugger
-           if(State.user.isAdmin){
-            setIsLogin(true);
-            setIsAdmin(true)
-           }else if(State.user.id > 0){
-            setIsLogin(true);
-            setIsAdmin(false)
-           }
-           else
-          setIsLogin(false);
-     },[State.user.isAdmin|| State.user.id])
-     function onAuthStateChange(user: any) {
-     console.log(user)
+  const { State, Store } = useStore();
+  const { getActionTypes } = useActionTypes();
+  const actionTypes: any = getActionTypes();
+  useEffect(() => {
+
+    if (State.user.isAdmin) {
+      setIsLogin(true);
+      setIsAdmin(true);
+    } else if (State.user.Id > 0) {
+      setIsLogin(true);
+      setIsAdmin(false)
+    }
+    else
+      setIsLogin(false);
+  }, [State.user.isAdmin || State.user.id])
+  function onAuthStateChange(user: any) {
+    console.log(user)
+    Store.update(actionTypes.updateuser, { name: user.displayName, email: user.email, Id: 1, isAdmin: false, phone: user.phoneNumber, socketId: '' })
   }
   useEffect(() => {
-      const subscriber = onAuthStateChanged(auth,onAuthStateChange);
-      return subscriber; // unsubscribe on unmount
+    const subscriber = onAuthStateChanged(auth, onAuthStateChange);
+    return subscriber; // unsubscribe on unmount
   }, []);
   return (
     <>
@@ -55,7 +56,7 @@ function Routes() {
         <>
           {isLogin && <Header />}
           <div className="row mx-0 w-100" style={{ flexWrap: "nowrap" }}>
-           {(isLogin) && <NavSidebar />}
+            {(isLogin) && <NavSidebar />}
             <Col className="">
               <CRoutes>
                 {isLogin ? <>{isAdmin ? <>
@@ -76,11 +77,11 @@ function Routes() {
                   </>
                 }</> :
                   <Route path="/" element={<LoginPage />} />
-                  }
-                    <>
+                }
+                <>
                   <Route path="/participate" element={<Participate />} />
                   <Route path="/Auctions" element={<Auctions />} />
-                  </>
+                </>
               </CRoutes>
             </Col>
           </div>

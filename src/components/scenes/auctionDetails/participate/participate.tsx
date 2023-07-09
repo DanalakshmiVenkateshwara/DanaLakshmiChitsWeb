@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { Col, Offcanvas, Row } from "react-bootstrap";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Button from "../../../shared/button";
@@ -6,98 +6,117 @@ import Card from "../../../shared/card";
 import Form from "../../../shared/form";
 import './_participate.scss'
 import { io } from 'socket.io-client';
+import { useActionTypes, useStore } from "../../../store";
 
 
 
 
 export default function Participate() {
+  const { Store, State } = useStore();
+  const { getActionTypes } = useActionTypes();
+  const actionTypes: any = getActionTypes();
+  const [connectedClients, setConnectedClients] = useState([])
+
+
+
   React.useEffect(() => {
-    const socket = new WebSocket('ws://127.0.0.1:5000/websocket');
+    const socket = new WebSocket(`ws://127.0.0.1:5000/websocket?connectionId=${State?.user.socketId}`);
 
-    socket.addEventListener('open', (event) => {
-      // Send a handshake request to the server
-      socket.send(JSON.stringify({ action: 'connect' }));
-    });
+     socket.onopen = () => {
+        console.log('WebSocket connection established');
+        // Send a handshake request
+        // webSocketRef.current.send(`{"action":"connect","connectionId": ${State.user.socketId}}`);
+        socket.send(JSON.stringify({ Action: 'connected' }));
+        socket.send(JSON.stringify({ Action: 'sendMessage' }));
+        
+      };
+    
+  // Handle incoming messages
+  socket.onmessage = (event:any) => {
+    const msg = JSON.parse(event.data);
+    const { Action, Data } = msg;
 
-    socket.addEventListener('message', (event) => {
-      const message = JSON.parse(event.data);
+    if (Action === 'connectResponse') {
+      // setConnectionId(connectionId);
+      const connectionId = msg.connectionId;
+      console.log('WebSocket connection established. Connection ID:', connectionId);
+      Store.update(actionTypes.updateuser, { ...State.user, socketId: connectionId })
+    } else if (Action === 'connectedClients') {
+      console.log('WebSocket connectedclients',Data);
+      setConnectedClients(Data);
+    } else {
+      // Handle other incoming messages
+      // setMessages((prevMessages) => [...prevMessages, message]);
+    }
+  };
 
-      if (message.action === 'connectResponse') {
-        const connectionId = message.connectionId;
-        console.log('WebSocket connection established. Connection ID:', connectionId);
-      } else {
-        console.log('Received message:', message);
-      }
-    });
-
-    socket.addEventListener('close', () => {
-      console.log('WebSocket connection closed.');
-    });
-
-    return () => {
+   // Cleanup on component unmount
+   return () => {
+    if (socket) {
       socket.close();
-    };
+    }
+  };
   }, []);
   // const socket = new WebSocket('ws://localhost:5000/api/websocket');
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  
-const countDownTime=15;
-const BDHY = [
-  {
-    amount: 5888,
-    user: "anvesh",
-    time: "2023-06-10T17:00:00",
-  },
-  {
-    amount: 6789,
-    user: "sandeep",
-    time: "2023-06-10T17:11:00",
-  },
-];
-const pList=[
-  {
-    user:"anvesh",
-    joinedAt:"2023-06-10T17:00:00"
-  },
-  {
-    user:"sandeep",
-    joinedAt:"2023-06-10T17:00:00"
-  },
-]
+
+  const countDownTime = 15;
+  const BDHY = [
+    {
+      amount: 5888,
+      user: "anvesh",
+      time: "2023-06-10T17:00:00",
+    },
+    {
+      amount: 6789,
+      user: "sandeep",
+      time: "2023-06-10T17:11:00",
+    },
+  ];
+  const pList = [
+    {
+      user: "anvesh",
+      joinedAt: "2023-06-10T17:00:00"
+    },
+    {
+      user: "sandeep",
+      joinedAt: "2023-06-10T17:00:00"
+    },
+  ]
 
 
- 
-function secondsToMinutes(seconds:number) {
-  const minutes = Math.floor(seconds / 60);
-  const remainingSeconds = seconds % 60;
 
-  const formattedMinutes = String(minutes).padStart(2, '0');
-  const formattedSeconds = String(remainingSeconds).padStart(2, '0');
-  return formattedMinutes + ':' + formattedSeconds ;
-}
+  function secondsToMinutes(seconds: number) {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
 
-function getTimeAgo(timestamp:any) {
-  const now = new Date().getTime();
-  const Time = new Date(timestamp).getTime();
-  const secondsAgo = Math.floor((now - Time) / 1000);
-
-  if (secondsAgo < 10) {
-    return 'just now';
-  } else if (secondsAgo < 60) {
-    return secondsAgo + ' seconds ago';
-  } else if (secondsAgo < 3600) {
-    const minutesAgo = Math.floor(secondsAgo / 60);
-    return minutesAgo + ' minutes ago';
-  } else {
-    const hoursAgo = Math.floor(secondsAgo / 3600);
-    return hoursAgo + ' hours ago';
+    const formattedMinutes = String(minutes).padStart(2, '0');
+    const formattedSeconds = String(remainingSeconds).padStart(2, '0');
+    return formattedMinutes + ':' + formattedSeconds;
   }
-}
+
+  function getTimeAgo(timestamp: any) {
+    const now = new Date().getTime();
+    const Time = new Date(timestamp).getTime();
+    const secondsAgo = Math.floor((now - Time) / 1000);
+
+    if (secondsAgo < 10) {
+      return 'just now';
+    } else if (secondsAgo < 60) {
+      return secondsAgo + ' seconds ago';
+    } else if (secondsAgo < 3600) {
+      const minutesAgo = Math.floor(secondsAgo / 60);
+      return minutesAgo + ' minutes ago';
+    } else {
+      const hoursAgo = Math.floor(secondsAgo / 3600);
+      return hoursAgo + ' hours ago';
+    }
+  }
   return (<>
-    <Card title="Auction Participation" className="h-100 participate" headerAction={<Button  onClick={handleShow}>Participation list</Button>}>
+    <Card title="Auction Participation" className="h-100 participate" headerAction={<Button onClick={handleShow}>Participation list</Button>}>
       <Row className="h-100">
         {/* Group_details */}
         <Col sm={8}>
@@ -140,33 +159,33 @@ function getTimeAgo(timestamp:any) {
             actionButtons={<Button>Bid amount</Button>}
           >
             <Row>
-            <Col sm={8} >
-           <Row>
-           <Col sm="4">
-                <Button size="default">+ 100</Button>{" "}
+              <Col sm={8} >
+                <Row>
+                  <Col sm="4">
+                    <Button size="default">+ 100</Button>{" "}
+                  </Col>
+                  <Col sm="4">
+                    <Button size="default"  >+ 200</Button>
+                  </Col>
+                  <Col sm="4">
+                    <Button size="default">+ 500</Button>
+                  </Col>
+                </Row>
+                <Row className="mt-3">
+                  <Col sm="4">
+                    <Button size="default">+ 1000</Button>
+                  </Col>
+                  <Col sm="4">
+                    <Button size="default"  >+ 2000</Button>
+                  </Col>
+                  <Col sm="4">
+                    <Button size="default">+ 5000</Button>
+                  </Col>
+
+                </Row>
               </Col>
-              <Col  sm="4">
-                <Button size="default"  >+ 200</Button>
-              </Col>
-              <Col  sm="4">
-                <Button size="default">+ 500</Button>
-              </Col>
-           </Row>
-            <Row className="mt-3">
-            <Col  sm="4">
-                <Button size="default">+ 1000</Button>
-              </Col>
-              <Col  sm="4">
-                <Button size="default"  >+ 2000</Button>
-              </Col>
-              <Col  sm="4">
-                <Button size="default">+ 5000</Button>
-              </Col>
-            
-              </Row>
-            </Col>
-            <Col>
-                <Form.Text value={`₹${new Intl.NumberFormat("en-in").format(34500 ?? 0)}`} style={{fontSize:"2rem"}}/>
+              <Col>
+                <Form.Text value={`₹${new Intl.NumberFormat("en-in").format(34500 ?? 0)}`} style={{ fontSize: "2rem" }} />
               </Col>
             </Row>
           </Card>
@@ -213,34 +232,34 @@ function getTimeAgo(timestamp:any) {
         </Col>
       </Row>
     </Card>
-    
-    
+
+
 
     <Offcanvas show={show} onHide={handleClose}>
       <Offcanvas.Header closeButton>
         <Offcanvas.Title>Participates</Offcanvas.Title>
       </Offcanvas.Header>
       <Offcanvas.Body>
-     {pList.map((item,index)=>{
-      return  <Card noPadding className="p-2 m-2 shadow border-0">
-      <Row className="m-0 align-items-center">
-        <div
-          className="bg-primary d-flex rounded-circle text-white"
-          style={{ width: "40px", height: "40px" }}
-        >
-          <label className="m-auto">{index + 1}</label>
-        </div>
-        <Col sm={6}>
-          <h6 className="mb-0">{item?.user}</h6>
-          <span>
-            <small className="d-block" style={{ fontSize: "10px" }}>{'Joined at '}  
-              {getTimeAgo(item?.joinedAt)}
-            </small>
-          </span>
-        </Col> 
-      </Row>
-    </Card>
-     })}
+        {connectedClients.map((item: any, index) => {
+          return <Card noPadding className="p-2 m-2 shadow border-0">
+            <Row className="m-0 align-items-center">
+              <div
+                className="bg-primary d-flex rounded-circle text-white"
+                style={{ width: "40px", height: "40px" }}
+              >
+                <label className="m-auto">{index + 1}</label>
+              </div>
+              <Col sm={6}>
+                <h6 className="mb-0">{item?.ConnectionId}</h6>
+                <span>
+                  <small className="d-block" style={{ fontSize: "10px" }}>{'Joined at '}
+                    {/* {getTimeAgo(item?.joinedAt)} */}
+                  </small>
+                </span>
+              </Col>
+            </Row>
+          </Card>
+        })}
       </Offcanvas.Body>
     </Offcanvas>
   </>

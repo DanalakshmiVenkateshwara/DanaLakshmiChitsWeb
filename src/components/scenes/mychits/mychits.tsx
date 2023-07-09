@@ -11,7 +11,7 @@ import UserChits from "../mychits/userchits";
 import { useStore } from "../../store";
 
 export default function MyChits(){
-  debugger
+  
   const [userInfo, setUserInfo] = useState<any>({ userId: 0, userName: ''});
   const {State,Store} = useStore();
   useEffect(() => {

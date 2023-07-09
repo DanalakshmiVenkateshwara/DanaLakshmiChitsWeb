@@ -24,6 +24,7 @@ export default function GroupsGrid({data,loading,setGroupStatus,CompletedGroupDe
         <GridColumn title="Start Date" targetField="startDate" />
         <GridColumn title="CloseDate" targetField="endDate" />
         <GridColumn title='Status' targetField="existed" />
+        <GridColumn title='Actions' targetField="" />
       </Grid>
     </>
 

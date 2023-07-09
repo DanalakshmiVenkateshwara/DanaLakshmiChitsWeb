@@ -32,9 +32,9 @@ export default function CustomRow(props: any) {
         <>
             <GridCell title="UserName" targetField="userName"><>{data?.userName}</></GridCell>
             <GridCell title="GroupName" targetField="groupName">{data?.groupName}</GridCell>
-            <GridCell title="Amount" targetField="amount">{data?.amount}</GridCell>
             <GridCell title="EnrollMentDate" targetField="enrollMentDate"><>{convertDateTimeToDate(data?.enrollMentDate)}</></GridCell>
             <GridCell title="CloseDate" targetField="closeDate"><>{convertDateTimeToDate(data?.closeDate)}</></GridCell>
+            <GridCell title="Amount" targetField="amount">{data?.amount}</GridCell>
             <GridCell title="Actions" targetField=""><>{data?.isActive &&<Button onClick={onDelete}>Delete</Button>}</></GridCell>
         </>
     )

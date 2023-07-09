@@ -25,7 +25,7 @@ export default function OutStandings({ data, loading, setIsCrete, setPaymentDeta
       <GridColumn title="DueAmount" targetField="dueAmount" />
       <GridColumn title="PaymentDate" targetField="paymentDate" />
       <GridColumn title='AuctionDate' targetField="auctionDate" />
-      <GridColumn title='Status' targetField="raised" />
+      {/* <GridColumn title='Status' targetField="raised" /> */}
     </Grid>
   </>
   );

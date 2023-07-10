@@ -8,7 +8,7 @@ import { Form, Button, Col } from "react-bootstrap";
 import { useStore } from '../../store';
 
 export default function Acdetails() {
-  debugger
+  
   const [groupsData, setGroupsData] = useState<Array<any>>([]);
   const [userChits, setuserChits] = useState<Array<any>>([]);
   const [groupId, setGroupId] = useState<any>(-1);

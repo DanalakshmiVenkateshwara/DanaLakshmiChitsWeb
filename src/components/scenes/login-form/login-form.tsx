@@ -15,7 +15,7 @@ import OtpInput from 'react-otp-input';
 
 
 export default function LoginPage() {
-    debugger
+    
     const { getToast } = useToast();
     const [userName, setUserName] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -82,7 +82,7 @@ export default function LoginPage() {
 
     }
     useNoninitialEffect(() => {
-        debugger
+        
         var data: any = response;
         if (data != "") {
             if (data.iSAdmin == "True") {
@@ -90,7 +90,7 @@ export default function LoginPage() {
                 navigate("/home")
             }
             else {
-                debugger
+                
                 Store.update(actionTypes?.updateuser, { id: data.id, isAdmin: false,name:data.name,email:data.email })
                 navigate("/home")
             }
@@ -120,11 +120,11 @@ export default function LoginPage() {
         }
     }
     const onStateChange = (e: any) => {
-        debugger
+        
         setUserDetails({ ...userDetails, state: e.target.value })
     }
     const registerClickHandler = () => {
-        debugger
+        
         let error: Array<string> = [];
         if (userDetails.phone) {
             let reg = /^(?!0+$)\d{10,}$/;
@@ -229,7 +229,7 @@ export default function LoginPage() {
         signInWithCredential(auth, credential)
             .then((userCredential: any) => {
                 
-                debugger
+                
                 // User signed in successfully with OTP
                 // Proceed to collect email and password
                 // createUserWithEmailAndPassword(auth, userDetails.eMail, userDetails.password)

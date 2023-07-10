@@ -40,7 +40,7 @@ export default function Acdetails() {
   return (
     <>
     {/* <Form.Row as={Col} className="m-0 align-items-center "> */}
-      <h5 className="mb-0 mr-3">{"Select Group "}</h5>
+      {/* <h5 className="mb-0 mr-3">{"Select Group "}</h5> */}
   
       {/* </Form.Row> */}
       {/* <Form.Select placeholder='choose group name' required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => { onGroupChange(e) }}>

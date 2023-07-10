@@ -5,7 +5,7 @@ const Store = [
       user: { name: "", email: "", Id: 0, isAdmin: false,userName:""},
     },
     features: {
-      persist: false,
+      persist: true,
     },
   },
 ];

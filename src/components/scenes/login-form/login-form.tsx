@@ -270,8 +270,8 @@ export default function LoginPage() {
             </Col>
             <Row as={Col}>
                 <Col sm='8' className='m-auto'>
-                    <h4>{State.user.name}</h4>
-                    <h4>{State.user.email}</h4>
+                    {/* <h4>{State.user.name}</h4>
+                    <h4>{State.user.email}</h4> */}
                     {/* <Button onClick={()=>{Store.update(actionTypes?.updateuser,{name:'test',email:"test@gmail.com"})}}>store update</Button> */}
                     <h1>logo</h1>
 

@@ -35,7 +35,7 @@ function Routes() {
     if (State.user.isAdmin) {
       setIsLogin(true);
       setIsAdmin(true);
-    } else if (State.user.Id > 0) {
+    } else if (State.user.id > 0) {
       setIsLogin(true);
       setIsAdmin(false)
     }

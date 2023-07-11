@@ -44,7 +44,7 @@ function Routes() {
   }, [State.user.isAdmin || State.user.id])
   function onAuthStateChange(user: any) {
     console.log(user)
-    user && Store.update(actionTypes.updateuser, { name: user.displayName, email: user.email, Id: 1, isAdmin: false, phone: user.phoneNumber, socketId: '' })
+    // user && Store.update(actionTypes.updateuser, { name: user.displayName, email: user.email, Id: 1, isAdmin: false, phone: user.phoneNumber, socketId: '' })
   }
   useEffect(() => {
     const subscriber = onAuthStateChanged(auth, onAuthStateChange);

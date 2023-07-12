@@ -22,6 +22,7 @@ import Participate from "./components/scenes/auctionDetails/participate";
 import { useActionTypes, useStore } from "./components/store";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./App";
+import HomePage from "./components/scenes/homePage";
 
 function Routes() {
 
@@ -79,6 +80,7 @@ function Routes() {
                   <Route path="/" element={<LoginPage />} />
                 }
                 <>
+                <Route path="/home" element={<HomePage />} />
                   <Route path="/participate" element={<Participate />} />
                   <Route path="/Auctions" element={<Auctions />} />
                 </>

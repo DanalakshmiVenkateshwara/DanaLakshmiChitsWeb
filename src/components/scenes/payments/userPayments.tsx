@@ -1,5 +1,5 @@
 import react, { useState } from "react";
-import { Button, Card,Form as RForm,Col,Container,Row,} from "react-bootstrap";
+import { Button, Card,Form as RForm,Col,Container,Row, OverlayTrigger, Popover,} from "react-bootstrap";
 import { CardBody, Input, Label } from "reactstrap";
 import UrlConstants from "../../constants/UrlConstants";
 import useFetch from "../../hooks/useFetch";
@@ -11,7 +11,13 @@ import uniqid from "uniqid";
 export default function UserPayments(props: any) {
   const { setIsCrete } = props;
   const { getToast } = useToast();
-
+   const [userDueDetails, setUserDueDetails] = useState<any>([]);
+  // const [userDueDetails, setUserDueDetails] = useState<any>({
+  //   Installmentmonth:0,
+  //   dividend:0,
+  //   installmentAmount :0,
+  //   dueAmount:0
+  // })
   const [paymentDetails, setPaymentDetails] = useState<any>({
     id: 0,
     userId: 0,
@@ -24,10 +30,12 @@ export default function UserPayments(props: any) {
     dividend: 0,
     totalAmount: 0,
     dueAmount: 0,
+    totalDue:0,
     auctionDate: "2023-05-01T14:20:19.894Z",
     fullyPaid: true,
     paymentDate: "2023-05-01T14:20:19.894Z",
     paymentMonth: 0,
+    userDues : userDueDetails,
     raised: true,
   });
   const { GET_ENROLLMENT, GET_USERS, USER_PAYMENTS } = UrlConstants();
@@ -109,7 +117,7 @@ export default function UserPayments(props: any) {
       setEnrollMentsData(groupsData.filter((m: any) => m.userId == e.id));
       paymentDetails.groupId = -1;
       
-    setPaymentDetails({ ...paymentDetails, userId: e.id, totalAmount: 0, paymentMonth: 0, dividend:0, dueAmount: 0 });
+    setPaymentDetails({ ...paymentDetails, userId: e.id, totalAmount: 0, paymentMonth: 0, dividend:0, dueAmount: 0,totalDue:0 });
     // setPaymentDetails({...paymentDetails, totalAmount: 0});
     // setPaymentDetails({...paymentDetails, paymentMonth: 0});
     // setPaymentDetails({...paymentDetails,dividend:0});
@@ -133,7 +141,7 @@ export default function UserPayments(props: any) {
       if(Number(e.target.value) > 0)
          getPaymentDetails();
          else{
-          setPaymentDetails({ ...paymentDetails, totalAmount: 0, paymentMonth: 0, dividend:0, dueAmount: 0 ,groupId:Number(e.target.value)});
+          setPaymentDetails({ ...paymentDetails, totalAmount: 0, paymentMonth: 0, dividend:0, dueAmount: 0,totalDue: 0, groupId:Number(e.target.value)});
           // setPaymentDetails({ ...paymentDetails,groupId:Number(e.target.value)}); 
         }
       // getPendingPaymentDetails();
@@ -146,16 +154,19 @@ export default function UserPayments(props: any) {
     //     setPaymentDetails({ ...paymentDetails, dueAmount: data });
     // }, [PendingpaymentResponse]);
   useNoninitialEffect(() => {
-    
     let data: any = paymentResponse;
-    if (data.length > 0)
+    if (data.length > 0){
       setPaymentDetails({
         ...paymentDetails,
-        dividend: data[0].dividend,
+        dividend: data[0].totalDue != data[0].dueAmount ? data[0].userDues[0].dividend : data[0].dividend,
         totalAmount: data[0].totalAmount,
-        paymentMonth: data[0].paidUpto,
-        dueAmount: data[0].dueAmount
+        paymentMonth: data[0].totalDue != data[0].dueAmount ? data[0].userDues[0].installmentmonth : data[0].paidUpto,
+        dueAmount: data[0].totalDue != data[0].dueAmount ? data[0].userDues[0].dueAmount : data[0].dueAmount,
+        totalDue: data[0].totalDue,
+        userDues: data[0].userDues
       });
+      setUserDueDetails(data[0].userDues);
+    }
     // setDividend(data[0].dividend);
     // setAmount(data[0].totalAmount);
     // setMonthOfInstallMent(data[0].paidUpto);
@@ -164,6 +175,7 @@ export default function UserPayments(props: any) {
     
     let error: Array<string> = [];
     if(paymentDetails.userId<=0) error.push("Please select username");
+    if(paymentDetails.totalDue<=0) error.push("we dont have a scope for future payment");
     if(paymentDetails.groupId<=0) error.push("Please choose group");
     if(paymentDetails.currentMonthEmi<=0) error.push("Installment amount is mandatory");
     if(error.length>0){
@@ -235,16 +247,43 @@ export default function UserPayments(props: any) {
         </Col>
         <Col xl="3" lg="4" md="6">
           <Form.Number
-            disabled={true}
+            disabled= {true}//{paymentDetails.dueAmount== paymentDetails.totalDue }
             value={paymentDetails.paymentMonth}
+            onChange={(e: any) =>
+              setPaymentDetails({ ...paymentDetails, paymentMonth: e })
+            }
             label="MonthOfInstallMent"
           />
         </Col>
         {/* for the time being using static amount we need to change */}
         {/* <RForm.Control type="text" value={paymentDetails.dueAmount} ></RForm.Control> */}
         <Col xl="3" lg="4" md="6">
-          <Form.Number disabled={true} value={paymentDetails.dueAmount} label="DueAmount" />
+          <Form.Number disabled={true} value={paymentDetails.dueAmount} label="CurrentMonthAmount" />
         </Col>
+        <Col xl="3" lg="4" md="6">
+          <Form.Number disabled={true} value={paymentDetails.totalDue} label="TotalDue" />
+          <>Total Dues Info</>
+          <OverlayTrigger
+                    trigger={['hover', 'focus']}
+                    placement='bottom'
+                    overlay={
+                        <Popover id='popover-bottom'>
+                            <Popover.Body>
+                            {paymentDetails.userDues.map((m: any) =>
+                            <>
+                                <p> InstallMent Month : {m.installmentmonth} </p>
+                                <p> DueAmount : {m.dueAmount}</p>
+                                <p> Dividend : {m.dividend}</p>
+                               <p> InstallmentAmount : {m.installmentAmount}</p></>
+                            )}
+                                </Popover.Body>
+                        </Popover>
+                    }
+                >
+                    <i className="fa fa-info-circle cursor fa-lg p-2 text-info float-right"></i>
+                </OverlayTrigger>
+        </Col>
+        
         <Col xl="3" lg="4" md="6">
           <Form.Number
             disabled={true}

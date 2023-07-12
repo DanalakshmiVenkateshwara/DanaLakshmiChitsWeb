@@ -13,7 +13,6 @@ export default function Header() {
   const navigate = useNavigate();
   
   const logOutClickHandler = ()=>{
-    debugger
     Store.update(actionTypes?.updateuser, { id: 0, isAdmin: false })
      navigate("/")
   }

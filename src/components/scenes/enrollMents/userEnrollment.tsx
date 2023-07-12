@@ -22,14 +22,18 @@ export default function UserEnrollment(props: any) {
     const [amount, setAmount] = useState<any>();
     const [groupsData, setGroupsData] = useState<Array<any>>([]);
     const [usersData, setUsersData] = useState<Array<any>>([]);
+    const [enrollMentsCount, setEnrollMentsCount] = useState<number>(0);
 
     // false means we are getting only active groups
     const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
     const { response, loading, onRefresh: saveEnrollMents } = useFetch({ url: `/Admin/EnrollMent/${userId}/${groupId}/${true}`, Options: { method: 'POST' } });
     const { response: usersResponse, loading: usersLoading } = useFetch({ url: `/Admin/GetUsers/${0}/${true}`, Options: { method: 'GET', initialRender: true } });
+    const { response: enrollmentCountResponse, loading: enrollmentCountLoading,onRefresh: enrollmentCount } = useFetch({ url: `/Admin/GetEnrollMentsCount?groupId=${groupId}`, Options: { method: 'GET', initialRender: false } });
     const enrollUser = () => {
         
         let error: Array<string> = [];
+        if(enrollMentsCount >= groupsData.filter((f: any) => f.id == groupId)[0]?.noOfMembers)
+        error.push("Group registration Completed");
         if(groupId==undefined|| groupId == -1)
         error.push("Groupname is Mandatory");
         if(amount==undefined|| amount =="")
@@ -62,11 +66,17 @@ export default function UserEnrollment(props: any) {
         setGroupsData(data)
     }, [groupResponse])
     useNoninitialEffect(() => {
-        
         let data: any = usersResponse;
-        
         setUsersData(data)
     }, [usersResponse])
+
+    useNoninitialEffect(() => {
+        let data: any = enrollmentCountResponse;
+        setEnrollMentsCount(data);
+        var noOfMembers  = groupsData.filter((f: any) => f.id == groupId)[0].noOfMembers;
+        if(data == noOfMembers || data >= noOfMembers)
+        getToast('Group registration Completed', 'error');
+    }, [enrollmentCountResponse])
 
     // const onGroupChange = (e: any) => {
     //     
@@ -78,13 +88,15 @@ export default function UserEnrollment(props: any) {
         setUserId(e);
     }
     const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        
         setGroupId(e.target.value)
         if(e.target.value != '-1'){
         let amount = groupsData.filter((f: any) => f.id == e.target.value)[0].amount;
         setAmount(amount);
+        enrollmentCount();
         }
         else(setAmount(''))
+        // if(e.target.value != '-1')
+        // enrollmentCount();
       }
 
 

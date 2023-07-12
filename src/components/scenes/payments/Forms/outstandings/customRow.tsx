@@ -21,7 +21,7 @@ export default function CustomRow(props: any) {
             <GridCell title="TotalAmount" targetField="totalAmount" >{data?.totalAmount}</GridCell>
             <GridCell title="DueAmount" targetField="dueAmount">{data?.dueAmount}</GridCell>
             <GridCell title="PaymentDate" targetField="paymentDate" ><>{convertDateTimeToDate(data?.paymentDate)}</></GridCell>
-            <GridCell title="AuctionDate" targetField="auctionDate" ><>{convertDateTimeToDate(data?.auctionDate)}</></GridCell>
+            {/* <GridCell title="AuctionDate" targetField="auctionDate" ><>{convertDateTimeToDate(data?.auctionDate)}</></GridCell> */}
             {/* <GridCell title="Actions" targetField="Edit" ><><Button onClick={() => { console.log(data); rowProps.setPaymentDetails({ ...data }); rowProps.setIsCrete(true) }}><i className='fas fa-edit me-2'></i>Edit</Button></></GridCell> */}
         </>
     )

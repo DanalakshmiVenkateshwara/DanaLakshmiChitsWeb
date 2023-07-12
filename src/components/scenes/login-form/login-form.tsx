@@ -167,7 +167,6 @@ export default function LoginPage() {
     }
 
     useNoninitialEffect(() => {
-        debugger
         var existedUserCount: any = userExistedresponse;
         if (existedUserCount > 0) {
             getToast("user existed with this mobile no", 'error');
@@ -198,7 +197,6 @@ export default function LoginPage() {
 
     //mobile authentication
     const sendOTP = (phoneNumber: any) => {
-        debugger
         setMobileNo(phoneNumber);
         
         isUserExisted();

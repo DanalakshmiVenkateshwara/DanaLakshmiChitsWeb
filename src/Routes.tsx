@@ -77,10 +77,11 @@ function Routes() {
                     <Route path="/ContactUs" element={<ContactUs />} />
                   </>
                 }</> :
-                  <Route path="/" element={<LoginPage />} />
+                <><Route path="/" element={<HomePage />} />
+                  <Route path="/Login" element={<LoginPage />} /></>
                 }
                 <>
-                <Route path="/home" element={<HomePage />} />
+                
                   <Route path="/participate" element={<Participate />} />
                   <Route path="/Auctions" element={<Auctions />} />
                 </>

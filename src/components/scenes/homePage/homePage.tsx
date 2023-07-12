@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Button, Card, Carousel, Col, Container,    Nav, Navbar, NavDropdown, Row } from 'react-bootstrap'
 import slideOne from '../../assets/images/slider-1.jpg'
 import slideTwo from '../../assets/images/slider-2.jpg'
@@ -7,9 +7,18 @@ import downloadApp from '../../assets/images/app_screenshot.png'
 import chitWorks from '../../assets/images/chitworks.jpg'
 import './homepage.scss'
 import Form from '../../shared/form'
+import useFetch from '../../hooks/useFetch'
+import useNoninitialEffect from '../../hooks/useNoninitialEffect'
 const HomePage = () => {
+    const [chitPlans ,setChitPlans] = useState<any>()
 
-    const chitPlans = [{ chitAmount: "50000", monthlySub: "10000", totMem: 200, duration: 50 }, { chitAmount: "60000", monthlySub: "20000", totMem: 200, duration: 60 }, { chitAmount: "50000", monthlySub: "10000", totMem: 200, duration: 50 }, { chitAmount: "60000", monthlySub: "20000", totMem: 200, duration: 60 }]
+    const { response, loading, onRefresh: CompletedGroupDetails } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
+    useNoninitialEffect(() => {
+        if(response!=null)
+        setChitPlans(response)
+        CompletedGroupDetails();
+      }, [response]);
+    // const chitPlans = [{ chitAmount: "50000", monthlySub: "10000", totMem: 200, duration: 50 }, { chitAmount: "60000", monthlySub: "20000", totMem: 200, duration: 60 }, { chitAmount: "50000", monthlySub: "10000", totMem: 200, duration: 50 }, { chitAmount: "60000", monthlySub: "20000", totMem: 200, duration: 60 }]
 
 
     return (
@@ -23,12 +32,13 @@ const HomePage = () => {
                         <Navbar.Collapse id="responsive-navbar-nav">
 
                             <Nav className="ms-auto ">
-                                <Nav.Link href="#deets">Home</Nav.Link>
+                                <Nav.Link href="#deet">Home</Nav.Link>
                                 <Nav.Link href="#deets">Chit Plans</Nav.Link>
                                 <Nav.Link href="#deets">Certificate</Nav.Link>
                                 <Nav.Link href="#deets">How to Join</Nav.Link>
-                                <Nav.Link href="#deets">Testimonals</Nav.Link>
+                                {/* <Nav.Link href="#deets">Testimonals</Nav.Link> */}
                                 <Button className='rounded-pill mx-3' variant='light'>Download App</Button>
+                                <Nav.Link href="/Login">Login/SignUp</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>
@@ -45,7 +55,7 @@ const HomePage = () => {
                                 alt="First slide"
                             />
                             <Carousel.Caption>
-                                <h3>చిన్న మొత్తాల  పొదుపు పెద్ద మొత్తాలలో  మలుపు</h3>
+                            <h3>మా ప్రత్యేకత ఎలాంటి షూరిటీ లేకుండ 200000 చిట్టి వరకు ఇవ్వబడును</h3>
                             </Carousel.Caption>
                         </Carousel.Item>
                         <Carousel.Item>
@@ -69,9 +79,40 @@ const HomePage = () => {
                                 <h3>వ్యాపార అభివృధి తో పాటు దానాబి వృద్ధి కూడ ముఖ్యం</h3>
                             </Carousel.Caption>
                         </Carousel.Item>
+                        <Carousel.Item>
+                            <img
+                                className="d-block w-100"
+                                src={slideOne}
+                                alt="First slide"
+                            />
+                            <Carousel.Caption>
+                                <h3>చిన్న మొత్తాల  పొదుపు పెద్ద మొత్తాలలో  మలుపు</h3>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img
+                                className="d-block w-100"
+                                src={slideTwo}
+                                alt="Second slide"
+                            />
+
+                            <Carousel.Caption>
+                                <h3>ధన చిట్స్ తో  కలిసి పొదుపు చేసుకోండి  పెద్దగా కలలు కనండి</h3>
+                            </Carousel.Caption>
+                        </Carousel.Item>
+                        <Carousel.Item>
+                            <img
+                                className="d-block w-100"
+                                src={slideThree}
+                                alt="Third slide"
+                            />
+                            <Carousel.Caption>
+                                <h3>ప్రతి మనిషికి కష్టం ఉంటుంది ఆ కష్టాన్ని సంతోషంగా మార్చేదే ధన చిట్స్</h3>
+                            </Carousel.Caption>
+                        </Carousel.Item>
                     </Carousel>
                     <div className='contact-form'>
-                        <Card>
+                        {/* <Card>
                             <Card.Body>
                                 <h3>Join in 2 minutes</h3>
                                 <div className='contact-controls'>
@@ -88,7 +129,7 @@ const HomePage = () => {
                                 </div>
 
                             </Card.Body>
-                        </Card>
+                        </Card> */}
                     </div>
                 </div>
                 {/* our chit plans */}
@@ -97,21 +138,21 @@ const HomePage = () => {
                     {/* {chitAmount:"50000",monthlySub:"10000",totMem:200,duration:50} */}
                     <Row className='justify-content-center'>
                         {
-                            chitPlans.map((item) =>
+                            chitPlans?.map((item:any) =>
                                 <Col sm='3' xxl="2">
                                     <Card >
                                         <Card.Body>
                                             <div className='card-text-group'>
-                                                <h2>₹{Intl.NumberFormat('en-IN').format(Number(item.chitAmount))}</h2>
+                                                <h2>₹{Intl.NumberFormat('en-IN').format(Number(item.amount))}</h2>
                                                 <label>CHIT AMOUNT</label>
                                             </div>
                                             <div className='card-text-group'>
                                                 <label>MONTHLY SUBSCRIPTION</label>
-                                                <h2>₹{Intl.NumberFormat('en-IN').format(Number(item.monthlySub))}</h2>
+                                                <h2>₹{Intl.NumberFormat('en-IN').format(Number(item.installmentAmount))}</h2>
                                             </div>
                                             <div className='card-text-group'>
                                                 <label>MEMBERS IN CIRCLE</label>
-                                                <h2>{item.totMem}+</h2>
+                                                <h2>{item.noOfMembers}+</h2>
                                             </div>
                                             <div className='card-text-group'>
                                                 <label>DURATION IN MONTHS</label>
@@ -123,7 +164,14 @@ const HomePage = () => {
                         }
                     </Row>
                 </div>
-
+                <div className='Certifications'>
+                <h1 className='text-center mb-5'>Certifications & Licenses </h1>
+                <Row>
+                    <Col sm="5"><h5>Fully Compliant as per the Chit Fund Act 1982</h5></Col></Row>
+                    <Row>
+                        <Col sm="5"><h5>Partnered with Govt. Licensed Funds</h5></Col>
+                </Row>
+                </div>
                 {/* download app */}
                 <div className='download-app'>
                     <h1 className='text-center mb-5'>Download App </h1>

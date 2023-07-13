@@ -88,6 +88,7 @@ export default function Participate() {
       return dateA.getTime() - dateB.getTime();
     })
     setBids(Data);
+    setLastBidValue(Number(Data.at(-1).amount));
   }
 
   function RaiseBid() {
@@ -120,6 +121,7 @@ export default function Participate() {
       return hoursAgo + ' hours ago';
     }
   }
+
   return (<>
     <Card title="Auction Participation" className="h-100 participate" headerAction={<Button onClick={handleShow}>Participation list</Button>}>
       {/* <Button onClick={() => { sockets.send(JSON.stringify({ Action: 'bidding', Data: { id: 'ertyhbv4567bn', amount: '5653', name: 'sandeep' } })); }}>send</Button> */}
@@ -193,7 +195,7 @@ export default function Participate() {
                 </Row>
               </Col>
               <Col>
-                <Form.Text type="number" value={`₹${new Intl.NumberFormat("en-in").format(lastBidValue ?? 0)}`} style={{ fontSize: "2rem" }} onChange={(e: any) => { console.log(e); setLastBidValue(Number(e.replace(/₹|,|[a-zA-Z]/g, ""))) }} />
+                <Form.Text disabled type="number" value={`₹${new Intl.NumberFormat("en-in").format(lastBidValue ?? 0)}`} style={{ fontSize: "2rem" }} onChange={(e: any) => { console.log(e); setLastBidValue(Number(e.replace(/₹|,|[a-zA-Z]/g, ""))) }} />
               </Col>
             </Row>
           </Card>

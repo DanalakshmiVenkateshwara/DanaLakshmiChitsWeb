@@ -61,12 +61,10 @@ export default function Payments() {
     getPaymentsData();
   }, [isCrete])
   const onUserChange = (e: any) => {
-    debugger
     setUserId(e.id);
     getPaymentsData();
   };
   useNoninitialEffect(() => {
-    debugger
     let data: any = usersResponse;
     setUsersData(data);
   }, [usersResponse]);

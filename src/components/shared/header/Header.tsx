@@ -1,8 +1,21 @@
 import React from "react";
-import { Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
+import { Button, Container, Nav, Navbar, NavDropdown } from "react-bootstrap";
 import "./_Header.scss";
+import LoginPage from "../../scenes/login-form/login-form";
+import { useNavigate } from "react-router-dom";
+import useStore from "../../store/useStore";
+import { useActionTypes } from "../../store";
 
 export default function Header() {
+  const { State, Store } = useStore();
+  const { getActionTypes } = useActionTypes();
+  const actionTypes: any = getActionTypes();
+  const navigate = useNavigate();
+  
+  const logOutClickHandler = ()=>{
+    Store.update(actionTypes?.updateuser, { id: 0, isAdmin: false })
+     navigate("/")
+  }
   return (
     <Navbar collapseOnSelect expand="md" variant="dark">
       <Container fluid>
@@ -21,9 +34,11 @@ export default function Header() {
             </NavDropdown>
           </Nav> */}
           <Nav className="ms-auto">
-            <Nav.Link>
-              <i onClick={()=>{}} className="fa-solid fa-right-from-bracket me-2"></i>
-              Logout
+            <Nav.Link> 
+            {/* <Button className="fa-solid fa-right-from-bracket me-2" onClick={() => logOutClickHandler()}>
+                                    LogOut
+                                </Button> */}
+              <i  className="fa-solid fa-right-from-bracket" style={{color:"aliceblue",fontSize:"small"}} onClick={()=>logOutClickHandler()}>Logout</i>            
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

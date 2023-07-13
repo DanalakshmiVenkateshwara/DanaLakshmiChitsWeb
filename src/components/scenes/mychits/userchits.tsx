@@ -18,7 +18,7 @@ export default function UserChits(props:any){
       <GridColumn title="NextAuctionDate" targetField="nextAuctionDate" />
       <GridColumn title="NoOfInstallMents" targetField="duration" />
       <GridColumn title="NoOfmonthsCompleted" targetField="paidUpto" />
-      <GridColumn title="Status" targetField="status" />
+      <GridColumn title="Status" targetField="userChitSatus" />
     </Grid>
   </>
 

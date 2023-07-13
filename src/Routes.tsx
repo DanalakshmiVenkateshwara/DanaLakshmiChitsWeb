@@ -22,6 +22,7 @@ import Participate from "./components/scenes/auctionDetails/participate";
 import { useActionTypes, useStore } from "./components/store";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./App";
+import HomePage from "./components/scenes/homePage";
 
 function Routes() {
 
@@ -35,7 +36,7 @@ function Routes() {
     if (State.user.isAdmin) {
       setIsLogin(true);
       setIsAdmin(true);
-    } else if (State.user.Id > 0) {
+    } else if (State.user.id > 0) {
       setIsLogin(true);
       setIsAdmin(false)
     }
@@ -44,7 +45,7 @@ function Routes() {
   }, [State.user.isAdmin || State.user.id])
   function onAuthStateChange(user: any) {
     console.log(user)
-    user && Store.update(actionTypes.updateuser, { name: user.displayName, email: user.email, Id: 1, isAdmin: false, phone: user.phoneNumber, socketId: '' })
+    // user && Store.update(actionTypes.updateuser, { name: user.displayName, email: user.email, Id: 1, isAdmin: false, phone: user.phoneNumber, socketId: '' })
   }
   useEffect(() => {
     const subscriber = onAuthStateChanged(auth, onAuthStateChange);
@@ -76,9 +77,11 @@ function Routes() {
                     <Route path="/ContactUs" element={<ContactUs />} />
                   </>
                 }</> :
-                  <Route path="/" element={<LoginPage />} />
+                <><Route path="/" element={<HomePage />} />
+                  <Route path="/Login" element={<LoginPage />} /></>
                 }
                 <>
+                
                   <Route path="/participate" element={<Participate />} />
                   <Route path="/Auctions" element={<Auctions />} />
                 </>

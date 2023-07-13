@@ -1,0 +1,125 @@
+@import "../../../_variables.scss";
+
+.homepage {
+  .navbar-nav {
+    .nav-link {
+      color: white;
+      font-size: 18px;
+      padding-inline: 1rem !important;
+    }
+    button {
+      color: $primary;
+    }
+  }
+
+  .carousel {
+    .carousel-item {
+      img {
+        filter: brightness(0.65);
+      }
+      .carousel-caption {
+        top: 43%;
+        right: inherit;
+        left: 200px;
+        width: 500px;
+        h3 {
+          font-size: 2rem;
+          font-weight: bold;
+          letter-spacing: 1px;
+        }
+      }
+    }
+  }
+  .contact-form {
+    
+    position: absolute;
+    right: 200px;
+    top: 25%;
+    z-index: 10000;
+    .card{
+        padding:2rem;
+        .contact-controls{
+            label{
+                margin-bottom: 0;
+            }
+        }
+    }
+  }
+  .our-chits {
+    margin-block: 5rem;
+    h1 {
+      font-size: 5rem;
+      font-weight: bold;
+    }
+    .card {
+      margin-block: 3rem;
+      &:hover {
+        border: 1px solid $primary;
+        background-color: $primary25;
+      }
+      .card-text-group {
+        text-align: right;
+        margin-bottom: 1rem;
+        h2 {
+          margin-bottom: 0;
+          font-weight: bolder;
+          font-size: 2rem;
+        }
+        label {
+          color: grey;
+          font-size: 14px;
+        }
+        &:nth-child(1) {
+          h2 {
+            font-size: 3rem;
+            font-weight: bold;
+            color: $primary;
+          }
+        }
+        &:nth-child(2) {
+          h2 {
+            color: #f00;
+          }
+        }
+        &:nth-child(4) {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+  .download-app {
+    background-color: $primary25;
+    padding-block: 5rem;
+    h1 {
+      font-size: 5rem;
+      font-weight: bold;
+    }
+    .download-app-details {
+      h2 {
+        color: $primary;
+        font-size: 4rem;
+        font-weight: bold;
+        margin-bottom: 0;
+      }
+      label {
+        margin-left: 0.75rem;
+        color: $secondary;
+        font-size: 18px;
+      }
+    }
+  }
+  .chit-works {
+    margin-block: 5rem;
+    h1 {
+      font-size: 5rem;
+      font-weight: bold;
+    }
+  }
+  .footer {
+    height: 55px;
+    background-color: $primary;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+}

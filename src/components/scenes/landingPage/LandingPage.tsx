@@ -1,3 +1,4 @@
+
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import CardWidget from "../../shared/cardWidget";
@@ -6,10 +7,14 @@ import Header from "../../shared/header";
 import Sidebar from "../../shared/sidebar";
 import SideBarItem from "../../shared/sidebar/SideBarItem";
 import uniqid from 'uniqid'
+import { useActionTypes, useStore } from "../../store";
 export default function LandingPage() {
-
+  const { State, Store } = useStore();
+  const { getActionTypes } = useActionTypes();
+  const actionTypes: any = getActionTypes();
+  
   const routes = [
-    {
+    { 
       title: "Groups",
       icon: <i className='fa-solid fa-sitemap fa-4x my-4' ></i>,
       path: '/Groups'
@@ -38,7 +43,8 @@ export default function LandingPage() {
       title: "Aplication Users",
       icon: <i className='fa-solid fa-chalkboard-user fa-4x my-4' ></i>,
       path: '/AplicationUsers'
-    },
+    }]
+    const userRoutes = [
     {
       title: "MyChits",
       icon: <i className='fa-solid fa-chalkboard-user fa-4x my-4' ></i>,
@@ -73,12 +79,21 @@ export default function LandingPage() {
   ]
 
   return (
-    <Row>
+    <>{State.user.isAdmin && <Row>
       {routes.map((route: any) =>
         <Col sm='3' key={uniqid()}>
           <CardWidget className="mb-4" title={route.title} icon={route.icon} path={route.path} />
         </Col>
       )}
-    </Row>
+    </Row>}<>
+    {State.user.id >0 && <Row>
+      {userRoutes.map((route: any) =>
+        <Col sm='3' key={uniqid()}>
+          <CardWidget className="mb-4" title={route.title} icon={route.icon} path={route.path} />
+        </Col>
+      )}
+    </Row>}
+    </></>
+    
   );
 }

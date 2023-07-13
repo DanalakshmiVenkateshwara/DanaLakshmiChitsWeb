@@ -66,11 +66,12 @@ export default function Participate() {
     };
   }, []);
   const [show, setShow] = useState(false);
+  const [lastBidValue, setLastBidValue] = useState(0);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const countDownTime = 15;
-  
+
   function addClients(Data: any) {
     Data.sort((a: any, b: any) => {
       const dateA = new Date(a.CreatedDate);
@@ -79,6 +80,7 @@ export default function Participate() {
     })
     setConnectedClients(Data)
   }
+
   function addBids(Data: any) {
     Data.sort((a: any, b: any) => {
       const dateA = new Date(a.CreatedDate);
@@ -88,8 +90,9 @@ export default function Participate() {
     setBids(Data);
   }
 
-
-
+  function RaiseBid() {
+    sockets.send(JSON.stringify({ Action: 'bidding', Data: { ConnectionId: State.user.socketId, amount: String(lastBidValue), name: 'sandeep' } }));
+  }
 
   function secondsToMinutes(seconds: number) {
     const minutes = Math.floor(seconds / 60);
@@ -119,7 +122,7 @@ export default function Participate() {
   }
   return (<>
     <Card title="Auction Participation" className="h-100 participate" headerAction={<Button onClick={handleShow}>Participation list</Button>}>
-      <Button onClick={() => { sockets.send(JSON.stringify({ Action: 'bidding', Data: { id: 'ertyhbv4567bn', amount: '5653', name: 'sandeep' } })); }}>send</Button>
+      {/* <Button onClick={() => { sockets.send(JSON.stringify({ Action: 'bidding', Data: { id: 'ertyhbv4567bn', amount: '5653', name: 'sandeep' } })); }}>send</Button> */}
       <Row className="h-100">
         {/* Group_details */}
         <Col sm={8}>
@@ -159,36 +162,38 @@ export default function Participate() {
           <Card
             title="Bidding Amount"
             className="mt-3"
-            actionButtons={<Button>Bid amount</Button>}
+            actionButtons={
+              <Button onClick={() => { RaiseBid() }}>Bid amount</Button>
+            }
           >
             <Row>
               <Col sm={8} >
                 <Row>
                   <Col sm="4">
-                    <Button size="default">+ 100</Button>{" "}
+                    <Button size="default" onClick={() => setLastBidValue(lastBidValue + 100)}>+ 100</Button>{" "}
                   </Col>
                   <Col sm="4">
-                    <Button size="default"  >+ 200</Button>
+                    <Button size="default" onClick={() => setLastBidValue(lastBidValue + 200)}>+ 200</Button>
                   </Col>
                   <Col sm="4">
-                    <Button size="default">+ 500</Button>
+                    <Button size="default" onClick={() => setLastBidValue(lastBidValue + 500)}>+ 500</Button>
                   </Col>
                 </Row>
                 <Row className="mt-3">
                   <Col sm="4">
-                    <Button size="default">+ 1000</Button>
+                    <Button size="default" onClick={() => setLastBidValue(lastBidValue + 1000)}>+ 1000</Button>
                   </Col>
                   <Col sm="4">
-                    <Button size="default"  >+ 2000</Button>
+                    <Button size="default" onClick={() => setLastBidValue(lastBidValue + 2000)} >+ 2000</Button>
                   </Col>
                   <Col sm="4">
-                    <Button size="default">+ 5000</Button>
+                    <Button size="default" onClick={() => setLastBidValue(lastBidValue + 5000)}>+ 5000</Button>
                   </Col>
 
                 </Row>
               </Col>
               <Col>
-                <Form.Text value={`₹${new Intl.NumberFormat("en-in").format(34500 ?? 0)}`} style={{ fontSize: "2rem" }} />
+                <Form.Text type="number" value={`₹${new Intl.NumberFormat("en-in").format(lastBidValue ?? 0)}`} style={{ fontSize: "2rem" }} onChange={(e: any) => { console.log(e); setLastBidValue(Number(e.replace(/₹|,|[a-zA-Z]/g, ""))) }} />
               </Col>
             </Row>
           </Card>

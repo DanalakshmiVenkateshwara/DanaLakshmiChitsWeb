@@ -70,12 +70,21 @@ export default function Participate() {
   const handleShow = () => setShow(true);
 
   const countDownTime = 15;
+  
   function addClients(Data: any) {
-    //need to sort according to time
+    Data.sort((a: any, b: any) => {
+      const dateA = new Date(a.CreatedDate);
+      const dateB = new Date(b.CreatedDate);
+      return dateA.getTime() - dateB.getTime();
+    })
     setConnectedClients(Data)
   }
   function addBids(Data: any) {
-    //need to sort according to time and amount
+    Data.sort((a: any, b: any) => {
+      const dateA = new Date(a.CreatedDate);
+      const dateB = new Date(b.CreatedDate);
+      return dateA.getTime() - dateB.getTime();
+    })
     setBids(Data);
   }
 
@@ -203,7 +212,7 @@ export default function Participate() {
                       <label className="m-auto">{index + 1}</label>
                     </div>
                     <Col sm={6}>
-                      <h6 className="mb-0">{item?.name}</h6>
+                      <h6 className="mb-0">{item?.ConnectionId}</h6>
                       <span>
                         <small className="d-block" style={{ fontSize: "10px" }}>
                           {/* {getTimeAgo(item?.time)} */}

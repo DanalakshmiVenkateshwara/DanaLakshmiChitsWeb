@@ -21,77 +21,64 @@ export default function Participate() {
 
 
 
+
+
+
+
+
   React.useEffect(() => {
-    const userDetails={Username: 'JohnDoe',Email:"testinf@test.com"}
-    const socket = new WebSocket(`wss://localhost:5001/websocket?connectionId=${State?.user.socketId}&userDetails=${encodeURIComponent(JSON.stringify(userDetails))}`);
+    const userDetails = { Username: 'JohnDoe', Email: "testinf@test.com" }
+    const socket = new WebSocket(`wss://localhost:44387/websocket?connectionId=${State?.user.socketId}&userDetails=${encodeURIComponent(JSON.stringify(userDetails))}`);
     setsocket(socket)
-     socket.onopen = () => {
-        console.log('WebSocket connection established');
-        // Send a handshake request
-        // webSocketRef.current.send(`{"action":"connect","connectionId": ${State.user.socketId}}`);
-        // socket.send(JSON.stringify({ Action: 'connected' }));
-        // socket.send(JSON.stringify({ Action: 'sendMessage' }));
-      };
-    
-  // Handle incoming messages
-  socket.onmessage = (event:any) => {
-    const msg = JSON.parse(event.data);
-    const { Action, Data } = msg;
+    socket.onopen = () => {
+      console.log('WebSocket connection established');
+    };
 
-    if (Action === 'connectResponse') {
-      // setConnectionId(connectionId);
-      const connectionId = msg.connectionId;
-      console.log('WebSocket connection established. Connection ID:', connectionId);
-      Store.update(actionTypes.updateuser, { ...State.user, socketId: connectionId })
-    } else if (Action === 'connectedClients') {
-      console.log('WebSocket connectedclients',Data);
-      setConnectedClients(Data);
-    }else if (Action === 'biddingResponse') {
-      console.log('WebSocket bidd',Data);
-      setBids(Data);
-    }  
-    else {
-      // Handle other incoming messages
-      // setMessages((prevMessages) => [...prevMessages, message]);
-    }
-  };
+    // Handle incoming messages
+    socket.onmessage = (event: any) => {
+      const msg = JSON.parse(event.data);
+      const { Action, Data } = msg;
 
-   // Cleanup on component unmount
-   return () => {
-    if (socket) {
-      socket.close();
-    }
-  };
+      if (Action === 'connectResponse') {
+        const connectionId = msg.connectionId;
+        console.log('WebSocket connection established. Connection ID:', connectionId);
+        Store.update(actionTypes.updateuser, { ...State.user, socketId: connectionId })
+      } else if (Action === 'connectedClients') {
+        console.log('WebSocket connectedclients', Data);
+        // setConnectedClients(Data);
+        addClients(Data);
+      } else if (Action === 'biddingResponse') {
+        console.log('WebSocket bidd', Data);
+        // setBids(Data);
+        addBids(Data);
+      }
+      else {
+        // Handle other incoming messages
+        // setMessages((prevMessages) => [...prevMessages, message]);
+      }
+    };
+
+    // Cleanup on component unmount
+    return () => {
+      if (socket) {
+        socket.close();
+      }
+    };
   }, []);
-  // const socket = new WebSocket('ws://localhost:5000/api/websocket');
   const [show, setShow] = useState(false);
-
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const countDownTime = 15;
-  const BDHY = [
-    {
-      amount: 5888,
-      user: "anvesh",
-      time: "2023-06-10T17:00:00",
-    },
-    {
-      amount: 6789,
-      user: "sandeep",
-      time: "2023-06-10T17:11:00",
-    },
-  ];
-  const pList = [
-    {
-      user: "anvesh",
-      joinedAt: "2023-06-10T17:00:00"
-    },
-    {
-      user: "sandeep",
-      joinedAt: "2023-06-10T17:00:00"
-    },
-  ]
+  function addClients(Data: any) {
+    //need to sort according to time
+    setConnectedClients(Data)
+  }
+  function addBids(Data: any) {
+    //need to sort according to time and amount
+    setBids(Data);
+  }
+
 
 
 
@@ -123,7 +110,7 @@ export default function Participate() {
   }
   return (<>
     <Card title="Auction Participation" className="h-100 participate" headerAction={<Button onClick={handleShow}>Participation list</Button>}>
-      <Button onClick={()=>{sockets.send(JSON.stringify({ Action: 'bidding',Data:{id:'ertyhbv4567bn',amount:'5653',name:'sandeep'} }));}}>send</Button>
+      <Button onClick={() => { sockets.send(JSON.stringify({ Action: 'bidding', Data: { id: 'ertyhbv4567bn', amount: '5653', name: 'sandeep' } })); }}>send</Button>
       <Row className="h-100">
         {/* Group_details */}
         <Col sm={8}>
@@ -205,7 +192,7 @@ export default function Participate() {
             className="h-100 "
             bodyClassName="bidding-history"
           >
-            {bids.map((item:any, index:number) => {
+            {bids.map((item: any, index: number) => {
               return (
                 <Card noPadding className="p-2 m-2 shadow border-0">
                   <Row className="m-0 align-items-center">

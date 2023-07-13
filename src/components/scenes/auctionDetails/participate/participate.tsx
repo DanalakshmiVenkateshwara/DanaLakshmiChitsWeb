@@ -17,12 +17,13 @@ export default function Participate() {
   const { getActionTypes } = useActionTypes();
   const actionTypes: any = getActionTypes();
   const [connectedClients, setConnectedClients] = useState([])
+  const [bids, setBids] = useState<any>([])
 
 
 
   React.useEffect(() => {
     const userDetails={Username: 'JohnDoe',Email:"testinf@test.com"}
-    const socket = new WebSocket(`ws://127.0.0.1:5000/websocket?connectionId=${State?.user.socketId}&userDetails=${encodeURIComponent(JSON.stringify(userDetails))}`);
+    const socket = new WebSocket(`wss://localhost:5001/websocket?connectionId=${State?.user.socketId}&userDetails=${encodeURIComponent(JSON.stringify(userDetails))}`);
     setsocket(socket)
      socket.onopen = () => {
         console.log('WebSocket connection established');
@@ -45,7 +46,11 @@ export default function Participate() {
     } else if (Action === 'connectedClients') {
       console.log('WebSocket connectedclients',Data);
       setConnectedClients(Data);
-    } else {
+    }else if (Action === 'biddingResponse') {
+      console.log('WebSocket bidd',Data);
+      setBids(Data);
+    }  
+    else {
       // Handle other incoming messages
       // setMessages((prevMessages) => [...prevMessages, message]);
     }
@@ -118,7 +123,7 @@ export default function Participate() {
   }
   return (<>
     <Card title="Auction Participation" className="h-100 participate" headerAction={<Button onClick={handleShow}>Participation list</Button>}>
-      <Button onClick={()=>{sockets.send(JSON.stringify({ Action: 'sendMessage' }));}}>send</Button>
+      <Button onClick={()=>{sockets.send(JSON.stringify({ Action: 'bidding',Data:{id:'ertyhbv4567bn',amount:'5653',name:'sandeep'} }));}}>send</Button>
       <Row className="h-100">
         {/* Group_details */}
         <Col sm={8}>
@@ -200,7 +205,7 @@ export default function Participate() {
             className="h-100 "
             bodyClassName="bidding-history"
           >
-            {BDHY.map((item, index) => {
+            {bids.map((item:any, index:number) => {
               return (
                 <Card noPadding className="p-2 m-2 shadow border-0">
                   <Row className="m-0 align-items-center">
@@ -211,10 +216,10 @@ export default function Participate() {
                       <label className="m-auto">{index + 1}</label>
                     </div>
                     <Col sm={6}>
-                      <h6 className="mb-0">{item?.user}</h6>
+                      <h6 className="mb-0">{item?.name}</h6>
                       <span>
                         <small className="d-block" style={{ fontSize: "10px" }}>
-                          {getTimeAgo(item?.time)}
+                          {/* {getTimeAgo(item?.time)} */}
                         </small>
                       </span>
                     </Col>
@@ -252,11 +257,12 @@ export default function Participate() {
                 <label className="m-auto">{index + 1}</label>
               </div>
               <Col sm={6}>
-                <h6 className="mb-0">{item?.ConnectionId}</h6>
+                <h6 className="mb-0">{item?.User?.Username}</h6>
                 <span>
                   <small className="d-block" style={{ fontSize: "10px" }}>{'Joined at '}
                     {/* {getTimeAgo(item?.joinedAt)} */}
                   </small>
+                  <small>{item?.ConnectionId}</small>
                 </span>
               </Col>
             </Row>

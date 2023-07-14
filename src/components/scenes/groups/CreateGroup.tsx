@@ -13,15 +13,16 @@ import useNoninitialEffect from '../../hooks/useNoninitialEffect'
 import ToolTip from '../../shared/tooltip/ToolTip'
 export default function CreateGroup(props: any) {
     const { setIsCrete } = props
-    // const [groupDetails, setGroupDetails] = useState<any>();
     const { getToast } = useToast();
     const { ADD_CHIT_PLANS } = UrlConstants();
-    const [groupDetails, setGroupDetails] = useState({ GroupName: "", Amount: 0, Duration: 0, Existed: true, GroupClosed: true, NoOfMembers: 0, InstallMentAmount: 0 });
+    const [groupDetails, setGroupDetails] = useState({ GroupName: "", Amount: 0, Duration: 0, Existed: true, GroupClosed: true, NoOfMembers: 0, InstallMentAmount: 0,StartDate:"" });
     const { response, loading, onRefresh: saveGroupDetails } = useFetch({ url: ADD_CHIT_PLANS, Options: { method: 'POST', data: groupDetails } });
     const { response:validateGroupResponse, loading:validateGroupLoading, onRefresh: validateGroupName } = useFetch({ url: `/Admin/ValidateGroup?groupName=${groupDetails.GroupName}`, Options: { method: 'GET'} });
 
     const saveGroup = () => {
-        if(groupDetails.GroupName.length>0 && groupDetails.Amount>0 &&groupDetails.Duration>0&& groupDetails.NoOfMembers>0 && groupDetails.InstallMentAmount>0 ){
+        if(groupDetails.StartDate.length<=0)
+          getToast('Start Date Is Mandatory', 'error');
+        else if(groupDetails.GroupName.length>0 && groupDetails.Amount>0 &&groupDetails.Duration>0&& groupDetails.NoOfMembers>0 && groupDetails.InstallMentAmount>0 ){
             var data = groupDetails;
             saveGroupDetails();
         }
@@ -55,6 +56,13 @@ export default function CreateGroup(props: any) {
     const groupNameBlurHandler = () => {
         validateGroupName();
     };
+    const onDateChangehandler =(e:any)=>{
+        debugger
+        if(new Date(e.currentTarget.value).toLocaleDateString() <= new Date().toLocaleDateString())
+          getToast('Start Date must be future Date', 'error');
+         else
+        setGroupDetails({ ...groupDetails, StartDate: e.target.value})
+    }
 
     return (
         <Form noValidate onSubmit={saveGroup}>
@@ -73,10 +81,6 @@ export default function CreateGroup(props: any) {
               onBlur={() => groupNameBlurHandler()}
             />
                 </Col>
-
-                {/* <Col xl="3" lg="4" md="6">
-                    <Form.Text required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => setGroupDetails({ ...groupDetails, GroupName: e })} />
-                </Col> */}
                 <Col xl="3" lg="4" md="6">
                     <Form.Number required name='' errorMsg="Amount is required" label="Amount" onChange={(e: any) => setGroupDetails({ ...groupDetails, Amount: e })} />
                 </Col>
@@ -88,6 +92,10 @@ export default function CreateGroup(props: any) {
                 </Col>
                 <Col xl="3" lg="4" md="6">
                     <Form.Number required name='' errorMsg="InstallMent Amount required" label="InstallMentAmount" onChange={(e: any) => setGroupDetails({ ...groupDetails, InstallMentAmount: e })} />
+                </Col>
+                <Col xl="3" lg="4" md="6">
+                <RForm.Label>{"StartDate"}</RForm.Label>
+                    <RForm.Control type="date" value={groupDetails.StartDate} defaultValue={groupDetails.StartDate} onChange={(e:any)=> onDateChangehandler(e)}  placeholder="Choosedate"  />
                 </Col>
             </Row>
             <Form.Submit />

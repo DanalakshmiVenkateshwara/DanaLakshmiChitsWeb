@@ -58,7 +58,7 @@ export default function Participate() {
         // setBids(Data);
         addBids(Data);
       } else if (Action === 'auctionResponse') {
-        if (State?.user?.lastBidconnectionId === State?.user?.socketId) { alert("you are bid winner");navigate("/") }
+        if (State?.user?.lastBidconnectionId === State?.user?.socketId) { alert("you are bid winner") }
         else { navigate("/") }
       }
       else {

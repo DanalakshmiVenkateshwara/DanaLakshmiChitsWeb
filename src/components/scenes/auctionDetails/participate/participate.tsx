@@ -22,7 +22,7 @@ export default function Participate() {
   const currentDate = new Date();
 
   // Set the desired trigger time
-  const triggerTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 21, 2, 0);
+  const triggerTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 48, 0);
 
 
   console.log(((triggerTime.getSeconds() - currentDate.getSeconds()) / 1000))
@@ -97,7 +97,7 @@ export default function Participate() {
       return dateA.getTime() - dateB.getTime();
     })
     setBids(Data);
-    Store.update(actionTypes.user,{...State?.user, lastBidconnectionId:Data.at(-1).ConnectionId})
+    Store.update(actionTypes.user,{...State?.user, lastBidconnectionId:Data?.at(-1)?.ConnectionId})
     Data.length > 0 && setLastBidValue(Number(Data.at(-1).amount));
   }
 

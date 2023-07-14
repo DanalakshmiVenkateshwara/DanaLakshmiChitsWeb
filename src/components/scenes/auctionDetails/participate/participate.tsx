@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Col, Offcanvas, Row } from "react-bootstrap";
 import { CountdownCircleTimer } from "react-countdown-circle-timer";
 import Button from "../../../shared/button";
@@ -34,7 +34,7 @@ export default function Participate() {
   React.useEffect(() => {
     const userDetails = { Username: 'JohnDoe', Email: "testinf@test.com" }
 
-    const socket = new WebSocket(`wss://localhost:44387/websocket?connectionId=${State?.user.socketId}&userDetails=${encodeURIComponent(JSON.stringify(userDetails))}&socketCloseTime=${triggerTime.toLocaleString("en-US", { timeZone: 'Asia/Kolkata' })}`);
+    const socket = new WebSocket(`wss://localhost:5001/websocket?connectionId=${State?.user.socketId}&userDetails=${encodeURIComponent(JSON.stringify(userDetails))}&socketCloseTime=${triggerTime.toLocaleString("en-US", { timeZone: 'Asia/Kolkata' })}`);
     setsocket(socket)
     socket.onopen = () => {
       console.log('WebSocket connection established');
@@ -58,7 +58,7 @@ export default function Participate() {
         // setBids(Data);
         addBids(Data);
       } else if (Action === 'auctionResponse') {
-        if (bids.length > 0 && (State.user.lastBidconnectionId === State.user.socketId)) { alert("you are bid winner") }
+        if (State?.user?.lastBidconnectionId === State?.user?.socketId) { alert("you are bid winner");navigate("/") }
         else { navigate("/") }
       }
       else {
@@ -74,6 +74,11 @@ export default function Participate() {
       }
     };
   }, []);
+
+  useEffect(()=>{
+    Store.update(actionTypes.updateuser,{...State?.user, lastBidconnectionId:bids?.at(-1)?.ConnectionId})
+  },[bids])
+  
   const [show, setShow] = useState(false);
   const [lastBidValue, setLastBidValue] = useState(0);
   const handleClose = () => setShow(false);
@@ -97,7 +102,7 @@ export default function Participate() {
       return dateA.getTime() - dateB.getTime();
     })
     setBids(Data);
-    Store.update(actionTypes.user,{...State?.user, lastBidconnectionId:Data?.at(-1)?.ConnectionId})
+    // Store.update(actionTypes.updateuser,{...State?.user, lastBidconnectionId:Data?.at(-1)?.ConnectionId})
     Data.length > 0 && setLastBidValue(Number(Data.at(-1).amount));
   }
 

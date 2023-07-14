@@ -5,90 +5,105 @@ import Button from "../../../shared/button";
 import Card from "../../../shared/card";
 import Form from "../../../shared/form";
 import './_participate.scss'
-import { io } from 'socket.io-client';
 import { useActionTypes, useStore } from "../../../store";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 export default function Participate() {
   const { Store, State } = useStore();
+  const navigate = useNavigate();
   const [sockets, setsocket] = useState<any>();
   const { getActionTypes } = useActionTypes();
   const actionTypes: any = getActionTypes();
   const [connectedClients, setConnectedClients] = useState([])
+  const [bids, setBids] = useState<any>([])
+  const currentDate = new Date();
+
+  // Set the desired trigger time
+  const triggerTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 21, 2, 0);
+
+
+  console.log(((triggerTime.getSeconds() - currentDate.getSeconds()) / 1000))
+  console.log(triggerTime.getSeconds(), currentDate.getSeconds())
+
 
 
 
   React.useEffect(() => {
-    const userDetails={Username: 'JohnDoe',Email:"testinf@test.com"}
-    const socket = new WebSocket(`ws://127.0.0.1:5000/websocket?connectionId=${State?.user.socketId}&userDetails=${encodeURIComponent(JSON.stringify(userDetails))}`);
+    const userDetails = { Username: 'JohnDoe', Email: "testinf@test.com" }
+
+    const socket = new WebSocket(`wss://localhost:44387/websocket?connectionId=${State?.user.socketId}&userDetails=${encodeURIComponent(JSON.stringify(userDetails))}&socketCloseTime=${triggerTime.toLocaleString("en-US", { timeZone: 'Asia/Kolkata' })}`);
     setsocket(socket)
-     socket.onopen = () => {
-        console.log('WebSocket connection established');
-        // Send a handshake request
-        // webSocketRef.current.send(`{"action":"connect","connectionId": ${State.user.socketId}}`);
-        // socket.send(JSON.stringify({ Action: 'connected' }));
-        // socket.send(JSON.stringify({ Action: 'sendMessage' }));
-      };
-    
-  // Handle incoming messages
-  socket.onmessage = (event:any) => {
-    const msg = JSON.parse(event.data);
-    const { Action, Data } = msg;
+    socket.onopen = () => {
+      console.log('WebSocket connection established');
+    };
 
-    if (Action === 'connectResponse') {
-      // setConnectionId(connectionId);
-      const connectionId = msg.connectionId;
-      console.log('WebSocket connection established. Connection ID:', connectionId);
-      Store.update(actionTypes.updateuser, { ...State.user, socketId: connectionId })
-    } else if (Action === 'connectedClients') {
-      console.log('WebSocket connectedclients',Data);
-      setConnectedClients(Data);
-    } else {
-      // Handle other incoming messages
-      // setMessages((prevMessages) => [...prevMessages, message]);
-    }
-  };
+    // Handle incoming messages
+    socket.onmessage = (event: any) => {
+      const msg = JSON.parse(event.data);
+      const { Action, Data } = msg;
 
-   // Cleanup on component unmount
-   return () => {
-    if (socket) {
-      socket.close();
-    }
-  };
+      if (Action === 'connectResponse') {
+        const connectionId = msg.connectionId;
+        console.log('WebSocket connection established. Connection ID:', connectionId);
+        Store.update(actionTypes.updateuser, { ...State.user, socketId: connectionId })
+      } else if (Action === 'connectedClients') {
+        console.log('WebSocket connectedclients', Data);
+        // setConnectedClients(Data);
+        addClients(Data);
+      } else if (Action === 'biddingResponse') {
+        console.log('WebSocket bidd', Data);
+        // setBids(Data);
+        addBids(Data);
+      } else if (Action === 'auctionResponse') {
+        if (bids.length > 0 && (State.user.lastBidconnectionId === State.user.socketId)) { alert("you are bid winner") }
+        else { navigate("/") }
+      }
+      else {
+        // Handle other incoming messages
+        // setMessages((prevMessages) => [...prevMessages, message]);
+      }
+    };
+
+    // Cleanup on component unmount
+    return () => {
+      if (socket) {
+        socket.close();
+      }
+    };
   }, []);
-  // const socket = new WebSocket('ws://localhost:5000/api/websocket');
   const [show, setShow] = useState(false);
-
+  const [lastBidValue, setLastBidValue] = useState(0);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
   const countDownTime = 15;
-  const BDHY = [
-    {
-      amount: 5888,
-      user: "anvesh",
-      time: "2023-06-10T17:00:00",
-    },
-    {
-      amount: 6789,
-      user: "sandeep",
-      time: "2023-06-10T17:11:00",
-    },
-  ];
-  const pList = [
-    {
-      user: "anvesh",
-      joinedAt: "2023-06-10T17:00:00"
-    },
-    {
-      user: "sandeep",
-      joinedAt: "2023-06-10T17:00:00"
-    },
-  ]
 
+  function addClients(Data: any) {
+    Data.sort((a: any, b: any) => {
+      const dateA = new Date(a.CreatedDate);
+      const dateB = new Date(b.CreatedDate);
+      return dateA.getTime() - dateB.getTime();
+    })
+    setConnectedClients(Data)
+  }
 
+  function addBids(Data: any) {
+    Data.sort((a: any, b: any) => {
+      const dateA = new Date(a.CreatedDate);
+      const dateB = new Date(b.CreatedDate);
+      return dateA.getTime() - dateB.getTime();
+    })
+    setBids(Data);
+    Store.update(actionTypes.user,{...State?.user, lastBidconnectionId:Data.at(-1).ConnectionId})
+    Data.length > 0 && setLastBidValue(Number(Data.at(-1).amount));
+  }
+
+  function RaiseBid() {
+    sockets.send(JSON.stringify({ Action: 'bidding', Data: { ConnectionId: State.user.socketId, amount: String(lastBidValue), name: 'sandeep' } }));
+  }
 
   function secondsToMinutes(seconds: number) {
     const minutes = Math.floor(seconds / 60);
@@ -116,9 +131,10 @@ export default function Participate() {
       return hoursAgo + ' hours ago';
     }
   }
+
   return (<>
     <Card title="Auction Participation" className="h-100 participate" headerAction={<Button onClick={handleShow}>Participation list</Button>}>
-      <Button onClick={()=>{sockets.send(JSON.stringify({ Action: 'sendMessage' }));}}>send</Button>
+      {/* <Button onClick={() => { sockets.send(JSON.stringify({ Action: 'bidding', Data: { id: 'ertyhbv4567bn', amount: '5653', name: 'sandeep' } })); }}>send</Button> */}
       <Row className="h-100">
         {/* Group_details */}
         <Col sm={8}>
@@ -145,9 +161,9 @@ export default function Participate() {
               >
                 <CountdownCircleTimer
                   isPlaying
-                  duration={countDownTime}
+                  duration={Number(((triggerTime.getTime() - currentDate.getTime()) / 1000).toFixed(0))}
                   colors={["#0f0", "#F7B801", "#A30000", "#A30000"]}
-                  colorsTime={[countDownTime, countDownTime / 2, 0]}
+                  colorsTime={[Number(((triggerTime.getTime() - currentDate.getTime()) / 1000).toFixed(0)), Number(((triggerTime.getTime() - currentDate.getTime()) / 1000).toFixed(0)) / 2, 0]}
                   size={80}
                 >
                   {({ remainingTime }) => secondsToMinutes(remainingTime)}
@@ -158,36 +174,38 @@ export default function Participate() {
           <Card
             title="Bidding Amount"
             className="mt-3"
-            actionButtons={<Button>Bid amount</Button>}
+            actionButtons={
+              <Button onClick={() => { RaiseBid() }} disabled={Number(((triggerTime.getTime() - currentDate.getTime()) / 1000).toFixed(0)) > 0 ? false : true}>Bid amount</Button>
+            }
           >
             <Row>
               <Col sm={8} >
                 <Row>
                   <Col sm="4">
-                    <Button size="default">+ 100</Button>{" "}
+                    <Button size="default" onClick={() => setLastBidValue(lastBidValue + 100)}>+ 100</Button>{" "}
                   </Col>
                   <Col sm="4">
-                    <Button size="default"  >+ 200</Button>
+                    <Button size="default" onClick={() => setLastBidValue(lastBidValue + 200)}>+ 200</Button>
                   </Col>
                   <Col sm="4">
-                    <Button size="default">+ 500</Button>
+                    <Button size="default" onClick={() => setLastBidValue(lastBidValue + 500)}>+ 500</Button>
                   </Col>
                 </Row>
                 <Row className="mt-3">
                   <Col sm="4">
-                    <Button size="default">+ 1000</Button>
+                    <Button size="default" onClick={() => setLastBidValue(lastBidValue + 1000)}>+ 1000</Button>
                   </Col>
                   <Col sm="4">
-                    <Button size="default"  >+ 2000</Button>
+                    <Button size="default" onClick={() => setLastBidValue(lastBidValue + 2000)} >+ 2000</Button>
                   </Col>
                   <Col sm="4">
-                    <Button size="default">+ 5000</Button>
+                    <Button size="default" onClick={() => setLastBidValue(lastBidValue + 5000)}>+ 5000</Button>
                   </Col>
 
                 </Row>
               </Col>
               <Col>
-                <Form.Text value={`₹${new Intl.NumberFormat("en-in").format(34500 ?? 0)}`} style={{ fontSize: "2rem" }} />
+                <Form.Text disabled type="number" value={`₹${new Intl.NumberFormat("en-in").format(lastBidValue ?? 0)}`} style={{ fontSize: "2rem" }} onChange={(e: any) => { console.log(e); setLastBidValue(Number(e.replace(/₹|,|[a-zA-Z]/g, ""))) }} />
               </Col>
             </Row>
           </Card>
@@ -200,7 +218,7 @@ export default function Participate() {
             className="h-100 "
             bodyClassName="bidding-history"
           >
-            {BDHY.map((item, index) => {
+            {bids.map((item: any, index: number) => {
               return (
                 <Card noPadding className="p-2 m-2 shadow border-0">
                   <Row className="m-0 align-items-center">
@@ -211,10 +229,10 @@ export default function Participate() {
                       <label className="m-auto">{index + 1}</label>
                     </div>
                     <Col sm={6}>
-                      <h6 className="mb-0">{item?.user}</h6>
+                      <h6 className="mb-0">{item?.ConnectionId}</h6>
                       <span>
                         <small className="d-block" style={{ fontSize: "10px" }}>
-                          {getTimeAgo(item?.time)}
+                          {/* {getTimeAgo(item?.time)} */}
                         </small>
                       </span>
                     </Col>
@@ -252,11 +270,12 @@ export default function Participate() {
                 <label className="m-auto">{index + 1}</label>
               </div>
               <Col sm={6}>
-                <h6 className="mb-0">{item?.ConnectionId}</h6>
+                <h6 className="mb-0">{item?.User?.Username}</h6>
                 <span>
                   <small className="d-block" style={{ fontSize: "10px" }}>{'Joined at '}
                     {/* {getTimeAgo(item?.joinedAt)} */}
                   </small>
+                  <small>{item?.ConnectionId}</small>
                 </span>
               </Col>
             </Row>

@@ -9,7 +9,9 @@ import './homepage.scss'
 import Form from '../../shared/form'
 import useFetch from '../../hooks/useFetch'
 import useNoninitialEffect from '../../hooks/useNoninitialEffect'
+import { useNavigate } from 'react-router-dom'
 const HomePage = () => {
+    const navigate = useNavigate();
     const [chitPlans ,setChitPlans] = useState<any>()
 
     const { response, loading, onRefresh: CompletedGroupDetails } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
@@ -37,7 +39,7 @@ const HomePage = () => {
                                 <Nav.Link href="#deets">Certificate</Nav.Link>
                                 <Nav.Link href="#deets">How to Join</Nav.Link>
                                 {/* <Nav.Link href="#deets">Testimonals</Nav.Link> */}
-                                <Button className='rounded-pill mx-3' variant='light'>Download App</Button>
+                                <Button onClick={() => { navigate("/Login") }} className='rounded-pill mx-3' variant='light'>Download App</Button>
                                 <Nav.Link href="/Login">Login/SignUp</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>

@@ -5,30 +5,36 @@ import Button from "../../../shared/button";
 import Card from "../../../shared/card";
 import Form from "../../../shared/form";
 import './_participate.scss'
-import { io } from 'socket.io-client';
 import { useActionTypes, useStore } from "../../../store";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 export default function Participate() {
   const { Store, State } = useStore();
+  const navigate = useNavigate();
   const [sockets, setsocket] = useState<any>();
   const { getActionTypes } = useActionTypes();
   const actionTypes: any = getActionTypes();
   const [connectedClients, setConnectedClients] = useState([])
   const [bids, setBids] = useState<any>([])
+  const currentDate = new Date();
+
+  // Set the desired trigger time
+  const triggerTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 21, 2, 0);
 
 
-
-
+  console.log(((triggerTime.getSeconds() - currentDate.getSeconds()) / 1000))
+  console.log(triggerTime.getSeconds(), currentDate.getSeconds())
 
 
 
 
   React.useEffect(() => {
     const userDetails = { Username: 'JohnDoe', Email: "testinf@test.com" }
-    const socket = new WebSocket(`wss://localhost:44387/websocket?connectionId=${State?.user.socketId}&userDetails=${encodeURIComponent(JSON.stringify(userDetails))}`);
+
+    const socket = new WebSocket(`wss://localhost:44387/websocket?connectionId=${State?.user.socketId}&userDetails=${encodeURIComponent(JSON.stringify(userDetails))}&socketCloseTime=${triggerTime.toLocaleString("en-US", { timeZone: 'Asia/Kolkata' })}`);
     setsocket(socket)
     socket.onopen = () => {
       console.log('WebSocket connection established');
@@ -51,6 +57,9 @@ export default function Participate() {
         console.log('WebSocket bidd', Data);
         // setBids(Data);
         addBids(Data);
+      } else if (Action === 'auctionResponse') {
+        if (bids.length > 0 && (State.user.lastBidconnectionId === State.user.socketId)) { alert("you are bid winner") }
+        else { navigate("/") }
       }
       else {
         // Handle other incoming messages
@@ -88,7 +97,8 @@ export default function Participate() {
       return dateA.getTime() - dateB.getTime();
     })
     setBids(Data);
-    setLastBidValue(Number(Data.at(-1).amount));
+    Store.update(actionTypes.user,{...State?.user, lastBidconnectionId:Data.at(-1).ConnectionId})
+    Data.length > 0 && setLastBidValue(Number(Data.at(-1).amount));
   }
 
   function RaiseBid() {
@@ -151,9 +161,9 @@ export default function Participate() {
               >
                 <CountdownCircleTimer
                   isPlaying
-                  duration={countDownTime}
+                  duration={Number(((triggerTime.getTime() - currentDate.getTime()) / 1000).toFixed(0))}
                   colors={["#0f0", "#F7B801", "#A30000", "#A30000"]}
-                  colorsTime={[countDownTime, countDownTime / 2, 0]}
+                  colorsTime={[Number(((triggerTime.getTime() - currentDate.getTime()) / 1000).toFixed(0)), Number(((triggerTime.getTime() - currentDate.getTime()) / 1000).toFixed(0)) / 2, 0]}
                   size={80}
                 >
                   {({ remainingTime }) => secondsToMinutes(remainingTime)}
@@ -165,7 +175,7 @@ export default function Participate() {
             title="Bidding Amount"
             className="mt-3"
             actionButtons={
-              <Button onClick={() => { RaiseBid() }}>Bid amount</Button>
+              <Button onClick={() => { RaiseBid() }} disabled={Number(((triggerTime.getTime() - currentDate.getTime()) / 1000).toFixed(0)) > 0 ? false : true}>Bid amount</Button>
             }
           >
             <Row>

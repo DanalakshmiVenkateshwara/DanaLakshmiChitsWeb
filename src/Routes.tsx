@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { BrowserRouter, createBrowserRouter, Navigate, Route, RouterProvider, Routes as CRoutes } from "react-router-dom";
+import { BrowserRouter, createBrowserRouter, HashRouter, Navigate, Route, RouterProvider, Routes as CRoutes } from "react-router-dom";
 import LandingPage from "./components/scenes/landingPage";
 import Groups from "./components/scenes/groups";
 import Users from "./components/scenes/users";
@@ -53,7 +53,7 @@ function Routes() {
   }, []);
   return (
     <>
-      <BrowserRouter>
+      <HashRouter basename="/">
         <>
           {isLogin && <Header />}
           <div className="row mx-0 w-100" style={{ flexWrap: "nowrap" }}>
@@ -90,7 +90,7 @@ function Routes() {
           </div>
           {isLogin && <Footer />}
         </>
-      </BrowserRouter>
+      </HashRouter>
     </>
   );
 }

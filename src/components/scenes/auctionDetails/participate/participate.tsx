@@ -32,7 +32,7 @@ export default function Participate() {
 
 
   React.useEffect(() => {
-    const userDetails = { Username: 'JohnDoe', Email: "testinf@test.com" }
+    const userDetails = { Username: State?.user?.name, Email: State?.user?.email }
 
     const socket = new WebSocket(`wss://localhost:5001/websocket?connectionId=${State?.user.socketId}&userDetails=${encodeURIComponent(JSON.stringify(userDetails))}&socketCloseTime=${triggerTime.toLocaleString("en-US", { timeZone: 'Asia/Kolkata' })}`);
     setsocket(socket)
@@ -107,7 +107,7 @@ export default function Participate() {
   }
 
   function RaiseBid() {
-    sockets.send(JSON.stringify({ Action: 'bidding', Data: { ConnectionId: State.user.socketId, amount: String(lastBidValue), name: 'sandeep' } }));
+    sockets.send(JSON.stringify({ Action: 'bidding', Data: { ConnectionId: State.user.socketId, amount: String(lastBidValue), name: State?.user?.name } }));
   }
 
   function secondsToMinutes(seconds: number) {

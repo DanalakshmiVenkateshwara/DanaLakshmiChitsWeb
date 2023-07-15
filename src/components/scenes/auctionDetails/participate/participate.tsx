@@ -33,8 +33,8 @@ export default function Participate() {
 
   React.useEffect(() => {
     const userDetails = { Username: State?.user?.name, Email: State?.user?.email }
-
-    const socket = new WebSocket(`wss://localhost:5001/websocket?connectionId=${State?.user.socketId}&userDetails=${encodeURIComponent(JSON.stringify(userDetails))}&socketCloseTime=${triggerTime.toLocaleString("en-US", { timeZone: 'Asia/Kolkata' })}`);
+    const baseUrl = window.gbl_React_App_Service_URL;
+    const socket = new WebSocket(`wss://${baseUrl.split('/')[2]}/websocket?connectionId=${State?.user.socketId}&userDetails=${encodeURIComponent(JSON.stringify(userDetails))}&socketCloseTime=${triggerTime.toLocaleString("en-US", { timeZone: 'Asia/Kolkata' })}`);
     setsocket(socket)
     socket.onopen = () => {
       console.log('WebSocket connection established');

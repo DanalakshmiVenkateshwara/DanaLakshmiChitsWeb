@@ -86,12 +86,12 @@ export default function LoginPage() {
         var data: any = response;
         if (data != "") {
             if (data.iSAdmin == "True") {
-                Store.update(actionTypes?.updateuser, { id: 0, isAdmin: true })
+                Store.update(actionTypes?.updateuser, {...State.user, id: 0, isAdmin: true })
                 navigate("/home")
             }
             else {
                 
-                Store.update(actionTypes?.updateuser, { id: data.id, isAdmin: false,name:data.name,email:data.email })
+                Store.update(actionTypes?.updateuser, {...State.user, id: data.id, isAdmin: false,name:data.name,email:data.email })
                 navigate("/home")
             }
             // Store.update(actionTypes?.updateuser,{name:'test',email:"test@gmail.com"})

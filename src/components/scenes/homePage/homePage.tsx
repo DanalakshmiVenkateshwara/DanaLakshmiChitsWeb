@@ -34,13 +34,13 @@ const HomePage = () => {
                         <Navbar.Collapse id="responsive-navbar-nav">
 
                             <Nav className="ms-auto ">
-                                <Nav.Link href="#deet">Home</Nav.Link>
-                                <Nav.Link href="#deets">Chit Plans</Nav.Link>
-                                <Nav.Link href="#deets">Certificate</Nav.Link>
-                                <Nav.Link href="#deets">How to Join</Nav.Link>
+                                <Nav.Link href="#">Home</Nav.Link>
+                                <Nav.Link href="#">Chit Plans</Nav.Link>
+                                <Nav.Link href="#">Certificate</Nav.Link>
+                                <Nav.Link href="#">How to Join</Nav.Link>
                                 {/* <Nav.Link href="#deets">Testimonals</Nav.Link> */}
-                                <Button onClick={() => { navigate("/Login") }} className='rounded-pill mx-3' variant='light'>Download App</Button>
-                                <Nav.Link href="/Login">Login/SignUp</Nav.Link>
+                                <Button   className='rounded-pill mx-3' variant='light'>Download App</Button>
+                                <Nav.Link onClick={() => { navigate("/Login") }}>Login/SignUp</Nav.Link>
                             </Nav>
                         </Navbar.Collapse>
                     </Container>

@@ -13,7 +13,7 @@ export default function Header() {
   const navigate = useNavigate();
   
   const logOutClickHandler = ()=>{
-    Store.reset(actionTypes?.updateuser);
+    Store.reset("user/reset");
     navigate("/")
   }
   return (

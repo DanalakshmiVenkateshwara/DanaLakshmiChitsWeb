@@ -234,7 +234,7 @@ export default function Participate() {
                       <label className="m-auto">{index + 1}</label>
                     </div>
                     <Col sm={6}>
-                      <h6 className="mb-0">{item?.ConnectionId}</h6>
+                      <h6 className="mb-0">{item?.name  ?item?.name :item?.ConnectionId }</h6>
                       <span>
                         <small className="d-block" style={{ fontSize: "10px" }}>
                           {/* {getTimeAgo(item?.time)} */}

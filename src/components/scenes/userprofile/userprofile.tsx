@@ -23,7 +23,7 @@ export default function UserProfile() {
       }, [usersResponse])
     return (
    <>
-    <Card>
+    <Card className='mt-3'>
             <Row className="mx-0" >
                 <Row>
                 <Col xl="3" lg="4" md="6">

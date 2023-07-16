@@ -74,7 +74,7 @@ export default function Payments() {
     
       <Card noPadding
         title="Payments List"
-        headerAction={<Col sm={4} className="d-flex align-items-end justify-content-end">{!isCrete &&<Form.Suggest
+        headerAction={<Col sm={6} className="d-flex align-items-end justify-content-end">{!isCrete &&<Form.Suggest className="col"
           onSelect={(e: any) => onUserChange(e)}
           data={usersData}
           text="name"
@@ -83,7 +83,7 @@ export default function Payments() {
           errorMsg="UserName required"
           label="SearchByUser"
         />}  {!isCrete &&
-          <RForm.Control as="select" className="col-4 " size="sm" value={groupId}
+          <RForm.Control as="select" className="col " size="sm" value={groupId}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
               onGroupChange(e)
             }

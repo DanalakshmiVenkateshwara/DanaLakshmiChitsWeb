@@ -99,7 +99,7 @@ export default function Participate() {
     Data.sort((a: any, b: any) => {
       const dateA = new Date(a.CreatedDate);
       const dateB = new Date(b.CreatedDate);
-      return dateA.getTime() - dateB.getTime();
+      return dateB.getTime() - dateA.getTime();
     })
     setBids(Data);
     // Store.update(actionTypes.updateuser,{...State?.user, lastBidconnectionId:Data?.at(-1)?.ConnectionId})

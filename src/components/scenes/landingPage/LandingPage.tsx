@@ -35,6 +35,11 @@ export default function LandingPage() {
       path: '/Payments'
     },
     {
+      title: "CreateAuctions",
+      icon: <i className='fa-solid fa-wallet fa-4x my-4' ></i>,
+      path: '/CreateAuctions'
+    },
+    {
       title: "Auctions",
       icon: <i className='fa-solid fa-briefcase fa-4x my-4' ></i>,
       path: '/Auctions'

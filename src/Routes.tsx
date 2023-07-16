@@ -23,6 +23,7 @@ import { useActionTypes, useStore } from "./components/store";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./App";
 import HomePage from "./components/scenes/homePage";
+import Actions from "./components/scenes/createAuctions/auctions";
 
 function Routes() {
 
@@ -67,6 +68,7 @@ function Routes() {
                   <Route path="/Enrollments" element={<Enrollments />} />
                   <Route path="/Payments" element={<Payments />} />
                   <Route path="/AplicationUsers" element={<AplicationUsers />} />
+                  <Route path="/CreateAuctions" element={<Actions />} />
                 </>
                   : <>
                     <Route path="/" element={<LandingPage />} />

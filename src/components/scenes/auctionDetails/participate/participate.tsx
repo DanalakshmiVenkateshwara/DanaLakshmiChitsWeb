@@ -76,7 +76,7 @@ export default function Participate() {
   }, []);
 
   useEffect(()=>{
-    Store.update(actionTypes.updateuser,{...State?.user, lastBidconnectionId:bids?.at(-1)?.ConnectionId})
+    Store.update(actionTypes.updateuser,{...State?.user, lastBidconnectionId:bids?.at(0)?.ConnectionId})
   },[bids])
   
   const [show, setShow] = useState(false);
@@ -103,7 +103,7 @@ export default function Participate() {
     })
     setBids(Data);
     // Store.update(actionTypes.updateuser,{...State?.user, lastBidconnectionId:Data?.at(-1)?.ConnectionId})
-    Data.length > 0 && setLastBidValue(Number(Data.at(-1).amount));
+    Data.length > 0 && setLastBidValue(Number(Data.at(0).amount));
   }
 
   function RaiseBid() {
@@ -225,7 +225,7 @@ export default function Participate() {
           >
             {bids.map((item: any, index: number) => {
               return (
-                <Card noPadding className="p-2 m-2 shadow border-0">
+                <Card noPadding className={`p-2 m-2 shadow border-0 ${item?.ConnectionId ===State?.user?.socketId ?"self":""}`}>
                   <Row className="m-0 align-items-center">
                     <div
                       className="bg-primary d-flex rounded-circle text-white"
@@ -234,7 +234,7 @@ export default function Participate() {
                       <label className="m-auto">{index + 1}</label>
                     </div>
                     <Col sm={6}>
-                      <h6 className="mb-0">{item?.name  ?item?.name :item?.ConnectionId }</h6>
+                      <h6 className="mb-0">{item?.ConnectionId ===State?.user?.socketId ? "You": (item?.name ? item?.name : item?.ConnectionId) }</h6>
                       <span>
                         <small className="d-block" style={{ fontSize: "10px" }}>
                           {/* {getTimeAgo(item?.time)} */}

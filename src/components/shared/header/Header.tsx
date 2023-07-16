@@ -13,8 +13,8 @@ export default function Header() {
   const navigate = useNavigate();
   
   const logOutClickHandler = ()=>{
-    Store.update(actionTypes?.updateuser, { id: 0, isAdmin: false })
-     navigate("/")
+    Store.reset(actionTypes?.updateuser);
+    navigate("/")
   }
   return (
     <Navbar collapseOnSelect expand="md" variant="dark">

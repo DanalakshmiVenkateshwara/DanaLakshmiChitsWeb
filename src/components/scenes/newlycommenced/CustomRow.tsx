@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Button, Form, Modal } from 'react-bootstrap'
 import GridCell from '../../shared/grid/GridCell'
-// import GridCell from '../../../shared/grid/GridCell'
-// import UrlConstants from '../../../../constants/UrlConstants';
-// import useFetch from '../../../../hooks/useFetch';
-// import GridCell from '../../../../shared/grid/GridCell'
 
 export default function CustomRow(props: any) {
   const { data, rowProps } = props

@@ -14,11 +14,7 @@ export default function UserProfile() {
         if(data != undefined){
             
         setUserDetails({...userDetails, name:data[0]?.name,phone:data[0]?.phone,eMail:data[0]?.eMail})
-        // setUserDetails({...userDetails, phone:data[0]?.phone})
-        // setUserDetails({...userDetails, eMail:data[0]?.eMail})
-        // setUserDetails({...userDetails, aadhar:data[0]?.aadhar})
-        // setUserDetails({...userDetails, address:data[0]?.address})
-    }
+        }
       }, [usersResponse])
     return (
    <>

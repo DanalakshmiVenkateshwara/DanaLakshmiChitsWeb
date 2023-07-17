@@ -14,11 +14,7 @@ export default function Enrollments() {
   const [groupsData, setGroupsData] = useState<Array<any>>([]);
   const [groupId, setGroupId] = useState<any>(0);
   const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
-  // useNoninitialEffect(() => {
-  //   if (!isCrete) {
-  //     EnrollMentDetails();
-  //   }
-  // }, [isCrete])
+ 
   useNoninitialEffect(() => {
     
     let data: any = groupResponse;

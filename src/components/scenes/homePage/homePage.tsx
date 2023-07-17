@@ -20,8 +20,7 @@ const HomePage = () => {
         setChitPlans(response)
         // CompletedGroupDetails();
       }, [response]);
-    // const chitPlans = [{ chitAmount: "50000", monthlySub: "10000", totMem: 200, duration: 50 }, { chitAmount: "60000", monthlySub: "20000", totMem: 200, duration: 60 }, { chitAmount: "50000", monthlySub: "10000", totMem: 200, duration: 50 }, { chitAmount: "60000", monthlySub: "20000", totMem: 200, duration: 60 }]
-
+    
 
     return (
         <div className='homepage'>

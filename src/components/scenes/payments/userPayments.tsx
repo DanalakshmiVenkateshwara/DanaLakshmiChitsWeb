@@ -12,12 +12,7 @@ export default function UserPayments(props: any) {
   const { setIsCrete } = props;
   const { getToast } = useToast();
    const [userDueDetails, setUserDueDetails] = useState<any>([]);
-  // const [userDueDetails, setUserDueDetails] = useState<any>({
-  //   Installmentmonth:0,
-  //   dividend:0,
-  //   installmentAmount :0,
-  //   dueAmount:0
-  // })
+  
   const [paymentDetails, setPaymentDetails] = useState<any>({
     id: 0,
     userId: 0,
@@ -72,15 +67,6 @@ export default function UserPayments(props: any) {
     Options: { method: "GET", initialRender: false },
   });
 
-  // const {
-  //   response: PendingpaymentResponse,
-  //   loading: PendingpaymentLoading,
-  //   onRefresh: getPendingPaymentDetails,
-  // } = useFetch({
-  //   url: `/Admin/GetPendingPayments/?userId=${paymentDetails.userId}&groupId=${paymentDetails.groupId}`,
-  //   Options: { method: "GET", initialRender: false },
-  // });
-
   useNoninitialEffect(() => {
     
     if (savePaymentResponse === 1) {
@@ -105,10 +91,6 @@ export default function UserPayments(props: any) {
     
     paymentDetails.totalAmount = 0;
     paymentDetails.paymentMonth = 0;
-    // setPaymentDetails({...paymentDetails, totalAmount: 0,});
-    // setPaymentDetails({...paymentDetails, paymentMonth: 0});
-    // setPaymentDetails({...paymentDetails,dividend:0});
-    // setPaymentDetails({ ...paymentDetails, dueAmount: 0 });
   }, [isUserChange]);
   const onUserChange = (e: any) => {
     
@@ -117,42 +99,19 @@ export default function UserPayments(props: any) {
       setEnrollMentsData(groupsData.filter((m: any) => m.userId == e.id));
       paymentDetails.groupId = -1;
       
-    setPaymentDetails({ ...paymentDetails, userId: e.id, totalAmount: 0, paymentMonth: 0, dividend:0, dueAmount: 0,totalDue:0 });
-    // setPaymentDetails({...paymentDetails, totalAmount: 0});
-    // setPaymentDetails({...paymentDetails, paymentMonth: 0});
-    // setPaymentDetails({...paymentDetails,dividend:0});
-    // setPaymentDetails({ ...paymentDetails, dueAmount: 0 });
+      setPaymentDetails({ ...paymentDetails, userId: e.id, totalAmount: 0, paymentMonth: 0, dividend:0, dueAmount: 0,totalDue:0 });
     }
-    //setUserId(e.id)
   };
-  // const onGroupChange = (e: any) => {
-  //   setPaymentDetails({ ...paymentDetails, groupId: e });
-  //   getPaymentDetails();
-  // };
   const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    
-    // paymentDetails.totalAmount = 0;
-    // paymentDetails.paymentMonth = 0;
-    // paymentDetails.dividend = 0;
-    // paymentDetails.dueAmount = 0;
-    // setPaymentDetails({ ...paymentDetails, totalAmount: 0, paymentMonth: 0, dividend:0, dueAmount: 0 });
-      setIsUserChange(true)
+     setIsUserChange(true)
       setPaymentDetails({ ...paymentDetails,groupId:Number(e.target.value)});
       if(Number(e.target.value) > 0)
          getPaymentDetails();
          else{
           setPaymentDetails({ ...paymentDetails, totalAmount: 0, paymentMonth: 0, dividend:0, dueAmount: 0,totalDue: 0, groupId:Number(e.target.value)});
-          // setPaymentDetails({ ...paymentDetails,groupId:Number(e.target.value)}); 
         }
-      // getPendingPaymentDetails();
     }
-    // useNoninitialEffect(() => {
-    //   debugger
-    //   let data: any = PendingpaymentResponse;
-    //   if (data> 0)
-    //   getPendingPaymentDetails();
-    //     setPaymentDetails({ ...paymentDetails, dueAmount: data });
-    // }, [PendingpaymentResponse]);
+
   useNoninitialEffect(() => {
     let data: any = paymentResponse;
     if (data.length > 0){
@@ -167,9 +126,6 @@ export default function UserPayments(props: any) {
       });
       setUserDueDetails(data[0].userDues);
     }
-    // setDividend(data[0].dividend);
-    // setAmount(data[0].totalAmount);
-    // setMonthOfInstallMent(data[0].paidUpto);
   }, [paymentResponse]);
   const onInstallmentPay = () => {
     
@@ -220,14 +176,6 @@ export default function UserPayments(props: any) {
               );
             })}
           </RForm.Control>
-
-          {/* <Form.Select placeholder='choose group name' required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => { onGroupChange(e) }}>
-                       <> {enrollMentsData.map((gd: any) => <option key={uniqid()} value={gd.groupId}>{gd.groupName}</option>)}</>
-                    </Form.Select> */}
-
-          {/* <Form.Select placeholder='choose group name' required name='' errorMsg="GroupName required" label="GroupName" onChange={(e: any) => {  }}>
-                        {enrollMentsData.map((gd: any) => <option key={uniqid()} value={gd.id} onChange={(e:any) => {onGroupChange(e) }}>{gd.groupName}</option>)}
-                    </Form.Select> */}
         </Col>
         <Col xl="3" lg="4" md="6">
           <Form.Number
@@ -255,8 +203,6 @@ export default function UserPayments(props: any) {
             label="MonthOfInstallMent"
           />
         </Col>
-        {/* for the time being using static amount we need to change */}
-        {/* <RForm.Control type="text" value={paymentDetails.dueAmount} ></RForm.Control> */}
         <Col xl="3" lg="4" md="6">
           <Form.Number disabled={true} value={paymentDetails.dueAmount} label="CurrentMonthAmount" />
         </Col>

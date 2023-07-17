@@ -78,12 +78,6 @@ export default function UserEnrollment(props: any) {
         getToast('Group registration Completed', 'error');
     }, [enrollmentCountResponse])
 
-    // const onGroupChange = (e: any) => {
-    //     
-    //     setGroupId(e)
-    //     let amount = groupsData.filter((f: any) => f.id == e)[0].amount;
-    //     setAmount(amount)
-    // }
     const onUserChange = (e: any) => {
         setUserId(e);
     }
@@ -95,8 +89,6 @@ export default function UserEnrollment(props: any) {
         enrollmentCount();
         }
         else(setAmount(''))
-        // if(e.target.value != '-1')
-        // enrollmentCount();
       }
 
 

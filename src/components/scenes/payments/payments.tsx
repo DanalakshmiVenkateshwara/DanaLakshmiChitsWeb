@@ -35,11 +35,7 @@ export default function Payments() {
   const [groupId, setGroupId] = useState<any>(0);
   const [userId, setUserId] = useState<any>(0);
   const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetAllChitPlans/${false}`, Options: { method: "GET", initialRender: true } });
-  // useNoninitialEffect(() => {
-  //   if (!isCrete) {
-  //     EnrollMentDetails();
-  //   }
-  // }, [isCrete])
+  
   useNoninitialEffect(() => {
     
     let data: any = groupResponse;
@@ -50,9 +46,7 @@ export default function Payments() {
     
     setGroupId(Number(e.target.value));
     getPaymentsData();
-    // let gropWiseDetails = userChits.filter((f: any) => f.groupId  == e.target.value);
-    // setEnrollments(gropWiseDetails)
-  }
+    }
 
   const { response, loading, onRefresh: getPaymentsData } = useFetch({ url: `/Admin/UserOutStandings?groupId=${groupId}&userId=${userId}`, Options: { method: 'GET', initialRender: true } });
   const { response: usersResponse, loading: usersLoading } = useFetch({ url: `/Admin/GetUsers/${0}/${true}`, Options: { method: "GET", initialRender: true },});

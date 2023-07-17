@@ -5,10 +5,6 @@ import useFetch from '../../../hooks/useFetch';
 import useNoninitialEffect from '../../../hooks/useNoninitialEffect';
 import useToast from '../../../hooks/useToast';
 import GridCell from '../../../shared/grid/GridCell';
-// import GridCell from '../../../shared/grid/GridCell'
-// import UrlConstants from '../../../../constants/UrlConstants';
-// import useFetch from '../../../../hooks/useFetch';
-// import GridCell from '../../../../shared/grid/GridCell'
 
 export default function CustomRow(props: any) {
   const { data, rowProps } = props

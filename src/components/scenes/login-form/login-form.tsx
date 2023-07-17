@@ -33,7 +33,6 @@ export default function LoginPage() {
     const { getActionTypes } = useActionTypes();
     const actionTypes: any = getActionTypes();
 
-    // const [triggerValidate, setTriggerValidate] = React.useState<boolean>(true);
     const { response: saveUserresponse, loading: saveUserloading, onRefresh: saveUserDetails } = useFetch({ url: USERREGISTRATION, Options: { method: 'POST', data: userDetails } });
     const { response, loading, onRefresh: validateUser } = useFetch({ url: `/Admin/ValidateUser?userName=${userName}&password=${password}`, Options: { method: 'GET', initialRender: false } });
     const { response:userExistedresponse, loading:userExistedLoading, onRefresh: isUserExisted } = useFetch({ url: `/Admin/CheckuserExist?phone=${userDetails.phone}`, Options: { method: 'GET', initialRender: false } });
@@ -94,11 +93,7 @@ export default function LoginPage() {
                 Store.update(actionTypes?.updateuser, {...State.user, id: data.id, isAdmin: false,name:data.name,email:data.email })
                 navigate("/home")
             }
-            // Store.update(actionTypes?.updateuser,{name:'test',email:"test@gmail.com"})
-            // Store.update(actionTypes?.updateuser,{name:'test'})
-
-            // localStorage.setItem('userInfo', JSON.stringify(response));
-            //  Store.update("updateUserInformation", { ...userInfo, userId: Number(data?.id), userName: data?.name});
+           
         } else {
             getToast("Invalid Credentials", 'error');
         }
@@ -268,10 +263,7 @@ export default function LoginPage() {
             </Col>
             <Row as={Col}>
                 <Col sm='8' className='m-auto'>
-                    {/* <h4>{State.user.name}</h4>
-                    <h4>{State.user.email}</h4> */}
-                    {/* <Button onClick={()=>{Store.update(actionTypes?.updateuser,{name:'test',email:"test@gmail.com"})}}>store update</Button> */}
-                    <h1>logo</h1>
+                   <h1>logo</h1>
 
                     {!isNewUser ?
                         <>  <Form className='pt-3'>
@@ -358,14 +350,10 @@ export default function LoginPage() {
                                     renderInput={(props) => <input {...props} />}
                                 />
                                 <Button onClick={() => { verifyOTP(otp) }}>Submit</Button>
-
                             </>
                     }
-
-
                 </Col>
             </Row>  {
-
             }
         </Row>
     )

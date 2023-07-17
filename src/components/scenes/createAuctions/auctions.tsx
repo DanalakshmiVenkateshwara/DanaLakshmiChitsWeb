@@ -17,9 +17,6 @@ export default function Actions() {
 //   const [groupStatus, setGroupStatus] = useState(false);
   const { response, loading, onRefresh: CreateAuctionGrid } = useFetch({ url: `/Admin/GetCreateAuction?groupId=${0}`, Options: { method: "GET", initialRender: true } });
 
-//   useNoninitialEffect(() => {
-//     CreateAuctionDetails();
-//   }, [groupStatus]);
 
   return (
     <Card noPadding title={isCrete ? "Create Auction" :"Create Auction List"}
@@ -28,7 +25,7 @@ export default function Actions() {
           <Button size="sm" onClick={() => { setIsCrete(!isCrete ? true : false) }}>{!isCrete ? "Create" : "List"}</Button>
         </div>
       }
-    // actionButtons={<><Button size="sm">Save</Button> </>}
+    
     >
       {isCrete ? <CreateAuction setIsCrete={setIsCrete}  CreateAuctionGrid={CreateAuctionGrid} /> :
         <CreateAuctionsGrid data={response} loading={loading}  CreateAuctionGrid={CreateAuctionGrid} />}

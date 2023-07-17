@@ -36,7 +36,6 @@ export default function Groups() {
           <Button size="sm" onClick={() => { setIsCrete(!isCrete ? true : false) }}>{!isCrete ? "Create" : "List"}</Button>
         </div>
       }
-    // actionButtons={<><Button size="sm">Save</Button> </>}
     >
       {isCrete ? <CreateGroup setIsCrete={setIsCrete} setGroupStatus={setGroupStatus} CompletedGroupDetails={CompletedGroupDetails} /> :
         <GroupsGrid data={response} loading={loading} setGroupStatus={setGroupStatus} CompletedGroupDetails={CompletedGroupDetails} />}

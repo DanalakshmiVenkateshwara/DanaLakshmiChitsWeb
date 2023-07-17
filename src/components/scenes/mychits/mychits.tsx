@@ -15,9 +15,7 @@ export default function MyChits(){
   const [userInfo, setUserInfo] = useState<any>({ userId: 0, userName: ''});
   const {State,Store} = useStore();
   useEffect(() => {
-    // const items = localStorage.getItem('userInfo');
     if (State.user.id>0) {
-      // setUserInfo(items);
       getChits();
     }
   }, [State.user.id]);

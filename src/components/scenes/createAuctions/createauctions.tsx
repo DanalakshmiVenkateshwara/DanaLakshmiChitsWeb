@@ -117,12 +117,10 @@ export default function CreateAuction(props: any) {
                     <Form.Number required name='' errorMsg="Base Amount is required" label="BaseAmount" onChange={(e: any) => setAuctionDetails({ ...auctionDetails, BaseAmount: e })} />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                <RForm.Label>{"StartDate"}</RForm.Label>
-                    <RForm.Control type="date" value={auctionDetails.StartDate} defaultValue={auctionDetails.StartDate} onChange={(e:any)=> onDateChangehandler(e)}  placeholder="Choosedate"  />
+                <Form.Number required name='' errorMsg="Auction MOnth is required" label="AuctionMonth" onChange={(e: any) => setAuctionDetails({ ...auctionDetails, AuctionMonth: e })} />
                 </Col>
                 <Col xl="3" lg="4" md="6">
                 <RForm.Label>StartTime</RForm.Label>
-                
                 <PatternFormat 
                   format="##:##"
                   className="form-control"
@@ -146,7 +144,8 @@ export default function CreateAuction(props: any) {
                 />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                <Form.Number required name='' errorMsg="Auction MOnth is required" label="AuctionMonth" onChange={(e: any) => setAuctionDetails({ ...auctionDetails, AuctionMonth: e })} />
+                <RForm.Label>{"AuctionDate"}</RForm.Label>
+                    <RForm.Control type="date" value={auctionDetails.StartDate} defaultValue={auctionDetails.StartDate} onChange={(e:any)=> onDateChangehandler(e)}  placeholder="Choosedate"  />
                 </Col>
             </Row>
             <Form.Submit />

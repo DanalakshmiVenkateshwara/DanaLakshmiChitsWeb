@@ -79,20 +79,6 @@ export default function CreateUser(props: any) {
                 <Col xl="3" lg="4" md="6">
                     <Form.Text required name='' value={userDetails.name} label="UserName" onChange={(e: any) => setUserDetails({ ...userDetails, name: e })} />
                 </Col>
-                {/* <Col xl="3" lg="4" md="6">
-                    
-                <NumberFormat
-              format="(###) ###-####"
-              className="form-control"
-              placeholder="(###) ###-####"
-              mask="_"
-              allowEmptyFormatting={false}
-              value={userDetails.phone}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                setUserDetails({ ...userDetails, phone: e.target.value })
-              }
-            />
-            </Col> */}
                 <Col xl="3" lg="4" md="6">
                     <Form.Text required name='' value={userDetails.phone} label="Phone" onChange={(e: any) => setUserDetails({ ...userDetails, phone: e })} />
                 </Col>
@@ -121,7 +107,6 @@ export default function CreateUser(props: any) {
                     <Form.Text required name='' value={userDetails.city} label="City" onChange={(e: any) => setUserDetails({ ...userDetails, city: e })} />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                    {/* <Form.Text required name='' value={userDetails.state} label="State" onChange={(e: any) => setUserDetails({ ...userDetails, state: e })} /> */}
                     <Form.Select placeholder='choose state' errorMsg="state required" label="State" onChange={(e: any) => setUserDetails({ ...userDetails, state: e })}>
                         <option value={"Telangana"}>{"Telangana"}</option>
                         <option value={"AndraPradesh"}>{"AndraPradesh"}</option>

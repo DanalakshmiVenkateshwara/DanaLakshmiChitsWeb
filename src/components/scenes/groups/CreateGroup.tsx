@@ -57,7 +57,6 @@ export default function CreateGroup(props: any) {
         validateGroupName();
     };
     const onDateChangehandler =(e:any)=>{
-        debugger
         if(new Date(e.currentTarget.value).toLocaleDateString() <= new Date().toLocaleDateString())
           getToast('Start Date must be future Date', 'error');
          else

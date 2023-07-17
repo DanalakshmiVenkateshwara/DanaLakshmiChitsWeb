@@ -10,7 +10,6 @@ export default function ContactUs() {
   
     const { response, loading} = useFetch({ url: `/Admin/GetAdminProfile`, Options: { method: 'GET', initialRender: true } });
     useEffect(() => {
-      debugger
       let data: any = response;
       
       if(data != undefined){

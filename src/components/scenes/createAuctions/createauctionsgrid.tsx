@@ -4,6 +4,7 @@ import { CardBody, CardHeader } from "reactstrap";
 import axios from "axios";
 import Grid from "../../shared/grid";
 import GridColumn from "../../shared/grid/GridColumn";
+import customRow from "./customRow";
 
 export default function CreateAuctionsGrid({data,loading,setGroupStatus,CompletedGroupDetails}:any) {
   
@@ -11,11 +12,11 @@ export default function CreateAuctionsGrid({data,loading,setGroupStatus,Complete
     <>
       
       {/* <Button variant="primary" onClick={onLauchClick}>Start</Button> */}
-      <Grid data={data} loading={loading} rowProps={{ setGroupStatus: setGroupStatus,CompletedGroupDetails:CompletedGroupDetails }}>
+      <Grid data={data} as={customRow} loading={loading} rowProps={{ setGroupStatus: setGroupStatus,CompletedGroupDetails:CompletedGroupDetails }}>
         <GridColumn title="Group Name" targetField="groupName" />
         <GridColumn title="Amount" targetField="amount" />
         <GridColumn title="BaseAmount" targetField="baseAmount" />
-        <GridColumn title="StartDate" targetField="startDate" />
+        <GridColumn title="AuctionDate" targetField="startDate" />
         <GridColumn title="StartTime" targetField="startTime" />
         <GridColumn title="EndTime" targetField="endTime" />
       </Grid>

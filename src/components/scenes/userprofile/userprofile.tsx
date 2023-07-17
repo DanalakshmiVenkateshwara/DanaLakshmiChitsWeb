@@ -9,7 +9,6 @@ export default function UserProfile() {
     const { response: usersResponse, loading: usersLoading } = useFetch({ url: `/Admin/GetUsers/${2}/${true}`, Options: { method: 'GET', initialRender: true } });
   
     useEffect(() => {
-        debugger
         let data: any = usersResponse;
         
         if(data != undefined){

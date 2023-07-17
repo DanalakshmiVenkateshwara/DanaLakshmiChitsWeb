@@ -15,7 +15,7 @@ import CreateAuction from "./createauctions";
 export default function Actions() {
   const [isCrete, setIsCrete] = useState(false);
 //   const [groupStatus, setGroupStatus] = useState(false);
-  const { response, loading, onRefresh: CreateAuctionGrid } = useFetch({ url: `/Admin/GetCreateAuction?groupId=${2}`, Options: { method: "GET", initialRender: true } });
+  const { response, loading, onRefresh: CreateAuctionGrid } = useFetch({ url: `/Admin/GetCreateAuction?groupId=${0}`, Options: { method: "GET", initialRender: true } });
 
 //   useNoninitialEffect(() => {
 //     CreateAuctionDetails();

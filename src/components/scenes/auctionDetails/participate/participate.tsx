@@ -70,7 +70,7 @@ export default function Participate() {
        setTimeout(()=>{//As sockets are async it is checking before State rehydrate
         if (State?.user?.lastBidconnectionId === State?.user?.socketId) { alert("you are bid winner") ;console.log(State)}
         else { navigate("/") }
-       },1000)
+       },2000)
       }
       else {
         // Handle other incoming messages
@@ -304,7 +304,7 @@ export default function Participate() {
                 <label className="m-auto">{index + 1}</label>
               </div>
               <Col sm={6}>
-                <h6 className="mb-0">{item?.User?.Username}</h6>
+                <h6 className="mb-0">{item?.ConnectionId ===State?.user?.socketId ? "You": item?.User?.Username}</h6>
                 <span>
                   <small className="d-block" style={{ fontSize: "10px" }}>{'Joined at '}
                     {/* {getTimeAgo(item?.joinedAt)} */}

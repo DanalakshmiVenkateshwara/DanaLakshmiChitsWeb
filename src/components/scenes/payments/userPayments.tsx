@@ -99,11 +99,11 @@ export default function UserPayments(props: any) {
       setEnrollMentsData(groupsData.filter((m: any) => m.userId == e.id));
       paymentDetails.groupId = -1;
       
-      setPaymentDetails({ ...paymentDetails, userId: e.id, totalAmount: 0, paymentMonth: 0, dividend:0, dueAmount: 0,totalDue:0 });
+      setPaymentDetails({ ...paymentDetails, userId: e.id, currentMonthEmi: 0, paymentMonth: 0,installMentAmount:0, dividend:0, dueAmount: 0,totalDue:0 });
     }
   };
   const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-     setIsUserChange(true)
+      setIsUserChange(true)
       setPaymentDetails({ ...paymentDetails,groupId:Number(e.target.value)});
       if(Number(e.target.value) > 0)
          getPaymentDetails();
@@ -117,12 +117,12 @@ export default function UserPayments(props: any) {
     if (data.length > 0){
       setPaymentDetails({
         ...paymentDetails,
-        dividend: data[0].totalDue != data[0].dueAmount ? data[0].userDues[0].dividend : data[0].dividend,
-        totalAmount: data[0].totalAmount,
-        paymentMonth: data[0].totalDue != data[0].dueAmount ? data[0].userDues[0].installmentmonth : data[0].paidUpto,
-        dueAmount: data[0].totalDue != data[0].dueAmount ? data[0].userDues[0].dueAmount : data[0].dueAmount,
-        totalDue: data[0].totalDue,
-        userDues: data[0].userDues
+        dividend: data[0]?.totalDue != data[0]?.dueAmount ? data[0]?.userDues[0]?.dividend : data[0]?.dividend,
+        totalAmount: data[0]?.totalAmount,
+        paymentMonth: data[0]?.totalDue != data[0].dueAmount ? data[0]?.userDues[0]?.installmentmonth : data[0]?.paidUpto,
+        dueAmount: data[0]?.totalDue != data[0].dueAmount ? data[0]?.userDues[0]?.dueAmount : data[0]?.dueAmount,
+        totalDue: data[0]?.totalDue,
+        userDues: data[0]?.userDues
       });
       setUserDueDetails(data[0].userDues);
     }

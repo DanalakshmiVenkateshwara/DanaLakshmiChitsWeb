@@ -66,10 +66,11 @@ export default function CreateAuction(props: any) {
     const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
       if(e.target.value != '-1'){
         let amount = groupsData.filter((f: any) => f.id == e.target.value)[0].amount;
-        setAuctionDetails({ ...auctionDetails, Amount:amount, GroupId: parseInt(e.target.value)});
-        }
-        else
-        setAuctionDetails({ ...auctionDetails, Amount:0});
+        let currentMonth = groupsData.filter((f: any) => f.id == e.target.value)[0].currentMonth;
+        setAuctionDetails({ ...auctionDetails, Amount:amount, AuctionMonth:currentMonth, GroupId: parseInt(e.target.value)}); //, BaseAmount : (amount*10)/100
+      }
+      else
+        setAuctionDetails({ ...auctionDetails, Amount:0,AuctionMonth:0});
       }
     
       const startTimeChangeHandler = (e: any) => {
@@ -114,10 +115,10 @@ export default function CreateAuction(props: any) {
                     <Form.Number disabled={true} required value={auctionDetails.Amount}  name='' errorMsg="Amount is required" label="Amount" />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                    <Form.Number required name='' errorMsg="Base Amount is required" label="BaseAmount" onChange={(e: any) => setAuctionDetails({ ...auctionDetails, BaseAmount: e })} />
+                <Form.Number required value={auctionDetails.BaseAmount} name='' errorMsg="Base Amount is required" label="BaseAmount" onChange={(e: any) => setAuctionDetails({ ...auctionDetails, BaseAmount: e })} />
                 </Col>
                 <Col xl="3" lg="4" md="6">
-                <Form.Number required name='' errorMsg="Auction MOnth is required" label="AuctionMonth" onChange={(e: any) => setAuctionDetails({ ...auctionDetails, AuctionMonth: e })} />
+                <Form.Number required name='' value={auctionDetails.AuctionMonth} errorMsg="Auction MOnth is required" label="AuctionMonth" onChange={(e: any) => setAuctionDetails({ ...auctionDetails, AuctionMonth: e })} />
                 </Col>
                 <Col xl="3" lg="4" md="6">
                 <RForm.Label>StartTime</RForm.Label>

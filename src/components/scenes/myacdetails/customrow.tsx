@@ -14,7 +14,7 @@ export default function CustomROw(props:any) {
   }
   return (
    <>
-               <GridCell title="Date" targetField="paymentDate"><>{convertDateTimeToDate(data?.paymentDate)}</></GridCell>
+                <GridCell title="Date" targetField="paymentDate"><>{convertDateTimeToDate(data?.paymentDate)}</></GridCell>
                 <GridCell title="Amount" targetField="totalAmount">{data?.totalAmount}</GridCell>
                 <GridCell title="DueAmount" targetField="dueAmount"><>{data?.dueAmount>0 ? data?.dueAmount:""}</></GridCell>
                 <GridCell title="month Of Installment" targetField="paymentMonth">{data?.paymentMonth}</GridCell>

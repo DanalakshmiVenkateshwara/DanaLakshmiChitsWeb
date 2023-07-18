@@ -19,7 +19,7 @@ export default function Header() {
   return (
     <Navbar collapseOnSelect expand="md" variant="dark">
       <Container fluid>
-        <Navbar.Brand >Dhana lakshmi</Navbar.Brand>
+        <Navbar.Brand > SRI DHANA LAKSHMI VENKATESHWARA ChITS</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           {/* <Nav >

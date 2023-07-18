@@ -7,12 +7,16 @@ import Form from "../../../shared/form";
 import './_participate.scss'
 import { useActionTypes, useStore } from "../../../store";
 import { useNavigate } from "react-router-dom";
+import useFetch from "../../../hooks/useFetch";
+import useNoninitialEffect from "../../../hooks/useNoninitialEffect";
 
 
 
 
 export default function Participate() {
   const { Store, State } = useStore();
+  const [userId, setUserId] = useState<any>();
+  const [usersData, setUsersData] = useState<Array<any>>([]);
   const navigate = useNavigate();
   const [sockets, setsocket] = useState<any>();
   const { getActionTypes } = useActionTypes();
@@ -24,12 +28,17 @@ export default function Participate() {
   // Set the desired trigger time
   const triggerTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 48, 0);
 
-
+  const { response: usersResponse, loading: usersLoading } = useFetch({ url: `/Admin/GetUsers/${0}/${true}`, Options: { method: 'GET', initialRender: true } });
+    
   console.log(((triggerTime.getSeconds() - currentDate.getSeconds()) / 1000))
   console.log(triggerTime.getSeconds(), currentDate.getSeconds())
   console.log(State)
 
 
+  useNoninitialEffect(() => {
+    let data: any = usersResponse;
+    setUsersData(data)
+}, [usersResponse])
 
   React.useEffect(() => {
     const userDetails = { Username: State?.user?.name, Email: State?.user?.email }
@@ -61,7 +70,7 @@ export default function Participate() {
        setTimeout(()=>{//As sockets are async it is checking before State rehydrate
         if (State?.user?.lastBidconnectionId === State?.user?.socketId) { alert("you are bid winner") ;console.log(State)}
         else { navigate("/") }
-       },100)
+       },1000)
       }
       else {
         // Handle other incoming messages
@@ -153,6 +162,11 @@ export default function Participate() {
         {/* Group_details */}
         <Col sm={8}>
           <Card title="Group Details">
+            {State.user.isAdmin && <Row>
+              <Col xl="3" lg="4" md="6">
+                    <Form.Suggest onSelect={(d: any) => { setUserId(d.id) }} data={usersData} text="name" value='name' name='' errorMsg="UserName required" label="UserName" />
+                </Col>
+            </Row>}
             <Row>
               <Col xl={3} lg="4" md="6">
                 <Form.Text disabled={true} value={0} label="Auction Date" />
@@ -192,6 +206,7 @@ export default function Participate() {
               <Button onClick={() => { RaiseBid() }} disabled={Number(((triggerTime.getTime() - currentDate.getTime()) / 1000).toFixed(0)) > 0 ? false : true}>Bid amount</Button>
             }
           >
+           
             <Row>
               <Col sm={8} >
                 <Row>
@@ -223,6 +238,11 @@ export default function Participate() {
               </Col>
             </Row>
           </Card>
+          {State.user.isAdmin && <Row>
+            <Col sm="4">
+                    
+              <Button  onClick={() =>("")}>CloseAuction</Button></Col>
+            </Row>}
         </Col>
         {/* Bidding_history */}
         <Col>

@@ -28,7 +28,7 @@ const HomePage = () => {
 
                 <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary px-3">
                     <Container fluid>
-                        <Navbar.Brand href="#home" className='text-white'>DHANA CHITS</Navbar.Brand>
+                        <Navbar.Brand href="#home" className='text-white'>SRI DHANA LAKSHMI VENKATESHWARA ChITS</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
 
@@ -182,7 +182,7 @@ const HomePage = () => {
                             <img src={downloadApp} width="100%" />
                         </Col>
                         <Col className='offset-1'>
-                            <h2>Now Dhanalaxmi Chits App will be Pocket away.</h2>
+                            <h2>Now Sri Dhana Lakshmi Venakateshwara Chits App Will Be Pocket Away.</h2>
                             <div className='py-5'>
                                 <Row className='my-5'>
                                     <Col className='download-app-details'>
@@ -217,7 +217,7 @@ const HomePage = () => {
                     </div>
                 </div>
                 <Col className='footer'>
-                    <p className='text-center text-white mb-0'> &copy;Copyright {new Date().getFullYear()},All rights reserved. Dhanalaxmi chits</p>
+                    <p className='text-center text-white mb-0'> &copy;Copyright {new Date().getFullYear()},All rights reserved. SRI DHANA LAKSHMI VENKATESHWARA ChITS</p>
                 </Col>
             </Row>
         </div>

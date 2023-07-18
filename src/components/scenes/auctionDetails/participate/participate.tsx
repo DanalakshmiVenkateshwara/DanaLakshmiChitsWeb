@@ -27,7 +27,7 @@ export default function Participate() {
 
   console.log(((triggerTime.getSeconds() - currentDate.getSeconds()) / 1000))
   console.log(triggerTime.getSeconds(), currentDate.getSeconds())
-
+  console.log(State)
 
 
 
@@ -58,8 +58,10 @@ export default function Participate() {
         // setBids(Data);
         addBids(Data);
       } else if (Action === 'auctionResponse') {
-        if (State?.user?.lastBidconnectionId === State?.user?.socketId) { alert("you are bid winner") }
+       setTimeout(()=>{//As sockets are async it is checking before State rehydrate
+        if (State?.user?.lastBidconnectionId === State?.user?.socketId) { alert("you are bid winner") ;console.log(State)}
         else { navigate("/") }
+       },100)
       }
       else {
         // Handle other incoming messages
@@ -67,10 +69,17 @@ export default function Participate() {
       }
     };
 
+    socket.onerror = (error) => {
+      console.error("WebSocket error:", error);
+      // Handle the error or show a message to the user
+    };
+
     // Cleanup on component unmount
     return () => {
       if (socket) {
-        socket.close();
+        socket.close = () => {
+          console.log('WebSocket connection established');
+        };
       }
     };
   }, []);

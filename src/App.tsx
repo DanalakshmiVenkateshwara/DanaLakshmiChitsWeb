@@ -42,7 +42,7 @@ function App() {
   setActionTypes(actionTypes);
   return <>
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
+      <PersistGate loading={<div className="m-5">Loading...</div>} persistor={persistor}>
         <Routes />
         <ToastContainer />
       </PersistGate>

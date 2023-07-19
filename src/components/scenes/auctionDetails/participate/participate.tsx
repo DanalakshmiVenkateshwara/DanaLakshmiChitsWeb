@@ -23,22 +23,27 @@ export default function Participate() {
   const actionTypes: any = getActionTypes();
   const [connectedClients, setConnectedClients] = useState([])
   const [bids, setBids] = useState<any>([])
+  const dataFromReduxRef = useRef(State);
   const currentDate = new Date();
 
   // Set the desired trigger time
   const triggerTime = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), 23, 48, 0);
 
   const { response: usersResponse, loading: usersLoading } = useFetch({ url: `/Admin/GetUsers/${0}/${true}`, Options: { method: 'GET', initialRender: true } });
-    
+
   console.log(((triggerTime.getSeconds() - currentDate.getSeconds()) / 1000))
   console.log(triggerTime.getSeconds(), currentDate.getSeconds())
   console.log(State)
 
+  useEffect(() => {
+    // Update the ref whenever dataFromRedux changes
+    dataFromReduxRef.current = State;
+  }, [State]);
 
   useNoninitialEffect(() => {
     let data: any = usersResponse;
     setUsersData(data)
-}, [usersResponse])
+  }, [usersResponse])
 
   React.useEffect(() => {
     const userDetails = { Username: State?.user?.name, Email: State?.user?.email }
@@ -53,7 +58,7 @@ export default function Participate() {
     socket.onmessage = (event: any) => {
       const msg = JSON.parse(event.data);
       const { Action, Data } = msg;
-
+      const updatedState = dataFromReduxRef.current;
       if (Action === 'connectResponse') {
         const connectionId = msg.connectionId;
         console.log('WebSocket connection established. Connection ID:', connectionId);
@@ -67,10 +72,10 @@ export default function Participate() {
         // setBids(Data);
         addBids(Data);
       } else if (Action === 'auctionResponse') {
-       setTimeout(()=>{//As sockets are async it is checking before State rehydrate
-        if (State?.user?.lastBidconnectionId === State?.user?.socketId) { alert("you are bid winner") ;console.log(State)}
+
+        if (updatedState?.user?.lastBidconnectionId === updatedState?.user?.socketId) { alert("you are bid winner"); console.log(updatedState) }
         else { navigate("/") }
-       },2000)
+
       }
       else {
         // Handle other incoming messages
@@ -93,10 +98,10 @@ export default function Participate() {
     };
   }, []);
 
-  useEffect(()=>{
-    Store.update(actionTypes.updateuser,{...State?.user, lastBidconnectionId:bids?.at(0)?.ConnectionId})
-  },[bids])
-  
+  useEffect(() => {
+    Store.update(actionTypes.updateuser, { ...State?.user, lastBidconnectionId: bids?.at(0)?.ConnectionId })
+  }, [bids])
+
   const [show, setShow] = useState(false);
   const [lastBidValue, setLastBidValue] = useState(0);
   const handleClose = () => setShow(false);
@@ -164,8 +169,8 @@ export default function Participate() {
           <Card title="Group Details">
             {State.user.isAdmin && <Row>
               <Col xl="3" lg="4" md="6">
-                    <Form.Suggest onSelect={(d: any) => { setUserId(d.id) }} data={usersData} text="name" value='name' name='' errorMsg="UserName required" label="UserName" />
-                </Col>
+                <Form.Suggest onSelect={(d: any) => { setUserId(d.id) }} data={usersData} text="name" value='name' name='' errorMsg="UserName required" label="UserName" />
+              </Col>
             </Row>}
             <Row>
               <Col xl={3} lg="4" md="6">
@@ -206,7 +211,7 @@ export default function Participate() {
               <Button onClick={() => { RaiseBid() }} disabled={Number(((triggerTime.getTime() - currentDate.getTime()) / 1000).toFixed(0)) > 0 ? false : true}>Bid amount</Button>
             }
           >
-           
+
             <Row>
               <Col sm={8} >
                 <Row>
@@ -240,9 +245,9 @@ export default function Participate() {
           </Card>
           {State.user.isAdmin && <Row>
             <Col sm="4">
-                    
-              <Button  onClick={() =>("")}>CloseAuction</Button></Col>
-            </Row>}
+
+              <Button onClick={() => ("")}>CloseAuction</Button></Col>
+          </Row>}
         </Col>
         {/* Bidding_history */}
         <Col>
@@ -254,7 +259,7 @@ export default function Participate() {
           >
             {bids.map((item: any, index: number) => {
               return (
-                <Card noPadding className={`p-2 m-2 shadow border-0 ${item?.ConnectionId ===State?.user?.socketId ?"self":""}`}>
+                <Card noPadding className={`p-2 m-2 shadow border-0 ${item?.ConnectionId === State?.user?.socketId ? "self" : ""}`}>
                   <Row className="m-0 align-items-center">
                     <div
                       className="bg-primary d-flex rounded-circle text-white"
@@ -263,7 +268,7 @@ export default function Participate() {
                       <label className="m-auto">{index + 1}</label>
                     </div>
                     <Col sm={6}>
-                      <h6 className="mb-0">{item?.ConnectionId ===State?.user?.socketId ? "You": (item?.name ? item?.name : item?.ConnectionId) }</h6>
+                      <h6 className="mb-0">{item?.ConnectionId === State?.user?.socketId ? "You" : (item?.name ? item?.name : item?.ConnectionId)}</h6>
                       <span>
                         <small className="d-block" style={{ fontSize: "10px" }}>
                           {/* {getTimeAgo(item?.time)} */}
@@ -304,7 +309,7 @@ export default function Participate() {
                 <label className="m-auto">{index + 1}</label>
               </div>
               <Col sm={6}>
-                <h6 className="mb-0">{item?.ConnectionId ===State?.user?.socketId ? "You": item?.User?.Username}</h6>
+                <h6 className="mb-0">{item?.ConnectionId === State?.user?.socketId ? "You" : item?.User?.Username}</h6>
                 <span>
                   <small className="d-block" style={{ fontSize: "10px" }}>{'Joined at '}
                     {/* {getTimeAgo(item?.joinedAt)} */}

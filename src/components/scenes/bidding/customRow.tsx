@@ -1,14 +1,17 @@
-import React from 'react'
+import React, { useState } from 'react'
 import GridCell from '../../shared/grid/GridCell';
-import { useNavigate } from "react-router-dom";
 import { Button } from 'react-bootstrap';
+import { useNavigate } from 'react-router-dom';
+import useNoninitialEffect from '../../hooks/useNoninitialEffect';
 
 export default function CustomRow(props: any) {
+  debugger
     const { data, rowProps } = props;
+    const [ disableParticipate, setDisableParticipate ] = useState<any>(true);
     const  navigate  = useNavigate();
     
     const convertDateTimeToDate = (date: string) => {
-        
+        debugger
         if (date == "0001-01-01T00:00:00")
           return ""
         else {
@@ -16,6 +19,25 @@ export default function CustomRow(props: any) {
           return newDate;
          }
       }
+      const Participate =()=>{
+        debugger
+        navigate('/participate')
+      }
+      // useNoninitialEffect(()=>{
+
+      // },[])
+      const disableButton =(date: string)=>{
+        debugger
+        var date = convertDateTimeToDate(date);
+        if(date == new Date().getFullYear() +"-"+ (new Date().getMonth()+1)+"-"+ new Date().getDate())
+        {
+          setDisableParticipate(false)
+        }
+        else{
+          setDisableParticipate(true)
+        }      
+      }
+
     return (
         <>
             <GridCell title="GroupName" targetField="groupName"><>{data?.groupName}</></GridCell>
@@ -25,7 +47,7 @@ export default function CustomRow(props: any) {
             <GridCell title="StartTime" targetField="startTime">{data?.startTime}</GridCell>
             <GridCell title="EndTime" targetField="endTime"><>{data?.endTime}</></GridCell>
             <GridCell title="" targetField="">
-            <Button variant='primary' size='sm' onClick={()=>navigate('/participate')}>Participate</Button>
+            <Button disabled={disableParticipate} variant='primary' size='sm' onClick={()=>Participate() }>Participate</Button>
              </GridCell>
         </>
     )

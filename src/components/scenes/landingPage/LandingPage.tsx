@@ -76,10 +76,15 @@ export default function LandingPage() {
       path: '/ContactUs'
     },
     {
-      title: "LoginPage",
+      title: "Biddings",
       icon: <i className='fa-solid fa-chalkboard-user fa-4x my-4' ></i>,
-      path: '/LoginPage'
-    },
+      path: '/Biddings'
+    }
+    // {
+    //   title: "LoginPage",
+    //   icon: <i className='fa-solid fa-chalkboard-user fa-4x my-4' ></i>,
+    //   path: '/LoginPage'
+    // },
 
   ]
 

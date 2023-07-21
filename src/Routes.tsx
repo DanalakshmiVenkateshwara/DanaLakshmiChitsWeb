@@ -24,6 +24,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./App";
 import HomePage from "./components/scenes/homePage";
 import Actions from "./components/scenes/createAuctions/auctions";
+import Biddings from "./components/scenes/bidding/biddings";
 
 function Routes() {
 
@@ -75,6 +76,7 @@ function Routes() {
                     <Route path="/MyChits" element={<MyChits />} />
                     <Route path="/MyacDetails" element={<Acdetails />} />
                     <Route path="/Newlycommenced" element={<Newlycommenced />} />
+                    <Route path="/Biddings" element={<Biddings />} />
                     <Route path="/UserProfile" element={<UserProfile />} />
                     <Route path="/ContactUs" element={<ContactUs />} />
                   </>

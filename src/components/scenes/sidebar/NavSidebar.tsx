@@ -41,6 +41,7 @@ console.log(location)
             <SideBarItem icon={<i className="fa-solid fa-chalkboard-user"></i>} path="/MyChits" label="MyChits" />
             <SideBarItem icon={<i className="fa-solid fa-chalkboard-user"></i>} path="/MyacDetails" label="Acdetails" />
             <SideBarItem icon={<i className="fa-solid fa-chalkboard-user"></i>} path="/Newlycommenced" label="Newlycommenced" />
+            <SideBarItem icon={<i className="fa-solid fa-chalkboard-user"></i>} path="/Biddings" label="Biddings" />
             <SideBarItem icon={<i className="fa-solid fa-chalkboard-user"></i>} path="/UserProfile" label="UserProfile" />
             <SideBarItem icon={<i className="fa-solid fa-chalkboard-user"></i>} path="/ContactUs" label="ContactUs" />
             {/* <SideBarItem icon={<i className="fa-solid fa-chalkboard-user"></i>} path="/LoginPage" label="LoginPage" /> */}

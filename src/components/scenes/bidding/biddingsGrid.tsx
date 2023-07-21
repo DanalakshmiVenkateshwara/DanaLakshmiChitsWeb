@@ -6,20 +6,20 @@ import Grid from "../../shared/grid";
 import GridColumn from "../../shared/grid/GridColumn";
 import customRow from "./customRow";
 
-export default function CreateAuctionsGrid({data,loading}:any) {
+export default function BiddingsGrid({data,loading,setGroupStatus,CompletedGroupDetails}:any) {
   
   return (
     <>
       
       {/* <Button variant="primary" onClick={onLauchClick}>Start</Button> */}
-      <Grid data={data} as={customRow} loading={loading} >
+      <Grid data={data} as={customRow} loading={loading} rowProps={{ setGroupStatus: setGroupStatus,CompletedGroupDetails:CompletedGroupDetails }}>
         <GridColumn title="Group Name" targetField="groupName" />
         <GridColumn title="Amount" targetField="amount" />
         <GridColumn title="BaseAmount" targetField="baseAmount" />
         <GridColumn title="AuctionDate" targetField="startDate" />
         <GridColumn title="StartTime" targetField="startTime" />
         <GridColumn title="EndTime" targetField="endTime" />
-        <GridColumn title="" targetField=""/>
+        <GridColumn title="Participate" targetField="" />
       </Grid>
     </>
 

@@ -56,7 +56,7 @@ const HomePage = () => {
                                 alt="First slide"
                             />
                             <Carousel.Caption>
-                            <h3>మా ప్రత్యేకత ఎలాంటి షూరిటీ లేకుండ 200000 చిట్టి వరకు ఇవ్వబడును</h3>
+                            <h3>మా ప్రత్యేకత ఎలాంటి షూరిటీ లేకుండ 1,00,000 చిట్టి వరకు ఇవ్వబడును</h3>
                             </Carousel.Caption>
                         </Carousel.Item>
                         <Carousel.Item>

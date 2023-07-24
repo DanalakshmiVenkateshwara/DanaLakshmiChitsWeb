@@ -17,37 +17,37 @@ export default function Biddings() {
     debugger
   
   const {State,Store} = useStore();
-  const [groupId, setGroupId] = useState<any>(-1);
-  const [groupsData, setGroupsData] = useState<Array<any>>([]);
+  // const [groupId, setGroupId] = useState<any>(-1);
+  // const [groupsData, setGroupsData] = useState<Array<any>>([]);
   const [auctionsData,setAuctionsData] = useState<Array<any>>([]);
   const { getToast } = useToast();
 
-  const { response:groupResponse, loading:groupLoading} = useFetch({ url: `/Admin/GetEnrollMents/${State.user.id}/${0}/${true}`, Options: { method: 'GET', initialRender:true} });
+  // const { response:groupResponse, loading:groupLoading} = useFetch({ url: `/Admin/GetEnrollMents/${State.user.id}/${0}/${true}`, Options: { method: 'GET', initialRender:true} });
 
 
-  const { response, loading, onRefresh :getAuctionsData} = useFetch({ url: `/Admin/GetCreateAuction?groupId=${groupId}`, Options: { method: "GET", initialRender: false } });
+  const { response, loading, onRefresh :getAuctionsData} = useFetch({ url: `/Admin/GetCreateAuction?userId=${State.user.id}`, Options: { method: "GET", initialRender: true } });
 
-  const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    debugger
-    if(e.target.value > "0"){
-      setGroupId(Number(e.target.value));
-      getAuctionsData();
-    }
-    else{
-        setGroupId(Number(e.target.value));
-        getToast('Please select group.', 'error');
-        setAuctionsData([])
-    }
+  // const onGroupChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   debugger
+  //   if(e.target.value > "0"){
+  //     setGroupId(Number(e.target.value));
+  //     getAuctionsData();
+  //   }
+  //   else{
+  //       setGroupId(Number(e.target.value));
+  //       getToast('Please select group.', 'error');
+  //       setAuctionsData([])
+  //   }
     
-    // let gropWiseDetails = userChits.filter((f: any) => f.groupId  == e.target.value);
-    // setuserChits(gropWiseDetails)
-  }
-  useNoninitialEffect(() => {
-    debugger
-    let data: any = groupResponse;
+  //   // let gropWiseDetails = userChits.filter((f: any) => f.groupId  == e.target.value);
+  //   // setuserChits(gropWiseDetails)
+  // }
+  // useNoninitialEffect(() => {
+  //   debugger
+  //   let data: any = groupResponse;
     
-    setGroupsData(data)
-  }, [groupResponse])
+  //   setGroupsData(data)
+  // }, [groupResponse])
 
   useNoninitialEffect(() => {
     debugger
@@ -58,7 +58,7 @@ export default function Biddings() {
   return (
     <>
     <Card noPadding title="Auction participation" headerAction={<Col sm={4} className="d-flex align-items-end justify-content-end">
-      <RForm.Control as="select" className="col-6 col-sm-3 col-xl-2" size="sm" value={groupId}
+      {/* <RForm.Control as="select" className="col-6 col-sm-3 col-xl-2" size="sm" value={groupId}
         onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
           onGroupChange(e)
         }
@@ -72,7 +72,7 @@ export default function Biddings() {
             </option>
           );
         })}
-      </RForm.Control>
+      </RForm.Control> */}
       </Col>}
       >
         <BiddingsGrid data={auctionsData} loading={loading} />

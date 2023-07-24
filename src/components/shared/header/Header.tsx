@@ -5,6 +5,7 @@ import LoginPage from "../../scenes/login-form/login-form";
 import { useNavigate } from "react-router-dom";
 import useStore from "../../store/useStore";
 import { useActionTypes } from "../../store";
+import logo from '../../assets/images/logo.png'
 
 export default function Header() {
   const { State, Store } = useStore();
@@ -19,7 +20,9 @@ export default function Header() {
   return (
     <Navbar collapseOnSelect expand="md" variant="dark">
       <Container fluid>
-        <Navbar.Brand > SRI DHANA LAKSHMI VENKATESHWARA ChITS</Navbar.Brand>
+        <Navbar.Brand>
+        <img src={logo} width='3%' height={"10%"} style={{background:"#fff"}} />
+           SRI DHANA LAKSHMI VENKATESHWARA CHITS</Navbar.Brand>
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           {/* <Nav >

@@ -5,6 +5,7 @@ import useFetch from '../../hooks/useFetch';
 import useNoninitialEffect from "../../hooks/useNoninitialEffect";
 import { signInWithEmailAndPassword, RecaptchaVerifier, signInWithPhoneNumber, PhoneAuthProvider, signInWithCredential, createUserWithEmailAndPassword, EmailAuthProvider, linkWithCredential, updateProfile } from 'firebase/auth';
 import loginImage from '../../assets/images/login.png'
+import logo from '../../assets/images/logo.png'
 import { useNavigate } from "react-router-dom";
 import { auth } from '../../../App';
 import { useActionTypes, useStore } from '../../store';
@@ -248,6 +249,8 @@ export default function LoginPage() {
                         });
                       })
                       .catch((error) => {
+                        debugger
+                        getToast("email already existed", error)
                         // Handle account linking error
                       });
             })
@@ -263,7 +266,8 @@ export default function LoginPage() {
             </Col>
             <Row as={Col}>
                 <Col sm='8' className='m-auto'>
-                   <h1>logo</h1>
+                   {/* <h1>logo</h1> */}
+                   <img src={logo} width='80%' className='m-auto' />
 
                     {!isNewUser ?
                         <>  <Form className='pt-3'>

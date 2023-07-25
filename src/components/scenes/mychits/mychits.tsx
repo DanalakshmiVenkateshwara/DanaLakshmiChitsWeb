@@ -12,14 +12,16 @@ import { useStore } from "../../store";
 
 export default function MyChits(){
   
+  debugger
   const [userInfo, setUserInfo] = useState<any>({ userId: 0, userName: ''});
   const {State,Store} = useStore();
   useEffect(() => {
+    debugger
     if (State.user.id>0) {
       getChits();
     }
   }, [State.user.id]);
-  const { response, loading, onRefresh:getChits } = useFetch({ url: `/Admin/GetEnrollMents/${State.user.id}/${0}/${true}`, Options: { method: 'GET', initialRender:false} });
+  const { response, loading, onRefresh:getChits } = useFetch({ url: `/User/GetMyChits?userId= ${State.user.id}`, Options: { method: 'GET', initialRender:false} });
 
   return (
   <>

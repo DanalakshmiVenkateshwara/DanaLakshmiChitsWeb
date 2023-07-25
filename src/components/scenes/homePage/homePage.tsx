@@ -10,6 +10,7 @@ import Form from '../../shared/form'
 import useFetch from '../../hooks/useFetch'
 import useNoninitialEffect from '../../hooks/useNoninitialEffect'
 import { useNavigate } from 'react-router-dom'
+import logo from '../../assets/images/logo.png'
 const HomePage = () => {
     const navigate = useNavigate();
     const [chitPlans ,setChitPlans] = useState<any>()
@@ -28,6 +29,7 @@ const HomePage = () => {
 
                 <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary px-3">
                     <Container fluid>
+                    <img src={logo} width='3%' height={"10%"} style={{background:"#fff"}} />
                         <Navbar.Brand href="#home" className='text-white'>SRI DHANA LAKSHMI VENKATESHWARA ChITS</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">

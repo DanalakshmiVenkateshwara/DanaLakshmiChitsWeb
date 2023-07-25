@@ -20,8 +20,8 @@ export default function MyChits(){
     if (State.user.id>0) {
       getChits();
     }
-  }, [State.user.id]);
-  const { response, loading, onRefresh:getChits } = useFetch({ url: `/User/GetMyChits?userId= ${State.user.id}`, Options: { method: 'POST', initialRender:false} });
+  },  [State.user.id]);
+  const { response, loading, onRefresh:getChits } = useFetch({ url: `/User/GetMyChitsData?userId= ${State.user.id}`, Options: { method: 'POST', initialRender:false} });
 
   return (
   <>

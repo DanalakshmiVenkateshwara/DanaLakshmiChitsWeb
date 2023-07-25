@@ -21,7 +21,7 @@ export default function MyChits(){
       getChits();
     }
   }, [State.user.id]);
-  const { response, loading, onRefresh:getChits } = useFetch({ url: `/User/GetMyChits?userId= ${State.user.id}`, Options: { method: 'GET', initialRender:false} });
+  const { response, loading, onRefresh:getChits } = useFetch({ url: `/User/GetMyChits?userId= ${State.user.id}`, Options: { method: 'POST', initialRender:false} });
 
   return (
   <>

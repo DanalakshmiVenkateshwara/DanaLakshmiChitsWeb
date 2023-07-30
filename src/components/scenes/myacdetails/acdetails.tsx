@@ -14,7 +14,7 @@ export default function Acdetails() {
   const [groupId, setGroupId] = useState<any>(-1);
   const {State,Store} = useStore();
 
-  const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetChitsDropDown`, Options: { method: "GET", initialRender: true } });
+  const { response: groupResponse, loading: groupsLoading } = useFetch({ url: `/User/GetChitsDropDown?userId=${State.user.id}`, Options: { method: "GET", initialRender: true } });
   const { response, loading,onRefresh: getAcDetails } = useFetch({ url: `/User/GetUserAcCopy?userId=${State.user.id}&groupId=${groupId}`, Options: { method: 'GET', initialRender: false } });
   useNoninitialEffect(() => {
     

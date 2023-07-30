@@ -4,9 +4,12 @@ import Form from '../../shared/form';
 import { Col, Row, Form as RForm } from 'react-bootstrap';
 import useNoninitialEffect from '../../hooks/useNoninitialEffect';
 import Card from '../../shared/card';
+import { useStore } from '../../store';
 export default function UserProfile() {
+    
+  const {State,Store} = useStore();
     const [userDetails, setUserDetails] = useState<any>({name: '', phone: '', eMail: '',aadhar: '', address: ''});
-    const { response: usersResponse, loading: usersLoading } = useFetch({ url: `/Admin/GetUsers/${2}/${true}`, Options: { method: 'GET', initialRender: true } });
+    const { response: usersResponse, loading: usersLoading } = useFetch({ url: `/Admin/GetUsers/${State.user.id}/${true}`, Options: { method: 'GET', initialRender: true } });
   
     useEffect(() => {
         let data: any = usersResponse;

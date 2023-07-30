@@ -120,7 +120,6 @@ export default function LoginPage() {
         setUserDetails({ ...userDetails, state: e.target.value })
     }
     const registerClickHandler = () => {
-        
         let error: Array<string> = [];
         if (userDetails.phone) {
             let reg = /^(?!0+$)\d{10,}$/;
@@ -165,7 +164,7 @@ export default function LoginPage() {
     useNoninitialEffect(() => {
         var existedUserCount: any = userExistedresponse;
         if (existedUserCount > 0) {
-            getToast("user existed with this mobile no", 'error');
+            getToast("user existed with this mobile no please change mobile no", 'error');
 
         }
         else {
@@ -249,8 +248,7 @@ export default function LoginPage() {
                         });
                       })
                       .catch((error) => {
-                        debugger
-                        getToast("email already existed", error)
+                        getToast("email already existed", 'error');
                         // Handle account linking error
                       });
             })

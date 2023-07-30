@@ -72,7 +72,6 @@ export default function Participate() {
         // setBids(Data);
         addBids(Data);
       } else if (Action === 'auctionResponse') {
-        debugger
         Store.update(actionTypes.updateuser, { ...State?.auction,auctionAmount:lastBidValue})
         if (updatedState?.user?.lastBidconnectionId === updatedState?.user?.socketId) { alert("you are bid winner"); console.log(updatedState) }
         else { navigate("/") }

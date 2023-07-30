@@ -8,7 +8,6 @@ import useStore from '../../store/useStore';
 import { useActionTypes } from '../../store/useActionTypes';
 
 export default function CustomRow(props: any) {
-  debugger
     const { data, rowProps } = props;
     const [ disableParticipate, setDisableParticipate ] = useState<any>(true);
     const  navigate  = useNavigate();

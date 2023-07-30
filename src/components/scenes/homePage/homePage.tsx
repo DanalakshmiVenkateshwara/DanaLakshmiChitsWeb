@@ -30,7 +30,7 @@ const HomePage = () => {
                 <Navbar collapseOnSelect expand="lg" className="bg-body-tertiary px-3">
                     <Container fluid>
                     <img src={logo} width='3%' height={"10%"} style={{background:"#fff"}} />
-                        <Navbar.Brand href="#home" className='text-white'>SRI DHANA LAKSHMI VENKATESHWARA ChITS</Navbar.Brand>
+                        <Navbar.Brand href="#home" className='text-white'>SRI DHANA LAKSHMI VENKATESHWARA CHITS</Navbar.Brand>
                         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
                         <Navbar.Collapse id="responsive-navbar-nav">
 
@@ -219,7 +219,7 @@ const HomePage = () => {
                     </div>
                 </div>
                 <Col className='footer'>
-                    <p className='text-center text-white mb-0'> &copy;Copyright {new Date().getFullYear()},All rights reserved. SRI DHANA LAKSHMI VENKATESHWARA ChITS</p>
+                    <p className='text-center text-white mb-0'> &copy;Copyright {new Date().getFullYear()},All rights reserved. SRI DHANA LAKSHMI VENKATESHWARA CHITS</p>
                 </Col>
             </Row>
         </div>

@@ -14,6 +14,7 @@ export default function AppUsersGrid(){
     <Grid data={response} loading={loading}>
       <GridColumn title="Name" targetField="name" />
       <GridColumn title="Phone" targetField="phone" />
+      <GridColumn title="District" targetField="city" />
       <GridColumn title="State" targetField="state" />
     </Grid>
   </>
